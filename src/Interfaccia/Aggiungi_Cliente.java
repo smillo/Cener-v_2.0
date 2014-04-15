@@ -1,4 +1,5 @@
 package Interfaccia;
+
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -316,7 +317,7 @@ public class Aggiungi_Cliente extends JFrame {
 		btnSalva.setBounds(423, 368, 89, 23);
 		getContentPane().add(btnSalva);
 		btnSalva.addActionListener(new ButtonListener());
-		
+
 		this.setVisible(true);
 	}
 

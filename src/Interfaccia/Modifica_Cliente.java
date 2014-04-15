@@ -319,7 +319,7 @@ public class Modifica_Cliente extends JFrame {
 		scrollPane = new JScrollPane(list);
 		scrollPane.setBounds(544, 22, 302, 368);
 		getContentPane().add(scrollPane);
-		
+
 		this.setVisible(true);
 	}
 

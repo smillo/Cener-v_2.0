@@ -5,13 +5,13 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
-public class Anteprima_Riepilogo extends JFrame{
+public class Anteprima_Riepilogo extends JFrame {
 
 	private JComboBox combo_anno;
-	private JButton btnIndietro,btnOk;
-	
-	public Anteprima_Riepilogo(){
-		
+	private JButton btnIndietro, btnOk;
+
+	public Anteprima_Riepilogo() {
+
 		getContentPane().setLayout(null);
 		setBounds(10, 10, 360, 213);
 		combo_anno = new JComboBox();
