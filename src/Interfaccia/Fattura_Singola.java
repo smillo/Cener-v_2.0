@@ -2,7 +2,10 @@ package Interfaccia;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.*;
+
+import General.Database;
 
 public class Fattura_Singola extends JFrame {
 
@@ -14,8 +17,10 @@ public class Fattura_Singola extends JFrame {
 	text_ritenuta;
 	private JComboBox combo_ritenuta, combo_giorno, combo_mese, combo_anno;
 	private JButton btnIndietro, btnStampa;
-
-	public Fattura_Singola() {
+	private Database database;
+	
+	public Fattura_Singola(Database database) {
+		this.database = database;
 		getContentPane().setLayout(null);
 		setBounds(10, 10, 555, 454);
 

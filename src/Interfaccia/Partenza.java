@@ -225,7 +225,7 @@ public class Partenza extends JFrame {
 
 		// TODO lista clienti
 
-		list_clienti = new JList();
+		list_clienti = new JList(database.elenco_clienti());
 		scrollPane_2 = new JScrollPane(list_clienti);
 		scrollPane_2.setBounds(546, 21, 312, 405);
 		panel_list.add(scrollPane_2);
@@ -547,7 +547,7 @@ public class Partenza extends JFrame {
 
 		// TODO gennaio
 
-		list_clienti_gen = new JList();
+		list_clienti_gen = new JList(database.elenco_clienti_gennaio());
 
 		scrollPane_gen = new JScrollPane(list_clienti_gen);
 		scrollPane_gen.setBounds(546, 21, 312, 405);
@@ -690,7 +690,7 @@ public class Partenza extends JFrame {
 
 		// TODO febbraio
 
-		list_clienti_feb = new JList();
+		list_clienti_feb = new JList(database.elenco_clienti_febbraio());
 
 		scrollPane_feb = new JScrollPane(list_clienti_feb);
 		scrollPane_feb.setBounds(546, 21, 312, 405);
@@ -833,7 +833,7 @@ public class Partenza extends JFrame {
 
 		// TODO marzo
 
-		list_clienti_mar = new JList();
+		list_clienti_mar = new JList(database.elenco_clienti_marzo());
 
 		scrollPane_mar = new JScrollPane(list_clienti_mar);
 		scrollPane_mar.setBounds(546, 21, 312, 405);
@@ -976,7 +976,7 @@ public class Partenza extends JFrame {
 
 		// TODO aprile
 
-		list_clienti_apr = new JList();
+		list_clienti_apr = new JList(database.elenco_clienti_aprile());
 
 		scrollPane_apr = new JScrollPane(list_clienti_apr);
 		scrollPane_apr.setBounds(546, 21, 312, 405);
@@ -1119,7 +1119,7 @@ public class Partenza extends JFrame {
 
 		// TODO maggio
 
-		list_clienti_mag = new JList();
+		list_clienti_mag = new JList(database.elenco_clienti_maggio());
 
 		scrollPane_mag = new JScrollPane(list_clienti_mag);
 		scrollPane_mag.setBounds(546, 21, 312, 405);
@@ -1262,7 +1262,7 @@ public class Partenza extends JFrame {
 
 		// TODO giugno
 
-		list_clienti_giu = new JList();
+		list_clienti_giu = new JList(database.elenco_clienti_giugno());
 
 		scrollPane_giu = new JScrollPane(list_clienti_giu);
 		scrollPane_giu.setBounds(546, 21, 312, 405);
@@ -1405,7 +1405,7 @@ public class Partenza extends JFrame {
 
 		// TODO luglio
 
-		list_clienti_lug = new JList();
+		list_clienti_lug = new JList(database.elenco_clienti_luglio());
 
 		scrollPane_lug = new JScrollPane(list_clienti_lug);
 		scrollPane_lug.setBounds(546, 21, 312, 405);
@@ -1548,7 +1548,7 @@ public class Partenza extends JFrame {
 
 		// TODO agosto
 
-		list_clienti_ago = new JList();
+		list_clienti_ago = new JList(database.elenco_clienti_agosto());
 
 		scrollPane_ago = new JScrollPane(list_clienti_ago);
 		scrollPane_ago.setBounds(546, 21, 312, 405);
@@ -1691,7 +1691,7 @@ public class Partenza extends JFrame {
 
 		// TODO settembre
 
-		list_clienti_set = new JList();
+		list_clienti_set = new JList(database.elenco_clienti_settembre());
 
 		scrollPane_set = new JScrollPane(list_clienti_set);
 		scrollPane_set.setBounds(546, 21, 312, 405);
@@ -1834,7 +1834,7 @@ public class Partenza extends JFrame {
 
 		// TODO ottobre
 
-		list_clienti_ott = new JList();
+		list_clienti_ott = new JList(database.elenco_clienti_ottobre());
 
 		scrollPane_ott = new JScrollPane(list_clienti_ott);
 		scrollPane_ott.setBounds(546, 21, 312, 405);
@@ -1977,7 +1977,7 @@ public class Partenza extends JFrame {
 
 		// TODO novembre
 
-		list_clienti_nov = new JList();
+		list_clienti_nov = new JList(database.elenco_clienti_novembre());
 
 		scrollPane_nov = new JScrollPane(list_clienti_nov);
 		scrollPane_nov.setBounds(546, 21, 312, 405);
@@ -2120,7 +2120,7 @@ public class Partenza extends JFrame {
 
 		// TODO dicembre
 
-		list_clienti_dic = new JList();
+		list_clienti_dic = new JList(database.elenco_clienti_dicembre());
 
 		scrollPane_dic = new JScrollPane(list_clienti_dic);
 		scrollPane_dic.setBounds(546, 21, 312, 405);
@@ -2327,24 +2327,25 @@ public class Partenza extends JFrame {
 			}
 
 			if (e.getSource() == btnModifica_cliente) {
-				Modifica_Cliente mod = new Modifica_Cliente();
+				Modifica_Cliente mod = new Modifica_Cliente(database);
 			}
 
 			if (e.getSource() == btnElimina_cliente) {
-				Elimina_Cliente elm = new Elimina_Cliente();
+				Elimina_Cliente elm = new Elimina_Cliente(database);
 			}
 
 			if (e.getSource() == btnStampa) {
-				Stampa stamp = new Stampa();
+				Stampa stamp = new Stampa(database);
 			}
 
 			if (e.getSource() == btnFattura_singola) {
-				Fattura_Singola fats = new Fattura_Singola();
+				Fattura_Singola fats = new Fattura_Singola(database);
 			}
 
 			if (e.getSource() == btnModifica_fattura) {
 
-				Modifica_Fattura_Singola mfs = new Modifica_Fattura_Singola();
+				Modifica_Fattura_Singola mfs = new Modifica_Fattura_Singola(
+						database);
 			}
 
 			if (e.getSource() == btnNuovo_anno) {
@@ -2367,42 +2368,64 @@ public class Partenza extends JFrame {
 
 			}
 			if (pos == 1) {
-
+				list_clienti.setListData(database.elenco_clienti());
 			}
 			if (pos == 2) {
+				list_clienti_gen.setListData(database.elenco_clienti_gennaio());
 
 			}
 			if (pos == 3) {
+				list_clienti_feb
+				.setListData(database.elenco_clienti_febbraio());
 
 			}
 			if (pos == 4) {
+				list_clienti_mar.setListData(database.elenco_clienti_marzo());
 
 			}
 			if (pos == 5) {
+				list_clienti_apr.setListData(database.elenco_clienti_aprile());
 
 			}
 			if (pos == 6) {
+				list_clienti_mag.setListData(database.elenco_clienti_maggio());
 
 			}
 			if (pos == 7) {
+				list_clienti_giu.setListData(database.elenco_clienti_giugno());
 
 			}
 			if (pos == 8) {
+				list_clienti_lug.setListData(database.elenco_clienti_luglio());
 
 			}
 			if (pos == 9) {
+				list_clienti_ago.setListData(database.elenco_clienti_agosto());
 
 			}
 			if (pos == 10) {
+				list_clienti_set.setListData(database
+						.elenco_clienti_settembre());
 
 			}
 			if (pos == 11) {
+				list_clienti_ott.setListData(database.elenco_clienti_ottobre());
 
 			}
 			if (pos == 12) {
+				list_clienti_nov
+				.setListData(database.elenco_clienti_novembre());
 
 			}
 			if (pos == 13) {
+				list_clienti_dic
+				.setListData(database.elenco_clienti_dicembre());
+
+			}
+			if (pos == 14) {
+
+			}
+			if (pos == 15) {
 
 			}
 

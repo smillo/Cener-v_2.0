@@ -2,7 +2,10 @@ package Interfaccia;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.*;
+
+import General.Database;
 
 public class Modifica_Cliente extends JFrame {
 
@@ -18,8 +21,10 @@ public class Modifica_Cliente extends JFrame {
 	private JButton btnIndietro, btnSalva;
 	private JScrollPane scrollPane;
 	private JList list;
+	private Database database;
 
-	public Modifica_Cliente() {
+	public Modifica_Cliente(Database database) {
+		this.database = database;
 		getContentPane().setLayout(null);
 		setBounds(10, 10, 872, 460);
 
@@ -313,7 +318,7 @@ public class Modifica_Cliente extends JFrame {
 		getContentPane().add(btnSalva);
 		btnSalva.addActionListener(new ButtonListener());
 
-		list = new JList();
+		list = new JList(database.elenco_clienti());
 
 		scrollPane = new JScrollPane(list);
 		scrollPane.setBounds(544, 22, 302, 368);

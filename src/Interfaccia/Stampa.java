@@ -2,18 +2,23 @@ package Interfaccia;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 
+import General.Database;
+
 public class Stampa extends JFrame {
 	private JTextField text_giorno, text_mese, text_anno;
 	private JButton btnIndietro, btnStampa;
 	private JComboBox combo_mese;
+	private Database database;
 
-	public Stampa() {
+	public Stampa(Database database) {
+		this.database = database;
 		getContentPane().setLayout(null);
 		setBounds(10, 10, 360, 290);
 

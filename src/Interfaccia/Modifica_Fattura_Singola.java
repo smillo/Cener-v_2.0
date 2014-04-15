@@ -2,7 +2,10 @@ package Interfaccia;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.*;
+
+import General.Database;
 
 public class Modifica_Fattura_Singola extends JFrame {
 
@@ -19,8 +22,10 @@ public class Modifica_Fattura_Singola extends JFrame {
 	private JLabel lblNumeroFattura;
 	private JTextField text_num_fat;
 	private JTextField textField;
+	private Database database;
 
-	public Modifica_Fattura_Singola() {
+	public Modifica_Fattura_Singola(Database database) {
+		this.database = database;
 		getContentPane().setLayout(null);
 		setBounds(10, 10, 872, 460);
 
@@ -188,7 +193,7 @@ public class Modifica_Fattura_Singola extends JFrame {
 		getContentPane().add(btnSalva);
 		btnSalva.addActionListener(new ButtonListener());
 
-		list = new JList();
+		list = new JList(database.elenco_clienti());
 		list_fatt = new JList();
 
 		scrollPane = new JScrollPane(list);

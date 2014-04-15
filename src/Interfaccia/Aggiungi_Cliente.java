@@ -448,6 +448,7 @@ public class Aggiungi_Cliente extends JFrame {
 					database.Inserisci_Cliente(cliente);
 					JOptionPane.showMessageDialog(null, "cliente inserito");
 					dispose();
+					
 				} catch (Exception ee) {
 					JOptionPane.showMessageDialog(null,
 							"ERRORE cliente non inserito!");

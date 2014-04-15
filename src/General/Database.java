@@ -3,13 +3,14 @@ package General;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 public class Database {
 	private static Connection connection;
-	private Statement stmt;
 
 	public Database() {
 		try {
@@ -401,4 +402,291 @@ public class Database {
 		}
 	}
 
+	public String[] elenco_clienti() {
+
+		ResultSet rs;
+		PreparedStatement pst = null;
+		try {
+			ArrayList<String> list = new ArrayList<String>();
+			pst = connection.prepareStatement("SELECT cliente FROM cliente");
+
+			rs = pst.executeQuery();
+
+			while (rs.next()) {
+				list.add(rs.getString("cliente"));
+			}
+			String[] result = new String[list.size()];
+			result = list.toArray(result);
+			return result;
+		} catch (Exception e) {
+
+			return null;
+		}
+
+	}
+	
+	public String[] elenco_clienti_gennaio() {
+
+		ResultSet rs;
+		PreparedStatement pst = null;
+		try {
+			ArrayList<String> list = new ArrayList<String>();
+			pst = connection.prepareStatement("SELECT cliente FROM cliente where gennaio = true");
+
+			rs = pst.executeQuery();
+
+			while (rs.next()) {
+				list.add(rs.getString("cliente"));
+			}
+			String[] result = new String[list.size()];
+			result = list.toArray(result);
+			return result;
+		} catch (Exception e) {
+
+			return null;
+		}
+
+	}
+	public String[] elenco_clienti_febbraio() {
+
+		ResultSet rs;
+		PreparedStatement pst = null;
+		try {
+			ArrayList<String> list = new ArrayList<String>();
+			pst = connection.prepareStatement("SELECT cliente FROM cliente where febbraio = true");
+
+			rs = pst.executeQuery();
+
+			while (rs.next()) {
+				list.add(rs.getString("cliente"));
+			}
+			String[] result = new String[list.size()];
+			result = list.toArray(result);
+			return result;
+		} catch (Exception e) {
+
+			return null;
+		}
+
+	}
+	public String[] elenco_clienti_marzo() {
+
+		ResultSet rs;
+		PreparedStatement pst = null;
+		try {
+			ArrayList<String> list = new ArrayList<String>();
+			pst = connection.prepareStatement("SELECT cliente FROM cliente where marzo = true");
+
+			rs = pst.executeQuery();
+
+			while (rs.next()) {
+				list.add(rs.getString("cliente"));
+			}
+			String[] result = new String[list.size()];
+			result = list.toArray(result);
+			return result;
+		} catch (Exception e) {
+
+			return null;
+		}
+
+	}
+	public String[] elenco_clienti_aprile() {
+
+		ResultSet rs;
+		PreparedStatement pst = null;
+		try {
+			ArrayList<String> list = new ArrayList<String>();
+			pst = connection.prepareStatement("SELECT cliente FROM cliente where aprile = true");
+
+			rs = pst.executeQuery();
+
+			while (rs.next()) {
+				list.add(rs.getString("cliente"));
+			}
+			String[] result = new String[list.size()];
+			result = list.toArray(result);
+			return result;
+		} catch (Exception e) {
+
+			return null;
+		}
+
+	}
+	public String[] elenco_clienti_maggio() {
+
+		ResultSet rs;
+		PreparedStatement pst = null;
+		try {
+			ArrayList<String> list = new ArrayList<String>();
+			pst = connection.prepareStatement("SELECT cliente FROM cliente where maggio = true");
+
+			rs = pst.executeQuery();
+
+			while (rs.next()) {
+				list.add(rs.getString("cliente"));
+			}
+			String[] result = new String[list.size()];
+			result = list.toArray(result);
+			return result;
+		} catch (Exception e) {
+
+			return null;
+		}
+
+	}
+	public String[] elenco_clienti_giugno() {
+
+		ResultSet rs;
+		PreparedStatement pst = null;
+		try {
+			ArrayList<String> list = new ArrayList<String>();
+			pst = connection.prepareStatement("SELECT cliente FROM cliente where giugno = true");
+
+			rs = pst.executeQuery();
+
+			while (rs.next()) {
+				list.add(rs.getString("cliente"));
+			}
+			String[] result = new String[list.size()];
+			result = list.toArray(result);
+			return result;
+		} catch (Exception e) {
+
+			return null;
+		}
+
+	}
+	public String[] elenco_clienti_luglio() {
+
+		ResultSet rs;
+		PreparedStatement pst = null;
+		try {
+			ArrayList<String> list = new ArrayList<String>();
+			pst = connection.prepareStatement("SELECT cliente FROM cliente where luglio = true");
+
+			rs = pst.executeQuery();
+
+			while (rs.next()) {
+				list.add(rs.getString("cliente"));
+			}
+			String[] result = new String[list.size()];
+			result = list.toArray(result);
+			return result;
+		} catch (Exception e) {
+
+			return null;
+		}
+
+	}
+	public String[] elenco_clienti_agosto() {
+
+		ResultSet rs;
+		PreparedStatement pst = null;
+		try {
+			ArrayList<String> list = new ArrayList<String>();
+			pst = connection.prepareStatement("SELECT cliente FROM cliente where agosto = true");
+
+			rs = pst.executeQuery();
+
+			while (rs.next()) {
+				list.add(rs.getString("cliente"));
+			}
+			String[] result = new String[list.size()];
+			result = list.toArray(result);
+			return result;
+		} catch (Exception e) {
+
+			return null;
+		}
+
+	}
+	public String[] elenco_clienti_settembre() {
+
+		ResultSet rs;
+		PreparedStatement pst = null;
+		try {
+			ArrayList<String> list = new ArrayList<String>();
+			pst = connection.prepareStatement("SELECT cliente FROM cliente where settembre = true");
+
+			rs = pst.executeQuery();
+
+			while (rs.next()) {
+				list.add(rs.getString("cliente"));
+			}
+			String[] result = new String[list.size()];
+			result = list.toArray(result);
+			return result;
+		} catch (Exception e) {
+
+			return null;
+		}
+
+	}
+	public String[] elenco_clienti_ottobre() {
+
+		ResultSet rs;
+		PreparedStatement pst = null;
+		try {
+			ArrayList<String> list = new ArrayList<String>();
+			pst = connection.prepareStatement("SELECT cliente FROM cliente where ottobre = true");
+
+			rs = pst.executeQuery();
+
+			while (rs.next()) {
+				list.add(rs.getString("cliente"));
+			}
+			String[] result = new String[list.size()];
+			result = list.toArray(result);
+			return result;
+		} catch (Exception e) {
+
+			return null;
+		}
+
+	}
+	public String[] elenco_clienti_novembre() {
+
+		ResultSet rs;
+		PreparedStatement pst = null;
+		try {
+			ArrayList<String> list = new ArrayList<String>();
+			pst = connection.prepareStatement("SELECT cliente FROM cliente where novembre = true");
+
+			rs = pst.executeQuery();
+
+			while (rs.next()) {
+				list.add(rs.getString("cliente"));
+			}
+			String[] result = new String[list.size()];
+			result = list.toArray(result);
+			return result;
+		} catch (Exception e) {
+
+			return null;
+		}
+
+	}
+	public String[] elenco_clienti_dicembre() {
+
+		ResultSet rs;
+		PreparedStatement pst = null;
+		try {
+			ArrayList<String> list = new ArrayList<String>();
+			pst = connection.prepareStatement("SELECT cliente FROM cliente where dicembre = true");
+
+			rs = pst.executeQuery();
+
+			while (rs.next()) {
+				list.add(rs.getString("cliente"));
+			}
+			String[] result = new String[list.size()];
+			result = list.toArray(result);
+			return result;
+		} catch (Exception e) {
+
+			return null;
+		}
+
+	}
 }
