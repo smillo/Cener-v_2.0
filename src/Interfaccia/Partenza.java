@@ -138,7 +138,7 @@ public class Partenza extends JFrame {
 		tabbedPane.setBounds(59, 83, 607, 358);
 		tabbedPane.addChangeListener(new TabListener());
 		
-		tabbedPane.addTab("Home", panel_home);
+		tabbedPane.addTab("Generale", panel_home);
 		
 		tabbedPane.addTab("Gennaio", panel_gen);
 
