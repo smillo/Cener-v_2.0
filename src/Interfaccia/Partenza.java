@@ -2267,9 +2267,9 @@ public class Partenza extends JFrame {
 		tabbedPane.setBounds(59, 83, 607, 358);
 		tabbedPane.addChangeListener(new TabListener());
 
-		tabbedPane.addTab("Lista Clienti", panel_list);
-
 		tabbedPane.addTab("Generale", panel_home);
+		
+		tabbedPane.addTab("Lista Clienti", panel_list);
 
 		tabbedPane.addTab("Gennaio", panel_gen);
 
@@ -2337,11 +2337,12 @@ public class Partenza extends JFrame {
 			}
 
 			if (e.getSource() == btnFattura_singola) {
-
+				Fattura_Singola fats = new Fattura_Singola();
 			}
 
 			if (e.getSource() == btnModifica_fattura) {
 
+				Modifica_Fattura_Singola mfs = new Modifica_Fattura_Singola();
 			}
 
 			if (e.getSource() == btnNuovo_anno) {
