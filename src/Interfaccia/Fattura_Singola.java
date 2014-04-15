@@ -12,9 +12,8 @@ public class Fattura_Singola extends JFrame {
 	private JTextField text_cliente_2, text_città, text_piva, text_importo,
 	text_importo_2, text_iva, text_tot_fattura, text_tot_dovuto,
 	text_ritenuta;
-	private JComboBox combo_ritenuta,combo_giorno,combo_mese,combo_anno;
+	private JComboBox combo_ritenuta, combo_giorno, combo_mese, combo_anno;
 	private JButton btnIndietro, btnStampa;
-	
 
 	public Fattura_Singola() {
 		getContentPane().setLayout(null);
@@ -174,8 +173,6 @@ public class Fattura_Singola extends JFrame {
 		combo_ritenuta.setBounds(88, 232, 80, 20);
 		getContentPane().add(combo_ritenuta);
 
-		
-
 		btnIndietro = new JButton("Indietro");
 		btnIndietro.setBounds(103, 334, 89, 23);
 		getContentPane().add(btnIndietro);
@@ -184,97 +181,95 @@ public class Fattura_Singola extends JFrame {
 		btnStampa = new JButton("Stampa");
 		btnStampa.setBounds(316, 334, 89, 23);
 		getContentPane().add(btnStampa);
-		
+
 		JLabel lblData = new JLabel("Data");
 		lblData.setBounds(88, 292, 46, 14);
 		getContentPane().add(lblData);
-		
-		 combo_giorno = new JComboBox();
-		 combo_giorno.addItem("1");
-		 combo_giorno.addItem("2");
-		 combo_giorno.addItem("3");
-		 combo_giorno.addItem("4");
-		 combo_giorno.addItem("5");
-		 combo_giorno.addItem("6");
-		 combo_giorno.addItem("7");
-		 combo_giorno.addItem("8");
-		 combo_giorno.addItem("9");
-		 combo_giorno.addItem("10");
-		 combo_giorno.addItem("11");
-		 combo_giorno.addItem("12");
-		 combo_giorno.addItem("13");
-		 combo_giorno.addItem("14");
-		 combo_giorno.addItem("15");
-		 combo_giorno.addItem("16");
-		 combo_giorno.addItem("17");
-		 combo_giorno.addItem("18");
-		 combo_giorno.addItem("19");
-		 combo_giorno.addItem("20");
-		 combo_giorno.addItem("21");
-		 combo_giorno.addItem("22");
-		 combo_giorno.addItem("23");
-		 combo_giorno.addItem("24");
-		 combo_giorno.addItem("25");
-		 combo_giorno.addItem("26");
-		 combo_giorno.addItem("27");
-		 combo_giorno.addItem("28");
-		 combo_giorno.addItem("29");
-		 combo_giorno.addItem("30");
-		 combo_giorno.addItem("31");
-		 
+
+		combo_giorno = new JComboBox();
+		combo_giorno.addItem("1");
+		combo_giorno.addItem("2");
+		combo_giorno.addItem("3");
+		combo_giorno.addItem("4");
+		combo_giorno.addItem("5");
+		combo_giorno.addItem("6");
+		combo_giorno.addItem("7");
+		combo_giorno.addItem("8");
+		combo_giorno.addItem("9");
+		combo_giorno.addItem("10");
+		combo_giorno.addItem("11");
+		combo_giorno.addItem("12");
+		combo_giorno.addItem("13");
+		combo_giorno.addItem("14");
+		combo_giorno.addItem("15");
+		combo_giorno.addItem("16");
+		combo_giorno.addItem("17");
+		combo_giorno.addItem("18");
+		combo_giorno.addItem("19");
+		combo_giorno.addItem("20");
+		combo_giorno.addItem("21");
+		combo_giorno.addItem("22");
+		combo_giorno.addItem("23");
+		combo_giorno.addItem("24");
+		combo_giorno.addItem("25");
+		combo_giorno.addItem("26");
+		combo_giorno.addItem("27");
+		combo_giorno.addItem("28");
+		combo_giorno.addItem("29");
+		combo_giorno.addItem("30");
+		combo_giorno.addItem("31");
+
 		combo_giorno.setBounds(140, 289, 52, 20);
 		getContentPane().add(combo_giorno);
-		
-		 combo_mese = new JComboBox();
-		 combo_mese.addItem("Gennaio");
-		 combo_mese.addItem("Febbraio");
-		 combo_mese.addItem("Marzo");
-		 combo_mese.addItem("Aprile");
-		 combo_mese.addItem("Maggio");
-		 combo_mese.addItem("Giugno");
-		 combo_mese.addItem("Luglio");
-		 combo_mese.addItem("Agosto");
-		 combo_mese.addItem("Settembre");
-		 combo_mese.addItem("Ottobre");
-		 combo_mese.addItem("Novembre");
-		 combo_mese.addItem("Dicembre");
+
+		combo_mese = new JComboBox();
+		combo_mese.addItem("Gennaio");
+		combo_mese.addItem("Febbraio");
+		combo_mese.addItem("Marzo");
+		combo_mese.addItem("Aprile");
+		combo_mese.addItem("Maggio");
+		combo_mese.addItem("Giugno");
+		combo_mese.addItem("Luglio");
+		combo_mese.addItem("Agosto");
+		combo_mese.addItem("Settembre");
+		combo_mese.addItem("Ottobre");
+		combo_mese.addItem("Novembre");
+		combo_mese.addItem("Dicembre");
 		combo_mese.setBounds(202, 289, 90, 20);
 		getContentPane().add(combo_mese);
-		
-		 combo_anno = new JComboBox();
-		 combo_anno.addItem("2014");
-		 combo_anno.addItem("2015");
-		 combo_anno.addItem("2016");
-		 combo_anno.addItem("2017");
-		 combo_anno.addItem("2018");
-		 combo_anno.addItem("2019");
-		 combo_anno.addItem("2020");
-		 combo_anno.addItem("2021");
-		 combo_anno.addItem("2022");
-		 combo_anno.addItem("2023");
-		 combo_anno.addItem("2024");
-		 combo_anno.addItem("2025");
-		 combo_anno.addItem("2026");
-		 combo_anno.addItem("2027");
-		 combo_anno.addItem("2028");
-		 combo_anno.addItem("2029");
-		 combo_anno.addItem("2030");
-		 combo_anno.addItem("2031");
-		 combo_anno.addItem("2032");
-		 combo_anno.addItem("2033");
-		 combo_anno.addItem("2034");
-		 combo_anno.addItem("2035");
-		 combo_anno.addItem("2036");
-		 combo_anno.addItem("2037");
-		 combo_anno.addItem("2038");
-		 combo_anno.addItem("2039");
-		 combo_anno.addItem("2040");
-		 
+
+		combo_anno = new JComboBox();
+		combo_anno.addItem("2014");
+		combo_anno.addItem("2015");
+		combo_anno.addItem("2016");
+		combo_anno.addItem("2017");
+		combo_anno.addItem("2018");
+		combo_anno.addItem("2019");
+		combo_anno.addItem("2020");
+		combo_anno.addItem("2021");
+		combo_anno.addItem("2022");
+		combo_anno.addItem("2023");
+		combo_anno.addItem("2024");
+		combo_anno.addItem("2025");
+		combo_anno.addItem("2026");
+		combo_anno.addItem("2027");
+		combo_anno.addItem("2028");
+		combo_anno.addItem("2029");
+		combo_anno.addItem("2030");
+		combo_anno.addItem("2031");
+		combo_anno.addItem("2032");
+		combo_anno.addItem("2033");
+		combo_anno.addItem("2034");
+		combo_anno.addItem("2035");
+		combo_anno.addItem("2036");
+		combo_anno.addItem("2037");
+		combo_anno.addItem("2038");
+		combo_anno.addItem("2039");
+		combo_anno.addItem("2040");
+
 		combo_anno.setBounds(302, 289, 52, 20);
 		getContentPane().add(combo_anno);
 		btnStampa.addActionListener(new ButtonListener());
-
-		
 
 		this.setVisible(true);
 	}

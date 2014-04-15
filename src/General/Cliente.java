@@ -1,12 +1,22 @@
 package General;
 
 public class Cliente {
-	
-	String nome,nome2, indirizzo, città, cap, piva, descrizione,descrizione2;
-	double importo,importo2, imponibile, iva, imposta, tot_fattura, ritenuta, tot_dovuto;
-	boolean gennaio,febbraio,marzo,aprile,maggio,giugno,luglio,agosto,settembre,ottobre,novembre,dicembre;
-	public Cliente(String nome,String nome2,String indirizzo,String città,String cap,String piva,String descrizione,double importo,String descrizione2,double importo2,double imponibile,double iva,double imposta,double tot_fattura,double ritenuta,double tot_dovuto,boolean gennaio,boolean febbraio,boolean marzo,boolean aprile,boolean maggio,boolean giugno,boolean luglio,boolean agosto,boolean settembre,boolean ottobre,boolean novembre,boolean dicembre){
-		
+
+	String nome, nome2, indirizzo, città, cap, piva, descrizione, descrizione2;
+	double importo, importo2, imponibile, iva, imposta, tot_fattura, ritenuta,
+	tot_dovuto;
+	boolean gennaio, febbraio, marzo, aprile, maggio, giugno, luglio, agosto,
+	settembre, ottobre, novembre, dicembre;
+
+	public Cliente(String nome, String nome2, String indirizzo, String città,
+			String cap, String piva, String descrizione, double importo,
+			String descrizione2, double importo2, double imponibile,
+			double iva, double imposta, double tot_fattura, double ritenuta,
+			double tot_dovuto, boolean gennaio, boolean febbraio,
+			boolean marzo, boolean aprile, boolean maggio, boolean giugno,
+			boolean luglio, boolean agosto, boolean settembre, boolean ottobre,
+			boolean novembre, boolean dicembre) {
+
 		this.nome = nome;
 		this.nome2 = nome2;
 		this.indirizzo = indirizzo;
@@ -27,14 +37,14 @@ public class Cliente {
 		this.febbraio = febbraio;
 		this.marzo = marzo;
 		this.aprile = aprile;
-		this.maggio= maggio;
+		this.maggio = maggio;
 		this.giugno = giugno;
 		this.luglio = luglio;
 		this.agosto = agosto;
 		this.settembre = settembre;
 		this.ottobre = ottobre;
 		this.novembre = novembre;
-		this.dicembre =dicembre;
+		this.dicembre = dicembre;
 	}
 
 	public boolean isGennaio() {

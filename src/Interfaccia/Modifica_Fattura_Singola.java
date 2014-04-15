@@ -2,7 +2,6 @@ package Interfaccia;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.*;
 
 public class Modifica_Fattura_Singola extends JFrame {
@@ -15,8 +14,8 @@ public class Modifica_Fattura_Singola extends JFrame {
 	text_ritenuta;
 	private JComboBox combo_ritenuta;
 	private JButton btnIndietro, btnSalva;
-	private JScrollPane scrollPane,scrollPane_fatt;
-	private JList list,list_fatt;
+	private JScrollPane scrollPane, scrollPane_fatt;
+	private JList list, list_fatt;
 	private JLabel lblNumeroFattura;
 	private JTextField text_num_fat;
 	private JTextField textField;
@@ -179,8 +178,6 @@ public class Modifica_Fattura_Singola extends JFrame {
 		combo_ritenuta.setBounds(406, 232, 80, 20);
 		getContentPane().add(combo_ritenuta);
 
-		
-
 		btnIndietro = new JButton("Indietro");
 		btnIndietro.setBounds(498, 368, 89, 23);
 		getContentPane().add(btnIndietro);
@@ -197,29 +194,29 @@ public class Modifica_Fattura_Singola extends JFrame {
 		scrollPane = new JScrollPane(list);
 		scrollPane.setBounds(10, 22, 150, 368);
 		getContentPane().add(scrollPane);
-		
+
 		scrollPane_fatt = new JScrollPane(list_fatt);
 		scrollPane_fatt.setBounds(170, 22, 130, 368);
 		getContentPane().add(scrollPane_fatt);
-		
+
 		lblNumeroFattura = new JLabel("Numero Fattura");
 		lblNumeroFattura.setBounds(326, 265, 109, 14);
 		getContentPane().add(lblNumeroFattura);
-		
+
 		text_num_fat = new JTextField();
 		text_num_fat.setBounds(428, 263, 150, 20);
 		getContentPane().add(text_num_fat);
 		text_num_fat.setColumns(10);
-		
+
 		JLabel lblData = new JLabel("Data");
 		lblData.setBounds(588, 265, 70, 14);
 		getContentPane().add(lblData);
-		
+
 		textField = new JTextField();
 		textField.setBounds(674, 262, 172, 20);
 		getContentPane().add(textField);
 		textField.setColumns(10);
-		
+
 		this.setVisible(true);
 	}
 

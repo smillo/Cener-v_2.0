@@ -1,10 +1,8 @@
 package Interfaccia;
 
 import java.awt.Color;
-import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -18,7 +16,6 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-
 import General.Database;
 
 public class Partenza extends JFrame {
@@ -56,13 +53,13 @@ public class Partenza extends JFrame {
 	list_clienti_lug, list_clienti_ago, list_clienti_set,
 	list_clienti_ott, list_clienti_nov, list_clienti_dic;
 	private Database database;
-	
+
 	public static void main(String[] args) throws ClassNotFoundException,
 	InstantiationException, IllegalAccessException,
 	UnsupportedLookAndFeelException {
 
 		Partenza window = new Partenza();
-		
+
 	}
 
 	public Partenza() throws ClassNotFoundException, InstantiationException,
@@ -2273,7 +2270,7 @@ public class Partenza extends JFrame {
 		tabbedPane.addChangeListener(new TabListener());
 
 		tabbedPane.addTab("Generale", panel_home);
-		
+
 		tabbedPane.addTab("Lista Clienti", panel_list);
 
 		tabbedPane.addTab("Gennaio", panel_gen);

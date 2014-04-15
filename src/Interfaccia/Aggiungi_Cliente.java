@@ -5,13 +5,9 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
-
-import java.awt.Button;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.JButton;
-
 import General.Cliente;
 import General.Database;
 
@@ -28,7 +24,8 @@ public class Aggiungi_Cliente extends JFrame {
 	combo_ott, combo_nov, combo_dic;
 	private JButton btnIndietro, btnSalva;
 	private Database database;
-	private boolean gennaio,febbraio,marzo,aprile,maggio,giugno,luglio,agosto,settembre,ottobre,novembre,dicembre;
+	private boolean gennaio, febbraio, marzo, aprile, maggio, giugno, luglio,
+	agosto, settembre, ottobre, novembre, dicembre;
 
 	public Aggiungi_Cliente(Database database) {
 		this.database = database;
@@ -322,11 +319,6 @@ public class Aggiungi_Cliente extends JFrame {
 
 		this.setVisible(true);
 	}
-	
-	
-			
-		
-	
 
 	private class ButtonListener implements ActionListener {
 
@@ -340,85 +332,70 @@ public class Aggiungi_Cliente extends JFrame {
 
 				String nome2, descrizione2;
 				double importo2, ritenuta, tot_dovuto;
-				
 
-					if(combo_gen.getSelectedItem() == "Si"){
-						
-						gennaio = true;
-						
-					}
-					else{
-						gennaio = false;
-					}
-					if(combo_feb.getSelectedItem()=="Si"){
-						febbraio = true;
-					}
-					else{
-						febbraio = false;
-					}
-					if(combo_mar.getSelectedItem()=="Si"){
-						marzo = true;
-					}
-					else{
-						marzo = false;
-					}
-					if(combo_apr.getSelectedItem()=="Si"){
-						aprile = true;
-					}
-					else{
-						aprile = false;
-					}
-					if(combo_mag.getSelectedItem()=="Si"){
-						maggio = true;
-					}
-					else{
-						maggio = false;
-					}
-					if(combo_giu.getSelectedItem()=="Si"){
-						giugno = true;
-					}
-					else{
-						giugno = false;
-					}
-					if(combo_lug.getSelectedItem()=="Si"){
-						luglio = true;
-					}
-					else{
-						luglio = false;
-					}
-					if(combo_ago.getSelectedItem()=="Si"){
-						agosto = true;
-					}
-					else{
-						agosto = false;
-					}
-					if(combo_set.getSelectedItem()=="Si"){
-						settembre = true;
-					}
-					else{
-						settembre = false;
-					}
-					if(combo_ott.getSelectedItem()=="Si"){
-						ottobre = true;
-					}
-					else{
-						ottobre = false;
-					}
-					if(combo_nov.getSelectedItem()=="Si"){
-						novembre = true;
-					}
-					else{
-						novembre = false;
-					}
-					if(combo_dic.getSelectedItem()=="Si"){
-						dicembre = true;
-					}
-					else{
-						dicembre = false;
-					}
-					
-			
-				
+				if (combo_gen.getSelectedItem() == "Si") {
+
+					gennaio = true;
+
+				} else {
+					gennaio = false;
+				}
+				if (combo_feb.getSelectedItem() == "Si") {
+					febbraio = true;
+				} else {
+					febbraio = false;
+				}
+				if (combo_mar.getSelectedItem() == "Si") {
+					marzo = true;
+				} else {
+					marzo = false;
+				}
+				if (combo_apr.getSelectedItem() == "Si") {
+					aprile = true;
+				} else {
+					aprile = false;
+				}
+				if (combo_mag.getSelectedItem() == "Si") {
+					maggio = true;
+				} else {
+					maggio = false;
+				}
+				if (combo_giu.getSelectedItem() == "Si") {
+					giugno = true;
+				} else {
+					giugno = false;
+				}
+				if (combo_lug.getSelectedItem() == "Si") {
+					luglio = true;
+				} else {
+					luglio = false;
+				}
+				if (combo_ago.getSelectedItem() == "Si") {
+					agosto = true;
+				} else {
+					agosto = false;
+				}
+				if (combo_set.getSelectedItem() == "Si") {
+					settembre = true;
+				} else {
+					settembre = false;
+				}
+				if (combo_ott.getSelectedItem() == "Si") {
+					ottobre = true;
+				} else {
+					ottobre = false;
+				}
+				if (combo_nov.getSelectedItem() == "Si") {
+					novembre = true;
+				} else {
+					novembre = false;
+				}
+				if (combo_dic.getSelectedItem() == "Si") {
+					dicembre = true;
+				} else {
+					dicembre = false;
+				}
+
 				calcola();
 
 				String nome = text_Cliente.getText();
@@ -459,27 +436,28 @@ public class Aggiungi_Cliente extends JFrame {
 				} else {
 					tot_dovuto = 0.00;
 				}
-				
-				
-				
+
 				Cliente cliente = new Cliente(nome, nome2, indirizzo, città,
 						cap, piva, descrizione, importo, descrizione2,
 						importo2, imponibile, iva, imposta, tot_fattura,
-						ritenuta, tot_dovuto,gennaio,febbraio,marzo,aprile,maggio,giugno,luglio,agosto,settembre,ottobre,novembre,dicembre);
+						ritenuta, tot_dovuto, gennaio, febbraio, marzo, aprile,
+						maggio, giugno, luglio, agosto, settembre, ottobre,
+						novembre, dicembre);
 
-				try{database.Inserisci_Cliente(cliente);
+				try {
+					database.Inserisci_Cliente(cliente);
 					JOptionPane.showMessageDialog(null, "cliente inserito");
 					dispose();
+				} catch (Exception ee) {
+					JOptionPane.showMessageDialog(null,
+							"ERRORE cliente non inserito!");
 				}
-				catch(Exception ee){
-					JOptionPane.showMessageDialog(null, "ERRORE cliente non inserito!");
-				}
-				
+
 			}
 		}
 
 		private void calcola() {
-			
+
 			double importo2;
 			double importo = Double.parseDouble(text_importo.getText());
 			if (!text_importo_2.getText().isEmpty()) {
@@ -503,7 +481,7 @@ public class Aggiungi_Cliente extends JFrame {
 				text_ritenuta.setText("0.00");
 				text_tot_dovuto.setText("0.00");
 			}
-			
+
 			imponibile = Math.rint(imponibile * 100) / 100;
 			imposta = Math.rint(imposta * 100) / 100;
 			totale_fattura = Math.rint(totale_fattura * 100) / 100;
