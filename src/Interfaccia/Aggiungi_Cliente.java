@@ -2,6 +2,7 @@ package Interfaccia;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 
@@ -10,6 +11,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+
+import General.Cliente;
+import General.Database;
 
 public class Aggiungi_Cliente extends JFrame {
 
@@ -21,10 +25,13 @@ public class Aggiungi_Cliente extends JFrame {
 	text_ritenuta;
 	private JComboBox combo_ritenuta, combo_gen, combo_feb, combo_mar,
 	combo_apr, combo_mag, combo_giu, combo_lug, combo_ago, combo_set,
-	combo_ott, combo_nov, combo_dic, combo_select_all;
+	combo_ott, combo_nov, combo_dic;
 	private JButton btnIndietro, btnSalva;
+	private Database database;
+	private boolean gennaio,febbraio,marzo,aprile,maggio,giugno,luglio,agosto,settembre,ottobre,novembre,dicembre;
 
-	public Aggiungi_Cliente() {
+	public Aggiungi_Cliente(Database database) {
+		this.database = database;
 		getContentPane().setLayout(null);
 		setBounds(10, 10, 560, 460);
 
@@ -118,6 +125,7 @@ public class Aggiungi_Cliente extends JFrame {
 		text_descrizione_2.setColumns(10);
 
 		text_imponibile = new JTextField();
+		text_imponibile.setEditable(false);
 		text_imponibile.setBounds(88, 172, 172, 20);
 		getContentPane().add(text_imponibile);
 		text_imponibile.setColumns(10);
@@ -302,12 +310,6 @@ public class Aggiungi_Cliente extends JFrame {
 		combo_dic.setBounds(464, 315, 46, 20);
 		getContentPane().add(combo_dic);
 
-		combo_select_all = new JComboBox();
-		combo_select_all.addItem("---------------");
-		combo_select_all.addItem("Seleziona tutti");
-		combo_select_all.setBounds(46, 369, 214, 20);
-		getContentPane().add(combo_select_all);
-
 		btnIndietro = new JButton("Indietro");
 		btnIndietro.setBounds(296, 368, 89, 23);
 		getContentPane().add(btnIndietro);
@@ -320,6 +322,11 @@ public class Aggiungi_Cliente extends JFrame {
 
 		this.setVisible(true);
 	}
+	
+	
+			
+		
+	
 
 	private class ButtonListener implements ActionListener {
 
@@ -331,7 +338,178 @@ public class Aggiungi_Cliente extends JFrame {
 
 			if (e.getSource() == btnSalva) {
 
+				String nome2, descrizione2;
+				double importo2, ritenuta, tot_dovuto;
+				
+
+					if(combo_gen.getSelectedItem() == "Si"){
+						
+						gennaio = true;
+						
+					}
+					else{
+						gennaio = false;
+					}
+					if(combo_feb.getSelectedItem()=="Si"){
+						febbraio = true;
+					}
+					else{
+						febbraio = false;
+					}
+					if(combo_mar.getSelectedItem()=="Si"){
+						marzo = true;
+					}
+					else{
+						marzo = false;
+					}
+					if(combo_apr.getSelectedItem()=="Si"){
+						aprile = true;
+					}
+					else{
+						aprile = false;
+					}
+					if(combo_mag.getSelectedItem()=="Si"){
+						maggio = true;
+					}
+					else{
+						maggio = false;
+					}
+					if(combo_giu.getSelectedItem()=="Si"){
+						giugno = true;
+					}
+					else{
+						giugno = false;
+					}
+					if(combo_lug.getSelectedItem()=="Si"){
+						luglio = true;
+					}
+					else{
+						luglio = false;
+					}
+					if(combo_ago.getSelectedItem()=="Si"){
+						agosto = true;
+					}
+					else{
+						agosto = false;
+					}
+					if(combo_set.getSelectedItem()=="Si"){
+						settembre = true;
+					}
+					else{
+						settembre = false;
+					}
+					if(combo_ott.getSelectedItem()=="Si"){
+						ottobre = true;
+					}
+					else{
+						ottobre = false;
+					}
+					if(combo_nov.getSelectedItem()=="Si"){
+						novembre = true;
+					}
+					else{
+						novembre = false;
+					}
+					if(combo_dic.getSelectedItem()=="Si"){
+						dicembre = true;
+					}
+					else{
+						dicembre = false;
+					}
+					
+			
+				
+				calcola();
+
+				String nome = text_Cliente.getText();
+				if (!text_cliente_2.getText().isEmpty()) {
+					nome2 = text_cliente_2.getText();
+				} else {
+					nome2 = "";
+				}
+				String indirizzo = text_indirizzo.getText();
+				String città = text_città.getText();
+				String cap = text_cap.getText();
+				String piva = text_piva.getText();
+				String descrizione = text_descrizione.getText();
+				double importo = Double.parseDouble(text_importo.getText());
+				if (!text_descrizione_2.getText().isEmpty()) {
+					descrizione2 = text_descrizione_2.getText();
+				} else {
+					descrizione2 = "";
+				}
+				if (!text_importo_2.getText().isEmpty()) {
+					importo2 = Double.parseDouble(text_importo_2.getText());
+				} else {
+					importo2 = 0.00;
+				}
+				double imponibile = Double.parseDouble(text_imponibile
+						.getText());
+				double iva = Double.parseDouble(text_iva.getText());
+				double imposta = Double.parseDouble(text_imposta.getText());
+				double tot_fattura = Double.parseDouble(text_tot_fattura
+						.getText());
+				if (!text_ritenuta.getText().isEmpty()) {
+					ritenuta = Double.parseDouble(text_ritenuta.getText());
+				} else {
+					ritenuta = 0.00;
+				}
+				if (!text_tot_dovuto.getText().isEmpty()) {
+					tot_dovuto = Double.parseDouble(text_tot_dovuto.getText());
+				} else {
+					tot_dovuto = 0.00;
+				}
+				
+				
+				
+				Cliente cliente = new Cliente(nome, nome2, indirizzo, città,
+						cap, piva, descrizione, importo, descrizione2,
+						importo2, imponibile, iva, imposta, tot_fattura,
+						ritenuta, tot_dovuto,gennaio,febbraio,marzo,aprile,maggio,giugno,luglio,agosto,settembre,ottobre,novembre,dicembre);
+
+				try{database.Inserisci_Cliente(cliente);
+					JOptionPane.showMessageDialog(null, "cliente inserito");
+					dispose();
+				}
+				catch(Exception ee){
+					JOptionPane.showMessageDialog(null, "ERRORE cliente non inserito!");
+				}
+				
 			}
+		}
+
+		private void calcola() {
+			
+			double importo2;
+			double importo = Double.parseDouble(text_importo.getText());
+			if (!text_importo_2.getText().isEmpty()) {
+				importo2 = Double.parseDouble(text_importo_2.getText());
+			} else {
+				importo2 = 0;
+			}
+			double imponibile = importo + importo2;
+			double iva = Double.parseDouble(text_iva.getText());
+			double imposta = imponibile * (iva / 100);
+			double totale_fattura = imponibile + imposta;
+
+			if (combo_ritenuta.getSelectedItem() == "Si") {
+				double ritenuta = imponibile * 0.04;
+				double totale_dovuto = totale_fattura - ritenuta;
+				ritenuta = Math.rint(ritenuta * 100) / 100;
+				totale_dovuto = Math.rint(totale_dovuto * 100) / 100;
+				text_ritenuta.setText(String.valueOf(ritenuta));
+				text_tot_dovuto.setText(String.valueOf(totale_dovuto));
+			} else {
+				text_ritenuta.setText("0.00");
+				text_tot_dovuto.setText("0.00");
+			}
+			
+			imponibile = Math.rint(imponibile * 100) / 100;
+			imposta = Math.rint(imposta * 100) / 100;
+			totale_fattura = Math.rint(totale_fattura * 100) / 100;
+			text_imponibile.setText(String.valueOf(imponibile));
+			text_imposta.setText(String.valueOf(imposta));
+			text_tot_fattura.setText(String.valueOf(totale_fattura));
 		}
 
 	}

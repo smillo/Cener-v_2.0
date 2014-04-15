@@ -19,6 +19,8 @@ import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import General.Database;
+
 public class Partenza extends JFrame {
 
 	private JTabbedPane tabbedPane;
@@ -53,17 +55,20 @@ public class Partenza extends JFrame {
 	list_clienti_apr, list_clienti_mag, list_clienti_giu,
 	list_clienti_lug, list_clienti_ago, list_clienti_set,
 	list_clienti_ott, list_clienti_nov, list_clienti_dic;
-
+	private Database database;
+	
 	public static void main(String[] args) throws ClassNotFoundException,
 	InstantiationException, IllegalAccessException,
 	UnsupportedLookAndFeelException {
 
 		Partenza window = new Partenza();
+		
 	}
 
 	public Partenza() throws ClassNotFoundException, InstantiationException,
 	IllegalAccessException, UnsupportedLookAndFeelException {
 
+		database = new Database();
 		setBounds(100, 100, 904, 504);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -2320,7 +2325,7 @@ public class Partenza extends JFrame {
 			}
 
 			if (e.getSource() == btnNuovo_cliente) {
-				Aggiungi_Cliente agg = new Aggiungi_Cliente();
+				Aggiungi_Cliente agg = new Aggiungi_Cliente(database);
 
 			}
 
