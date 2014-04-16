@@ -2331,7 +2331,7 @@ public class Partenza extends JFrame {
 			}
 
 			if (e.getSource() == btnElimina_cliente) {
-				Elimina_Cliente elm = new Elimina_Cliente(database);
+				Scegli_Elimina el = new Scegli_Elimina(database);
 			}
 
 			if (e.getSource() == btnStampa) {
