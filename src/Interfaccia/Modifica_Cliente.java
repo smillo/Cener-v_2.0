@@ -472,7 +472,7 @@ public class Modifica_Cliente extends JFrame {
 					tot_dovuto = 0.00;
 				}
 
-				Cliente cliente = new Cliente(nome, nome2, indirizzo, città,
+				Cliente cliente_nuovo = new Cliente(nome, nome2, indirizzo, città,
 						cap, piva, descrizione, importo, descrizione2,
 						importo2, imponibile, iva, imposta, tot_fattura,
 						ritenuta, tot_dovuto, gennaio, febbraio, marzo, aprile,
@@ -480,7 +480,7 @@ public class Modifica_Cliente extends JFrame {
 						novembre, dicembre);
 
 				try {
-					database.Modifica_Cliente(cliente,mesi_vecchi,mesi_nuovi);
+					database.Modifica_Cliente(cliente_nuovo,mesi_vecchi,mesi_nuovi);
 					JOptionPane.showMessageDialog(null, "cliente modificato");
 					dispose();
 					

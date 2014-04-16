@@ -2327,7 +2327,7 @@ public class Partenza extends JFrame {
 			}
 
 			if (e.getSource() == btnModifica_cliente) {
-				Modifica_Cliente mod = new Modifica_Cliente(database);
+				Scegli_Modifica mod = new Scegli_Modifica(database);
 			}
 
 			if (e.getSource() == btnElimina_cliente) {

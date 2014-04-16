@@ -434,7 +434,7 @@ public class Database {
 		try {
 			ArrayList<String> list = new ArrayList<String>();
 			pst = connection
-					.prepareStatement("SELECT cliente FROM cliente where gennaio = true");
+					.prepareStatement("SELECT cliente FROM gennaio");
 
 			rs = pst.executeQuery();
 
@@ -458,7 +458,7 @@ public class Database {
 		try {
 			ArrayList<String> list = new ArrayList<String>();
 			pst = connection
-					.prepareStatement("SELECT cliente FROM cliente where febbraio = true");
+					.prepareStatement("SELECT cliente FROM febbraio");
 
 			rs = pst.executeQuery();
 
@@ -482,7 +482,7 @@ public class Database {
 		try {
 			ArrayList<String> list = new ArrayList<String>();
 			pst = connection
-					.prepareStatement("SELECT cliente FROM cliente where marzo = true");
+					.prepareStatement("SELECT cliente FROM marzo");
 
 			rs = pst.executeQuery();
 
@@ -506,7 +506,7 @@ public class Database {
 		try {
 			ArrayList<String> list = new ArrayList<String>();
 			pst = connection
-					.prepareStatement("SELECT cliente FROM cliente where aprile = true");
+					.prepareStatement("SELECT cliente FROM aprile");
 
 			rs = pst.executeQuery();
 
@@ -530,7 +530,7 @@ public class Database {
 		try {
 			ArrayList<String> list = new ArrayList<String>();
 			pst = connection
-					.prepareStatement("SELECT cliente FROM cliente where maggio = true");
+					.prepareStatement("SELECT cliente FROM maggio");
 
 			rs = pst.executeQuery();
 
@@ -554,7 +554,7 @@ public class Database {
 		try {
 			ArrayList<String> list = new ArrayList<String>();
 			pst = connection
-					.prepareStatement("SELECT cliente FROM cliente where giugno = true");
+					.prepareStatement("SELECT cliente FROM giugno");
 
 			rs = pst.executeQuery();
 
@@ -578,7 +578,7 @@ public class Database {
 		try {
 			ArrayList<String> list = new ArrayList<String>();
 			pst = connection
-					.prepareStatement("SELECT cliente FROM cliente where luglio = true");
+					.prepareStatement("SELECT cliente FROM luglio");
 
 			rs = pst.executeQuery();
 
@@ -602,7 +602,7 @@ public class Database {
 		try {
 			ArrayList<String> list = new ArrayList<String>();
 			pst = connection
-					.prepareStatement("SELECT cliente FROM cliente where agosto = true");
+					.prepareStatement("SELECT cliente FROM agosto ");
 
 			rs = pst.executeQuery();
 
@@ -626,7 +626,7 @@ public class Database {
 		try {
 			ArrayList<String> list = new ArrayList<String>();
 			pst = connection
-					.prepareStatement("SELECT cliente FROM cliente where settembre = true");
+					.prepareStatement("SELECT cliente FROM settembre");
 
 			rs = pst.executeQuery();
 
@@ -650,7 +650,7 @@ public class Database {
 		try {
 			ArrayList<String> list = new ArrayList<String>();
 			pst = connection
-					.prepareStatement("SELECT cliente FROM cliente where ottobre = true");
+					.prepareStatement("SELECT cliente FROM ottobre");
 
 			rs = pst.executeQuery();
 
@@ -674,7 +674,7 @@ public class Database {
 		try {
 			ArrayList<String> list = new ArrayList<String>();
 			pst = connection
-					.prepareStatement("SELECT cliente FROM cliente where novembre = true");
+					.prepareStatement("SELECT cliente FROM novembre");
 
 			rs = pst.executeQuery();
 
@@ -698,7 +698,7 @@ public class Database {
 		try {
 			ArrayList<String> list = new ArrayList<String>();
 			pst = connection
-					.prepareStatement("SELECT cliente FROM cliente where dicembre = true");
+					.prepareStatement("SELECT cliente FROM dicembre ");
 
 			rs = pst.executeQuery();
 
@@ -752,6 +752,46 @@ public class Database {
 		String mese = null;
 		int i;
 
+		PreparedStatement prep=null;
+		try {
+			System.out.println("entro in try per query generale");
+			prep = connection
+					.prepareStatement("UPDATE cliente SET cliente = ?, cliente2 = ?, indirizzo = ?, città = ?, cap = ?, partitaIva = ?, descrizione = ?, importo = ?, descrizione2 = ?, importo2 = ?, imponibile = ?, iva = ?, imposta = ?, totale_fattura = ?, ritenuta = ?, totale_dovuto = ? ,gennaio = ?,febbraio = ?,marzo = ?,aprile = ?,maggio = ?,giugno = ?,luglio = ?,agosto = ?,settembre = ?,ottobre = ?,novembre = ?,dicembre = ? where cliente = ?");
+			prep.setString(1, cliente.getNome());
+			prep.setString(2, cliente.getNome2());
+			prep.setString(3, cliente.getIndirizzo());
+			prep.setString(4, cliente.getCittà());
+			prep.setString(5, cliente.getCap());
+			prep.setString(6, cliente.getPiva());
+			prep.setString(7, cliente.getDescrizione());
+			prep.setDouble(8, cliente.getImporto());
+			prep.setString(9, cliente.getDescrizione2());
+			prep.setDouble(10, cliente.getImporto2());
+			prep.setDouble(11, cliente.getImponibile());
+			prep.setDouble(12, cliente.getIva());
+			prep.setDouble(13, cliente.getImposta());
+			prep.setDouble(14, cliente.getTot_fattura());
+			prep.setDouble(15, cliente.getRitenuta());
+			prep.setDouble(16, cliente.getTot_dovuto());
+			prep.setBoolean(17, cliente.isGennaio());
+			prep.setBoolean(18, cliente.isFebbraio());
+			prep.setBoolean(19, cliente.isMarzo());
+			prep.setBoolean(20, cliente.isAprile());
+			prep.setBoolean(21, cliente.isMaggio());
+			prep.setBoolean(22, cliente.isGiugno());
+			prep.setBoolean(23, cliente.isLuglio());
+			prep.setBoolean(24, cliente.isAgosto());
+			prep.setBoolean(25, cliente.isSettembre());
+			prep.setBoolean(26, cliente.isOttobre());
+			prep.setBoolean(27, cliente.isNovembre());
+			prep.setBoolean(28, cliente.isDicembre());
+			prep.setString(29, String.valueOf(mesi_vecchi.get(0)));
+			prep.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+		
 		for (i = 0; i < 12; i++) {
 
 			switch (String.valueOf(i)) {
@@ -816,34 +856,98 @@ public class Database {
 				break;
 
 			}
-
-			System.out.println("mese vecchio " + mesi_vecchi.get(i + 1));
-			System.out.println("mese vuovo " + mesi_nuovi.get(i));
+			
+			
 
 			if (String.valueOf(mesi_vecchi.get(i + 1)) == "true"
 					&& String.valueOf(mesi_nuovi.get(i)) == "true") {
-				// update gennaio
-				System.out.println("faccio update " + mese + " " + cliente
-						+ " " + mesi_vecchi.get(0));
+				PreparedStatement pst=null;
+				System.out.println(mesi_vecchi.get(0));
+				System.out.println(mese);
+				try {
+					System.out.println("entro in try per query");
+					pst = connection
+							.prepareStatement("UPDATE "+mese+" SET cliente = ?, cliente2 = ?, indirizzo = ?, città = ?, cap = ?, partitaIva = ?, descrizione = ?, importo = ?, descrizione2 = ?, importo2 = ?, imponibile = ?, iva = ?, imposta = ?, totale_fattura = ?, ritenuta = ?, totale_dovuto = ? where cliente = ?");
+					pst.setString(1, cliente.getNome());
+					pst.setString(2, cliente.getNome2());
+					pst.setString(3, cliente.getIndirizzo());
+					pst.setString(4, cliente.getCittà());
+					pst.setString(5, cliente.getCap());
+					pst.setString(6, cliente.getPiva());
+					pst.setString(7, cliente.getDescrizione());
+					pst.setDouble(8, cliente.getImporto());
+					pst.setString(9, cliente.getDescrizione2());
+					pst.setDouble(10, cliente.getImporto2());
+					pst.setDouble(11, cliente.getImponibile());
+					pst.setDouble(12, cliente.getIva());
+					pst.setDouble(13, cliente.getImposta());
+					pst.setDouble(14, cliente.getTot_fattura());
+					pst.setDouble(15, cliente.getRitenuta());
+					pst.setDouble(16, cliente.getTot_dovuto());
+					pst.setString(17, String.valueOf(mesi_vecchi.get(0)));
+					pst.executeUpdate();
+				} catch (Exception e) {
+					e.printStackTrace();
+
+				}
+
+				
 			} else if (String.valueOf(mesi_vecchi.get(i + 1)) == "true"
 					&& String.valueOf(mesi_nuovi.get(i)) == "false") {
-				// delete gennaio
-				System.out.println("faccio delete " + mese + " " + cliente
-						+ " " + mesi_vecchi.get(0));
+				PreparedStatement pst=null;
+				System.out.println(mesi_vecchi.get(0));
+				System.out.println(mese);
+				try {
+					System.out.println("entro in try per query");
+					pst = connection
+							.prepareStatement("DELETE FROM "+mese+" where cliente = ?");
+					pst.setString(1, String.valueOf(mesi_vecchi.get(0)));
+					pst.executeUpdate();
+				} catch (Exception e) {
+					e.printStackTrace();
+
+				}
+				
 			}
 
 			else if (String.valueOf(mesi_vecchi.get(i + 1)) == "false"
 					&& String.valueOf(mesi_nuovi.get(i)) == "true") {
-				// insert gennaio
-				System.out.println("faccio insert " + mese + " " + cliente
-						+ " " + mesi_vecchi.get(0));
+				PreparedStatement pst=null;
+				System.out.println(mesi_vecchi.get(0));
+				System.out.println(mese);
+				try {
+					System.out.println("entro in try per query");
+					pst = connection
+							.prepareStatement("INSERT INTO "+mese+" VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+					pst.setString(1, cliente.getNome());
+					pst.setString(2, cliente.getNome2());
+					pst.setString(3, cliente.getIndirizzo());
+					pst.setString(4, cliente.getCittà());
+					pst.setString(5, cliente.getCap());
+					pst.setString(6, cliente.getPiva());
+					pst.setString(7, cliente.getDescrizione());
+					pst.setDouble(8, cliente.getImporto());
+					pst.setString(9, cliente.getDescrizione2());
+					pst.setDouble(10, cliente.getImporto2());
+					pst.setDouble(11, cliente.getImponibile());
+					pst.setDouble(12, cliente.getIva());
+					pst.setDouble(13, cliente.getImposta());
+					pst.setDouble(14, cliente.getTot_fattura());
+					pst.setDouble(15, cliente.getRitenuta());
+					pst.setDouble(16, cliente.getTot_dovuto());
+					
+					pst.executeUpdate();
+				} catch (Exception e) {
+					e.printStackTrace();
+
+				}
+				
 			}
 
 			else if (String.valueOf(mesi_vecchi.get(i + 1)) == "false"
 					&& String.valueOf(mesi_nuovi.get(i)) == "false") {
 				// niente
-				System.out.println("nulla " + mese + " " + cliente + " "
-						+ mesi_vecchi.get(0));
+				
 			}
 		}
 
