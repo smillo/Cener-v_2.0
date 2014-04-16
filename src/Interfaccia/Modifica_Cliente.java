@@ -2,8 +2,12 @@ package Interfaccia;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.LinkedList;
+import java.util.StringTokenizer;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import General.Database;
 
@@ -17,7 +21,7 @@ public class Modifica_Cliente extends JFrame {
 	text_ritenuta;
 	private JComboBox combo_ritenuta, combo_gen, combo_feb, combo_mar,
 	combo_apr, combo_mag, combo_giu, combo_lug, combo_ago, combo_set,
-	combo_ott, combo_nov, combo_dic, combo_select_all;
+	combo_ott, combo_nov, combo_dic;
 	private JButton btnIndietro, btnSalva;
 	private JScrollPane scrollPane;
 	private JList list;
@@ -302,11 +306,6 @@ public class Modifica_Cliente extends JFrame {
 		combo_dic.setBounds(464, 315, 46, 20);
 		getContentPane().add(combo_dic);
 
-		combo_select_all = new JComboBox();
-		combo_select_all.addItem("---------------");
-		combo_select_all.addItem("Seleziona tutti");
-		combo_select_all.setBounds(46, 369, 214, 20);
-		getContentPane().add(combo_select_all);
 
 		btnIndietro = new JButton("Indietro");
 		btnIndietro.setBounds(296, 368, 89, 23);
@@ -319,6 +318,7 @@ public class Modifica_Cliente extends JFrame {
 		btnSalva.addActionListener(new ButtonListener());
 
 		list = new JList(database.elenco_clienti());
+		list.addListSelectionListener(new ListSelection());
 
 		scrollPane = new JScrollPane(list);
 		scrollPane.setBounds(544, 22, 302, 368);
@@ -340,5 +340,119 @@ public class Modifica_Cliente extends JFrame {
 			}
 		}
 
+	}
+
+	private class ListSelection implements ListSelectionListener {
+
+		public void valueChanged(ListSelectionEvent e) {
+
+			String nome_cliente = (String) list.getSelectedValue();
+			String dati = database.seleziona_modifica_cliente(nome_cliente);
+
+			StringTokenizer stk = new StringTokenizer(dati, " ");
+			text_Cliente.setText(stk.nextToken());
+			String test = stk.nextToken();
+			if (test.equals("null")) {
+				text_cliente_2.setText("");
+			} else {
+				text_cliente_2.setText(test);
+			}
+			text_indirizzo.setText(stk.nextToken());
+			text_città.setText(stk.nextToken());
+			text_cap.setText(stk.nextToken());
+			text_piva.setText(stk.nextToken());
+			text_descrizione.setText(stk.nextToken());
+			text_importo.setText(stk.nextToken());
+			String test2 = stk.nextToken();
+			if (test2.equals("null")) {
+				text_descrizione_2.setText("");
+			} else {
+				text_descrizione_2.setText(test2);
+			}
+			String test3 = stk.nextToken();
+			if (test3.equals("0.0")) {
+				text_importo_2.setText("");
+			} else {
+				text_importo_2.setText(test3);
+			}
+			text_imponibile.setText(stk.nextToken());
+			text_iva.setText(stk.nextToken());
+			text_imposta.setText(stk.nextToken());
+			text_tot_fattura.setText(stk.nextToken());
+			String test4 = stk.nextToken();
+			if (test4.equals("0.0")) {
+				text_ritenuta.setText("");
+				combo_ritenuta.setSelectedItem("No");
+			} else {
+				text_ritenuta.setText(test4);
+				combo_ritenuta.setSelectedItem("Si");
+			}
+			String test5 = stk.nextToken();
+			if (test5.equals("0.0")) {
+				text_tot_dovuto.setText("");
+			} else {
+				text_tot_dovuto.setText(test5);
+			}
+			if (Boolean.valueOf(stk.nextToken())) {
+				combo_gen.setSelectedItem("Si");
+			} else {
+				combo_gen.setSelectedItem("No");
+			}
+			if (Boolean.valueOf(stk.nextToken())) {
+				combo_feb.setSelectedItem("Si");
+			} else {
+				combo_feb.setSelectedItem("No");
+			}
+			if (Boolean.valueOf(stk.nextToken())) {
+				combo_mar.setSelectedItem("Si");
+			} else {
+				combo_mar.setSelectedItem("No");
+			}
+			if (Boolean.valueOf(stk.nextToken())) {
+				combo_apr.setSelectedItem("Si");
+			} else {
+				combo_apr.setSelectedItem("No");
+			}
+			if (Boolean.valueOf(stk.nextToken())) {
+				combo_mag.setSelectedItem("Si");
+			} else {
+				combo_mag.setSelectedItem("No");
+			}
+			if (Boolean.valueOf(stk.nextToken())) {
+				combo_giu.setSelectedItem("Si");
+			} else {
+				combo_giu.setSelectedItem("No");
+			}
+			if (Boolean.valueOf(stk.nextToken())) {
+				combo_lug.setSelectedItem("Si");
+			} else {
+				combo_lug.setSelectedItem("No");
+			}
+			if (Boolean.valueOf(stk.nextToken())) {
+				combo_ago.setSelectedItem("Si");
+			} else {
+				combo_ago.setSelectedItem("No");
+			}
+			if (Boolean.valueOf(stk.nextToken())) {
+				combo_set.setSelectedItem("Si");
+			} else {
+				combo_set.setSelectedItem("No");
+			}
+			if (Boolean.valueOf(stk.nextToken())) {
+				combo_ott.setSelectedItem("Si");
+			} else {
+				combo_ott.setSelectedItem("No");
+			}
+			if (Boolean.valueOf(stk.nextToken())) {
+				combo_nov.setSelectedItem("Si");
+			} else {
+				combo_nov.setSelectedItem("No");
+			}
+			if (Boolean.valueOf(stk.nextToken())) {
+				combo_dic.setSelectedItem("Si");
+			} else {
+				combo_dic.setSelectedItem("No");
+			}
+		}
 	}
 }

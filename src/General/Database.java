@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.LinkedList;
+
 import javax.swing.JOptionPane;
 
 public class Database {
@@ -688,5 +690,34 @@ public class Database {
 			return null;
 		}
 
+	}
+
+	public String seleziona_modifica_cliente(String nome_cliente) {
+		ResultSet rs;
+		PreparedStatement pst = null;
+		try {
+			
+			pst = connection.prepareStatement("SELECT * FROM cliente where cliente = ?");
+			pst.setString(1, nome_cliente);
+			rs = pst.executeQuery();
+			String temp ="";
+			while (rs.next()) {
+				
+				for (int i = 0; i < 28; i++) {
+					
+					if(String.valueOf(rs.getObject(i+1)).equals(""))
+						temp = temp.concat("null ");
+					else
+						temp = temp.concat(String.valueOf(rs.getObject(i+1)) + " ");
+				}
+			
+			}
+			
+			return temp;
+		} catch (Exception e) {
+
+			e.printStackTrace();;
+		}
+		return null;
 	}
 }
