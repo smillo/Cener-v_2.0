@@ -426,14 +426,15 @@ public class Database {
 		}
 
 	}
-	
+
 	public String[] elenco_clienti_gennaio() {
 
 		ResultSet rs;
 		PreparedStatement pst = null;
 		try {
 			ArrayList<String> list = new ArrayList<String>();
-			pst = connection.prepareStatement("SELECT cliente FROM cliente where gennaio = true");
+			pst = connection
+					.prepareStatement("SELECT cliente FROM cliente where gennaio = true");
 
 			rs = pst.executeQuery();
 
@@ -449,13 +450,15 @@ public class Database {
 		}
 
 	}
+
 	public String[] elenco_clienti_febbraio() {
 
 		ResultSet rs;
 		PreparedStatement pst = null;
 		try {
 			ArrayList<String> list = new ArrayList<String>();
-			pst = connection.prepareStatement("SELECT cliente FROM cliente where febbraio = true");
+			pst = connection
+					.prepareStatement("SELECT cliente FROM cliente where febbraio = true");
 
 			rs = pst.executeQuery();
 
@@ -471,13 +474,15 @@ public class Database {
 		}
 
 	}
+
 	public String[] elenco_clienti_marzo() {
 
 		ResultSet rs;
 		PreparedStatement pst = null;
 		try {
 			ArrayList<String> list = new ArrayList<String>();
-			pst = connection.prepareStatement("SELECT cliente FROM cliente where marzo = true");
+			pst = connection
+					.prepareStatement("SELECT cliente FROM cliente where marzo = true");
 
 			rs = pst.executeQuery();
 
@@ -493,13 +498,15 @@ public class Database {
 		}
 
 	}
+
 	public String[] elenco_clienti_aprile() {
 
 		ResultSet rs;
 		PreparedStatement pst = null;
 		try {
 			ArrayList<String> list = new ArrayList<String>();
-			pst = connection.prepareStatement("SELECT cliente FROM cliente where aprile = true");
+			pst = connection
+					.prepareStatement("SELECT cliente FROM cliente where aprile = true");
 
 			rs = pst.executeQuery();
 
@@ -515,13 +522,15 @@ public class Database {
 		}
 
 	}
+
 	public String[] elenco_clienti_maggio() {
 
 		ResultSet rs;
 		PreparedStatement pst = null;
 		try {
 			ArrayList<String> list = new ArrayList<String>();
-			pst = connection.prepareStatement("SELECT cliente FROM cliente where maggio = true");
+			pst = connection
+					.prepareStatement("SELECT cliente FROM cliente where maggio = true");
 
 			rs = pst.executeQuery();
 
@@ -537,13 +546,15 @@ public class Database {
 		}
 
 	}
+
 	public String[] elenco_clienti_giugno() {
 
 		ResultSet rs;
 		PreparedStatement pst = null;
 		try {
 			ArrayList<String> list = new ArrayList<String>();
-			pst = connection.prepareStatement("SELECT cliente FROM cliente where giugno = true");
+			pst = connection
+					.prepareStatement("SELECT cliente FROM cliente where giugno = true");
 
 			rs = pst.executeQuery();
 
@@ -559,13 +570,15 @@ public class Database {
 		}
 
 	}
+
 	public String[] elenco_clienti_luglio() {
 
 		ResultSet rs;
 		PreparedStatement pst = null;
 		try {
 			ArrayList<String> list = new ArrayList<String>();
-			pst = connection.prepareStatement("SELECT cliente FROM cliente where luglio = true");
+			pst = connection
+					.prepareStatement("SELECT cliente FROM cliente where luglio = true");
 
 			rs = pst.executeQuery();
 
@@ -581,13 +594,15 @@ public class Database {
 		}
 
 	}
+
 	public String[] elenco_clienti_agosto() {
 
 		ResultSet rs;
 		PreparedStatement pst = null;
 		try {
 			ArrayList<String> list = new ArrayList<String>();
-			pst = connection.prepareStatement("SELECT cliente FROM cliente where agosto = true");
+			pst = connection
+					.prepareStatement("SELECT cliente FROM cliente where agosto = true");
 
 			rs = pst.executeQuery();
 
@@ -603,13 +618,15 @@ public class Database {
 		}
 
 	}
+
 	public String[] elenco_clienti_settembre() {
 
 		ResultSet rs;
 		PreparedStatement pst = null;
 		try {
 			ArrayList<String> list = new ArrayList<String>();
-			pst = connection.prepareStatement("SELECT cliente FROM cliente where settembre = true");
+			pst = connection
+					.prepareStatement("SELECT cliente FROM cliente where settembre = true");
 
 			rs = pst.executeQuery();
 
@@ -625,13 +642,15 @@ public class Database {
 		}
 
 	}
+
 	public String[] elenco_clienti_ottobre() {
 
 		ResultSet rs;
 		PreparedStatement pst = null;
 		try {
 			ArrayList<String> list = new ArrayList<String>();
-			pst = connection.prepareStatement("SELECT cliente FROM cliente where ottobre = true");
+			pst = connection
+					.prepareStatement("SELECT cliente FROM cliente where ottobre = true");
 
 			rs = pst.executeQuery();
 
@@ -647,13 +666,15 @@ public class Database {
 		}
 
 	}
+
 	public String[] elenco_clienti_novembre() {
 
 		ResultSet rs;
 		PreparedStatement pst = null;
 		try {
 			ArrayList<String> list = new ArrayList<String>();
-			pst = connection.prepareStatement("SELECT cliente FROM cliente where novembre = true");
+			pst = connection
+					.prepareStatement("SELECT cliente FROM cliente where novembre = true");
 
 			rs = pst.executeQuery();
 
@@ -669,13 +690,15 @@ public class Database {
 		}
 
 	}
+
 	public String[] elenco_clienti_dicembre() {
 
 		ResultSet rs;
 		PreparedStatement pst = null;
 		try {
 			ArrayList<String> list = new ArrayList<String>();
-			pst = connection.prepareStatement("SELECT cliente FROM cliente where dicembre = true");
+			pst = connection
+					.prepareStatement("SELECT cliente FROM cliente where dicembre = true");
 
 			rs = pst.executeQuery();
 
@@ -696,28 +719,133 @@ public class Database {
 		ResultSet rs;
 		PreparedStatement pst = null;
 		try {
-			
-			pst = connection.prepareStatement("SELECT * FROM cliente where cliente = ?");
+
+			pst = connection
+					.prepareStatement("SELECT * FROM cliente where cliente = ?");
 			pst.setString(1, nome_cliente);
 			rs = pst.executeQuery();
-			String temp ="";
+			String temp = "";
 			while (rs.next()) {
-				
+
 				for (int i = 0; i < 28; i++) {
-					
-					if(String.valueOf(rs.getObject(i+1)).equals(""))
+
+					if (String.valueOf(rs.getObject(i + 1)).equals(""))
 						temp = temp.concat("null ");
 					else
-						temp = temp.concat(String.valueOf(rs.getObject(i+1)) + " ");
+						temp = temp.concat(String.valueOf(rs.getObject(i + 1))
+								+ " ");
 				}
-			
+
 			}
-			
+
 			return temp;
 		} catch (Exception e) {
 
-			e.printStackTrace();;
+			e.printStackTrace();
+			;
 		}
 		return null;
+	}
+
+	public void Modifica_Cliente(Cliente cliente, LinkedList mesi_vecchi,
+			LinkedList mesi_nuovi) {
+		String mese = null;
+		int i;
+
+		for (i = 0; i < 12; i++) {
+
+			switch (String.valueOf(i)) {
+			case "0":
+				mese = "gennaio";
+				System.out.println(mese);
+				break;
+
+			case "1":
+				mese = "febbraio";
+				System.out.println(mese);
+				break;
+
+			case "2":
+				mese = "marzo";
+				System.out.println(mese);
+				break;
+
+			case "3":
+				mese = "aprile";
+				System.out.println(mese);
+				break;
+
+			case "4":
+				mese = "maggio";
+				System.out.println(mese);
+				break;
+
+			case "5":
+				mese = "giugno";
+				System.out.println(mese);
+				break;
+
+			case "6":
+				mese = "luglio";
+				System.out.println(mese);
+				break;
+
+			case "7":
+				mese = "agosto";
+				System.out.println(mese);
+				break;
+
+			case "8":
+				mese = "settembre";
+				System.out.println(mese);
+				break;
+
+			case "9":
+				mese = "ottobre";
+				System.out.println(mese);
+				break;
+
+			case "10":
+				mese = "novembre";
+				System.out.println(mese);
+				break;
+
+			case "11":
+				mese = "dicembre";
+				System.out.println(mese);
+				break;
+
+			}
+
+			System.out.println("mese vecchio " + mesi_vecchi.get(i + 1));
+			System.out.println("mese vuovo " + mesi_nuovi.get(i));
+
+			if (String.valueOf(mesi_vecchi.get(i + 1)) == "true"
+					&& String.valueOf(mesi_nuovi.get(i)) == "true") {
+				// update gennaio
+				System.out.println("faccio update " + mese + " " + cliente
+						+ " " + mesi_vecchi.get(0));
+			} else if (String.valueOf(mesi_vecchi.get(i + 1)) == "true"
+					&& String.valueOf(mesi_nuovi.get(i)) == "false") {
+				// delete gennaio
+				System.out.println("faccio delete " + mese + " " + cliente
+						+ " " + mesi_vecchi.get(0));
+			}
+
+			else if (String.valueOf(mesi_vecchi.get(i + 1)) == "false"
+					&& String.valueOf(mesi_nuovi.get(i)) == "true") {
+				// insert gennaio
+				System.out.println("faccio insert " + mese + " " + cliente
+						+ " " + mesi_vecchi.get(0));
+			}
+
+			else if (String.valueOf(mesi_vecchi.get(i + 1)) == "false"
+					&& String.valueOf(mesi_nuovi.get(i)) == "false") {
+				// niente
+				System.out.println("nulla " + mese + " " + cliente + " "
+						+ mesi_vecchi.get(0));
+			}
+		}
+
 	}
 }

@@ -9,6 +9,7 @@ import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import General.Cliente;
 import General.Database;
 
 public class Modifica_Cliente extends JFrame {
@@ -16,6 +17,9 @@ public class Modifica_Cliente extends JFrame {
 	private JTextField text_Cliente, text_indirizzo, text_cap,
 	text_descrizione, text_descrizione_2, text_imponibile,
 	text_imposta;
+	private boolean gennaio,febbraio,marzo,aprile,maggio,giugno,luglio,agosto,settembre,ottobre,novembre,dicembre;
+	private LinkedList mesi_vecchi;
+	private LinkedList mesi_nuovi;
 	private JTextField text_cliente_2, text_città, text_piva, text_importo,
 	text_importo_2, text_iva, text_tot_fattura, text_tot_dovuto,
 	text_ritenuta;
@@ -336,21 +340,168 @@ public class Modifica_Cliente extends JFrame {
 			}
 
 			if (e.getSource() == btnSalva) {
+				
+				mesi_nuovi = new LinkedList();
+				String nome2, descrizione2;
+				double importo2, ritenuta, tot_dovuto;
 
-			}
-		}
+				if (combo_gen.getSelectedItem() == "Si") {
+					gennaio = true;
+					mesi_nuovi.add(true);
 
-	}
+				} else {
+					gennaio = false;
+					mesi_nuovi.add(false);
+				}
+				if (combo_feb.getSelectedItem() == "Si") {
+					febbraio = true;
+					mesi_nuovi.add(true);
+				} else {
+					mesi_nuovi.add(false);
+					febbraio = false;
+				}
+				if (combo_mar.getSelectedItem() == "Si") {
+					marzo = true;
+					mesi_nuovi.add(true);
+				} else {
+					mesi_nuovi.add(false);
+					marzo = false;
+				}
+				if (combo_apr.getSelectedItem() == "Si") {
+					aprile = true;
+					mesi_nuovi.add(true);
+				} else {
+					mesi_nuovi.add(false);
+					aprile = false;
+				}
+				if (combo_mag.getSelectedItem() == "Si") {
+					maggio = true;
+					mesi_nuovi.add(true);
+				} else {
+					mesi_nuovi.add(false);
+					maggio = false;
+				}
+				if (combo_giu.getSelectedItem() == "Si") {
+					giugno = true;
+					mesi_nuovi.add(true);
+				} else {
+					mesi_nuovi.add(false);
+					giugno = false;
+				}
+				if (combo_lug.getSelectedItem() == "Si") {
+					luglio = true;
+					mesi_nuovi.add(true);
+				} else {
+					mesi_nuovi.add(false);
+					luglio = false;
+				}
+				if (combo_ago.getSelectedItem() == "Si") {
+					agosto = true;
+					mesi_nuovi.add(true);
+				} else {
+					mesi_nuovi.add(false);
+					agosto = false;
+				}
+				if (combo_set.getSelectedItem() == "Si") {
+					settembre = true;
+					mesi_nuovi.add(true);
+				} else {
+					mesi_nuovi.add(false);
+					settembre = false;
+				}
+				if (combo_ott.getSelectedItem() == "Si") {
+					ottobre = true;
+					mesi_nuovi.add(true);
+				} else {
+					mesi_nuovi.add(false);
+					ottobre = false;
+				}
+				if (combo_nov.getSelectedItem() == "Si") {
+					novembre = true;
+					mesi_nuovi.add(true);
+				} else {
+					mesi_nuovi.add(false);
+					novembre = false;
+				}
+				if (combo_dic.getSelectedItem() == "Si") {
+					dicembre = true;
+					mesi_nuovi.add(true);
+				} else {
+					mesi_nuovi.add(false);
+					dicembre = false;
+				}
+
+				calcola();
+
+				String nome = text_Cliente.getText();
+				if (!text_cliente_2.getText().isEmpty()) {
+					nome2 = text_cliente_2.getText();
+				} else {
+					nome2 = "";
+				}
+				String indirizzo = text_indirizzo.getText();
+				String città = text_città.getText();
+				String cap = text_cap.getText();
+				String piva = text_piva.getText();
+				String descrizione = text_descrizione.getText();
+				double importo = Double.parseDouble(text_importo.getText());
+				if (!text_descrizione_2.getText().isEmpty()) {
+					descrizione2 = text_descrizione_2.getText();
+				} else {
+					descrizione2 = "";
+				}
+				if (!text_importo_2.getText().isEmpty()) {
+					importo2 = Double.parseDouble(text_importo_2.getText());
+				} else {
+					importo2 = 0.00;
+				}
+				double imponibile = Double.parseDouble(text_imponibile
+						.getText());
+				double iva = Double.parseDouble(text_iva.getText());
+				double imposta = Double.parseDouble(text_imposta.getText());
+				double tot_fattura = Double.parseDouble(text_tot_fattura
+						.getText());
+				if (!text_ritenuta.getText().isEmpty()) {
+					ritenuta = Double.parseDouble(text_ritenuta.getText());
+				} else {
+					ritenuta = 0.00;
+				}
+				if (!text_tot_dovuto.getText().isEmpty()) {
+					tot_dovuto = Double.parseDouble(text_tot_dovuto.getText());
+				} else {
+					tot_dovuto = 0.00;
+				}
+
+				Cliente cliente = new Cliente(nome, nome2, indirizzo, città,
+						cap, piva, descrizione, importo, descrizione2,
+						importo2, imponibile, iva, imposta, tot_fattura,
+						ritenuta, tot_dovuto, gennaio, febbraio, marzo, aprile,
+						maggio, giugno, luglio, agosto, settembre, ottobre,
+						novembre, dicembre);
+
+				try {
+					database.Modifica_Cliente(cliente,mesi_vecchi,mesi_nuovi);
+					JOptionPane.showMessageDialog(null, "cliente modificato");
+					dispose();
+					
+				} catch (Exception ee) {
+					JOptionPane.showMessageDialog(null,
+							"ERRORE cliente non modificato!");
+				}
+
+			}}}
 
 	private class ListSelection implements ListSelectionListener {
 
 		public void valueChanged(ListSelectionEvent e) {
-
+		
 			String nome_cliente = (String) list.getSelectedValue();
 			String dati = database.seleziona_modifica_cliente(nome_cliente);
-
+			mesi_vecchi = new LinkedList();
+			
 			StringTokenizer stk = new StringTokenizer(dati, " ");
 			text_Cliente.setText(stk.nextToken());
+			mesi_vecchi.add(nome_cliente);
 			String test = stk.nextToken();
 			if (test.equals("null")) {
 				text_cliente_2.setText("");
@@ -395,64 +546,126 @@ public class Modifica_Cliente extends JFrame {
 			}
 			if (Boolean.valueOf(stk.nextToken())) {
 				combo_gen.setSelectedItem("Si");
+				mesi_vecchi.add(true);
 			} else {
 				combo_gen.setSelectedItem("No");
+				mesi_vecchi.add(false);
 			}
 			if (Boolean.valueOf(stk.nextToken())) {
 				combo_feb.setSelectedItem("Si");
+				mesi_vecchi.add(true);
 			} else {
 				combo_feb.setSelectedItem("No");
+				mesi_vecchi.add(false);
 			}
 			if (Boolean.valueOf(stk.nextToken())) {
 				combo_mar.setSelectedItem("Si");
+				mesi_vecchi.add(true);
 			} else {
 				combo_mar.setSelectedItem("No");
+				mesi_vecchi.add(false);
 			}
 			if (Boolean.valueOf(stk.nextToken())) {
 				combo_apr.setSelectedItem("Si");
+				mesi_vecchi.add(true);
 			} else {
 				combo_apr.setSelectedItem("No");
+				mesi_vecchi.add(false);
 			}
 			if (Boolean.valueOf(stk.nextToken())) {
 				combo_mag.setSelectedItem("Si");
+				mesi_vecchi.add(true);
 			} else {
 				combo_mag.setSelectedItem("No");
+				mesi_vecchi.add(false);
 			}
 			if (Boolean.valueOf(stk.nextToken())) {
 				combo_giu.setSelectedItem("Si");
+				mesi_vecchi.add(true);
 			} else {
 				combo_giu.setSelectedItem("No");
+				mesi_vecchi.add(false);
 			}
 			if (Boolean.valueOf(stk.nextToken())) {
 				combo_lug.setSelectedItem("Si");
+				mesi_vecchi.add(true);
 			} else {
 				combo_lug.setSelectedItem("No");
+				mesi_vecchi.add(false);
 			}
 			if (Boolean.valueOf(stk.nextToken())) {
 				combo_ago.setSelectedItem("Si");
+				mesi_vecchi.add(true);
 			} else {
 				combo_ago.setSelectedItem("No");
+				mesi_vecchi.add(false);
 			}
 			if (Boolean.valueOf(stk.nextToken())) {
 				combo_set.setSelectedItem("Si");
+				mesi_vecchi.add(true);
 			} else {
 				combo_set.setSelectedItem("No");
+				mesi_vecchi.add(false);
 			}
 			if (Boolean.valueOf(stk.nextToken())) {
 				combo_ott.setSelectedItem("Si");
+				mesi_vecchi.add(true);
 			} else {
 				combo_ott.setSelectedItem("No");
+				mesi_vecchi.add(false);
 			}
 			if (Boolean.valueOf(stk.nextToken())) {
 				combo_nov.setSelectedItem("Si");
+				mesi_vecchi.add(true);
 			} else {
 				combo_nov.setSelectedItem("No");
+				mesi_vecchi.add(false);
 			}
 			if (Boolean.valueOf(stk.nextToken())) {
 				combo_dic.setSelectedItem("Si");
+				mesi_vecchi.add(true);
 			} else {
 				combo_dic.setSelectedItem("No");
+				mesi_vecchi.add(false);
 			}
+			System.out.println(dati);
+			System.out.println(mesi_vecchi);
 		}
 	}
+	
+	private void calcola() {
+
+		double importo2;
+		double importo = Double.parseDouble(text_importo.getText());
+		if (!text_importo_2.getText().isEmpty()) {
+			importo2 = Double.parseDouble(text_importo_2.getText());
+		} else {
+			importo2 = 0;
+		}
+		double imponibile = importo + importo2;
+		double iva = Double.parseDouble(text_iva.getText());
+		double imposta = imponibile * (iva / 100);
+		double totale_fattura = imponibile + imposta;
+
+		if (combo_ritenuta.getSelectedItem() == "Si") {
+			double ritenuta = imponibile * 0.04;
+			double totale_dovuto = totale_fattura - ritenuta;
+			ritenuta = Math.rint(ritenuta * 100) / 100;
+			totale_dovuto = Math.rint(totale_dovuto * 100) / 100;
+			text_ritenuta.setText(String.valueOf(ritenuta));
+			text_tot_dovuto.setText(String.valueOf(totale_dovuto));
+		} else {
+			text_ritenuta.setText("0.00");
+			text_tot_dovuto.setText("0.00");
+		}
+
+		imponibile = Math.rint(imponibile * 100) / 100;
+		imposta = Math.rint(imposta * 100) / 100;
+		totale_fattura = Math.rint(totale_fattura * 100) / 100;
+		text_imponibile.setText(String.valueOf(imponibile));
+		text_imposta.setText(String.valueOf(imposta));
+		text_tot_fattura.setText(String.valueOf(totale_fattura));
+	}
+
+
 }
