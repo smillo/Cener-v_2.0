@@ -17,7 +17,8 @@ public class Modifica_Cliente extends JFrame {
 	private JTextField text_Cliente, text_indirizzo, text_cap,
 	text_descrizione, text_descrizione_2, text_imponibile,
 	text_imposta;
-	private boolean gennaio,febbraio,marzo,aprile,maggio,giugno,luglio,agosto,settembre,ottobre,novembre,dicembre;
+	private boolean gennaio, febbraio, marzo, aprile, maggio, giugno, luglio,
+	agosto, settembre, ottobre, novembre, dicembre;
 	private LinkedList mesi_vecchi;
 	private LinkedList mesi_nuovi;
 	private JTextField text_cliente_2, text_città, text_piva, text_importo,
@@ -128,6 +129,7 @@ public class Modifica_Cliente extends JFrame {
 		text_imponibile = new JTextField();
 		text_imponibile.setBounds(88, 172, 172, 20);
 		getContentPane().add(text_imponibile);
+		text_imponibile.setEditable(false);
 		text_imponibile.setColumns(10);
 
 		text_imposta = new JTextField();
@@ -310,7 +312,6 @@ public class Modifica_Cliente extends JFrame {
 		combo_dic.setBounds(464, 315, 46, 20);
 		getContentPane().add(combo_dic);
 
-
 		btnIndietro = new JButton("Indietro");
 		btnIndietro.setBounds(296, 368, 89, 23);
 		getContentPane().add(btnIndietro);
@@ -340,7 +341,7 @@ public class Modifica_Cliente extends JFrame {
 			}
 
 			if (e.getSource() == btnSalva) {
-				
+
 				mesi_nuovi = new LinkedList();
 				String nome2, descrizione2;
 				double importo2, ritenuta, tot_dovuto;
@@ -472,33 +473,36 @@ public class Modifica_Cliente extends JFrame {
 					tot_dovuto = 0.00;
 				}
 
-				Cliente cliente_nuovo = new Cliente(nome, nome2, indirizzo, città,
-						cap, piva, descrizione, importo, descrizione2,
+				Cliente cliente_nuovo = new Cliente(nome, nome2, indirizzo,
+						città, cap, piva, descrizione, importo, descrizione2,
 						importo2, imponibile, iva, imposta, tot_fattura,
 						ritenuta, tot_dovuto, gennaio, febbraio, marzo, aprile,
 						maggio, giugno, luglio, agosto, settembre, ottobre,
 						novembre, dicembre);
 
 				try {
-					database.Modifica_Cliente(cliente_nuovo,mesi_vecchi,mesi_nuovi);
+					database.Modifica_Cliente(cliente_nuovo, mesi_vecchi,
+							mesi_nuovi);
 					JOptionPane.showMessageDialog(null, "cliente modificato");
 					dispose();
-					
+
 				} catch (Exception ee) {
 					JOptionPane.showMessageDialog(null,
 							"ERRORE cliente non modificato!");
 				}
 
-			}}}
+			}
+		}
+	}
 
 	private class ListSelection implements ListSelectionListener {
 
 		public void valueChanged(ListSelectionEvent e) {
-		
+
 			String nome_cliente = (String) list.getSelectedValue();
 			String dati = database.seleziona_modifica_cliente(nome_cliente);
 			mesi_vecchi = new LinkedList();
-			
+
 			StringTokenizer stk = new StringTokenizer(dati, " ");
 			text_Cliente.setText(stk.nextToken());
 			mesi_vecchi.add(nome_cliente);
@@ -628,11 +632,10 @@ public class Modifica_Cliente extends JFrame {
 				combo_dic.setSelectedItem("No");
 				mesi_vecchi.add(false);
 			}
-			System.out.println(dati);
-			System.out.println(mesi_vecchi);
+
 		}
 	}
-	
+
 	private void calcola() {
 
 		double importo2;
@@ -666,6 +669,5 @@ public class Modifica_Cliente extends JFrame {
 		text_imposta.setText(String.valueOf(imposta));
 		text_tot_fattura.setText(String.valueOf(totale_fattura));
 	}
-
 
 }

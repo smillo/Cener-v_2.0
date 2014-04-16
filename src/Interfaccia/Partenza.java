@@ -2431,6 +2431,5 @@ public class Partenza extends JFrame {
 
 		}
 	}
-	
-	
+
 }

@@ -433,8 +433,7 @@ public class Database {
 		PreparedStatement pst = null;
 		try {
 			ArrayList<String> list = new ArrayList<String>();
-			pst = connection
-					.prepareStatement("SELECT cliente FROM gennaio");
+			pst = connection.prepareStatement("SELECT cliente FROM gennaio");
 
 			rs = pst.executeQuery();
 
@@ -457,8 +456,7 @@ public class Database {
 		PreparedStatement pst = null;
 		try {
 			ArrayList<String> list = new ArrayList<String>();
-			pst = connection
-					.prepareStatement("SELECT cliente FROM febbraio");
+			pst = connection.prepareStatement("SELECT cliente FROM febbraio");
 
 			rs = pst.executeQuery();
 
@@ -481,8 +479,7 @@ public class Database {
 		PreparedStatement pst = null;
 		try {
 			ArrayList<String> list = new ArrayList<String>();
-			pst = connection
-					.prepareStatement("SELECT cliente FROM marzo");
+			pst = connection.prepareStatement("SELECT cliente FROM marzo");
 
 			rs = pst.executeQuery();
 
@@ -505,8 +502,7 @@ public class Database {
 		PreparedStatement pst = null;
 		try {
 			ArrayList<String> list = new ArrayList<String>();
-			pst = connection
-					.prepareStatement("SELECT cliente FROM aprile");
+			pst = connection.prepareStatement("SELECT cliente FROM aprile");
 
 			rs = pst.executeQuery();
 
@@ -529,8 +525,7 @@ public class Database {
 		PreparedStatement pst = null;
 		try {
 			ArrayList<String> list = new ArrayList<String>();
-			pst = connection
-					.prepareStatement("SELECT cliente FROM maggio");
+			pst = connection.prepareStatement("SELECT cliente FROM maggio");
 
 			rs = pst.executeQuery();
 
@@ -553,8 +548,7 @@ public class Database {
 		PreparedStatement pst = null;
 		try {
 			ArrayList<String> list = new ArrayList<String>();
-			pst = connection
-					.prepareStatement("SELECT cliente FROM giugno");
+			pst = connection.prepareStatement("SELECT cliente FROM giugno");
 
 			rs = pst.executeQuery();
 
@@ -577,8 +571,7 @@ public class Database {
 		PreparedStatement pst = null;
 		try {
 			ArrayList<String> list = new ArrayList<String>();
-			pst = connection
-					.prepareStatement("SELECT cliente FROM luglio");
+			pst = connection.prepareStatement("SELECT cliente FROM luglio");
 
 			rs = pst.executeQuery();
 
@@ -601,8 +594,7 @@ public class Database {
 		PreparedStatement pst = null;
 		try {
 			ArrayList<String> list = new ArrayList<String>();
-			pst = connection
-					.prepareStatement("SELECT cliente FROM agosto ");
+			pst = connection.prepareStatement("SELECT cliente FROM agosto ");
 
 			rs = pst.executeQuery();
 
@@ -625,8 +617,7 @@ public class Database {
 		PreparedStatement pst = null;
 		try {
 			ArrayList<String> list = new ArrayList<String>();
-			pst = connection
-					.prepareStatement("SELECT cliente FROM settembre");
+			pst = connection.prepareStatement("SELECT cliente FROM settembre");
 
 			rs = pst.executeQuery();
 
@@ -649,8 +640,7 @@ public class Database {
 		PreparedStatement pst = null;
 		try {
 			ArrayList<String> list = new ArrayList<String>();
-			pst = connection
-					.prepareStatement("SELECT cliente FROM ottobre");
+			pst = connection.prepareStatement("SELECT cliente FROM ottobre");
 
 			rs = pst.executeQuery();
 
@@ -673,8 +663,7 @@ public class Database {
 		PreparedStatement pst = null;
 		try {
 			ArrayList<String> list = new ArrayList<String>();
-			pst = connection
-					.prepareStatement("SELECT cliente FROM novembre");
+			pst = connection.prepareStatement("SELECT cliente FROM novembre");
 
 			rs = pst.executeQuery();
 
@@ -697,8 +686,7 @@ public class Database {
 		PreparedStatement pst = null;
 		try {
 			ArrayList<String> list = new ArrayList<String>();
-			pst = connection
-					.prepareStatement("SELECT cliente FROM dicembre ");
+			pst = connection.prepareStatement("SELECT cliente FROM dicembre ");
 
 			rs = pst.executeQuery();
 
@@ -752,9 +740,9 @@ public class Database {
 		String mese = null;
 		int i;
 
-		PreparedStatement prep=null;
+		PreparedStatement prep = null;
 		try {
-			System.out.println("entro in try per query generale");
+
 			prep = connection
 					.prepareStatement("UPDATE cliente SET cliente = ?, cliente2 = ?, indirizzo = ?, città = ?, cap = ?, partitaIva = ?, descrizione = ?, importo = ?, descrizione2 = ?, importo2 = ?, imponibile = ?, iva = ?, imposta = ?, totale_fattura = ?, ritenuta = ?, totale_dovuto = ? ,gennaio = ?,febbraio = ?,marzo = ?,aprile = ?,maggio = ?,giugno = ?,luglio = ?,agosto = ?,settembre = ?,ottobre = ?,novembre = ?,dicembre = ? where cliente = ?");
 			prep.setString(1, cliente.getNome());
@@ -791,83 +779,82 @@ public class Database {
 			e.printStackTrace();
 
 		}
-		
+
 		for (i = 0; i < 12; i++) {
 
 			switch (String.valueOf(i)) {
 			case "0":
 				mese = "gennaio";
-				System.out.println(mese);
+
 				break;
 
 			case "1":
 				mese = "febbraio";
-				System.out.println(mese);
+
 				break;
 
 			case "2":
 				mese = "marzo";
-				System.out.println(mese);
+
 				break;
 
 			case "3":
 				mese = "aprile";
-				System.out.println(mese);
+
 				break;
 
 			case "4":
 				mese = "maggio";
-				System.out.println(mese);
+
 				break;
 
 			case "5":
 				mese = "giugno";
-				System.out.println(mese);
+
 				break;
 
 			case "6":
 				mese = "luglio";
-				System.out.println(mese);
+
 				break;
 
 			case "7":
 				mese = "agosto";
-				System.out.println(mese);
+
 				break;
 
 			case "8":
 				mese = "settembre";
-				System.out.println(mese);
+
 				break;
 
 			case "9":
 				mese = "ottobre";
-				System.out.println(mese);
+
 				break;
 
 			case "10":
 				mese = "novembre";
-				System.out.println(mese);
+
 				break;
 
 			case "11":
 				mese = "dicembre";
-				System.out.println(mese);
+
 				break;
 
 			}
-			
-			
 
 			if (String.valueOf(mesi_vecchi.get(i + 1)) == "true"
 					&& String.valueOf(mesi_nuovi.get(i)) == "true") {
-				PreparedStatement pst=null;
-				System.out.println(mesi_vecchi.get(0));
-				System.out.println(mese);
+				PreparedStatement pst = null;
+
 				try {
-					System.out.println("entro in try per query");
+
 					pst = connection
-							.prepareStatement("UPDATE "+mese+" SET cliente = ?, cliente2 = ?, indirizzo = ?, città = ?, cap = ?, partitaIva = ?, descrizione = ?, importo = ?, descrizione2 = ?, importo2 = ?, imponibile = ?, iva = ?, imposta = ?, totale_fattura = ?, ritenuta = ?, totale_dovuto = ? where cliente = ?");
+							.prepareStatement("UPDATE "
+									+ mese
+									+ " SET cliente = ?, cliente2 = ?, indirizzo = ?, città = ?, cap = ?, partitaIva = ?, descrizione = ?, importo = ?, descrizione2 = ?, importo2 = ?, imponibile = ?, iva = ?, imposta = ?, totale_fattura = ?, ritenuta = ?, totale_dovuto = ? where cliente = ?");
 					pst.setString(1, cliente.getNome());
 					pst.setString(2, cliente.getNome2());
 					pst.setString(3, cliente.getIndirizzo());
@@ -891,34 +878,31 @@ public class Database {
 
 				}
 
-				
 			} else if (String.valueOf(mesi_vecchi.get(i + 1)) == "true"
 					&& String.valueOf(mesi_nuovi.get(i)) == "false") {
-				PreparedStatement pst=null;
-				System.out.println(mesi_vecchi.get(0));
-				System.out.println(mese);
+				PreparedStatement pst = null;
+
 				try {
-					System.out.println("entro in try per query");
-					pst = connection
-							.prepareStatement("DELETE FROM "+mese+" where cliente = ?");
+
+					pst = connection.prepareStatement("DELETE FROM " + mese
+							+ " where cliente = ?");
 					pst.setString(1, String.valueOf(mesi_vecchi.get(0)));
 					pst.executeUpdate();
 				} catch (Exception e) {
 					e.printStackTrace();
 
 				}
-				
+
 			}
 
 			else if (String.valueOf(mesi_vecchi.get(i + 1)) == "false"
 					&& String.valueOf(mesi_nuovi.get(i)) == "true") {
-				PreparedStatement pst=null;
-				System.out.println(mesi_vecchi.get(0));
-				System.out.println(mese);
+				PreparedStatement pst = null;
+
 				try {
-					System.out.println("entro in try per query");
-					pst = connection
-							.prepareStatement("INSERT INTO "+mese+" VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+
+					pst = connection.prepareStatement("INSERT INTO " + mese
+							+ " VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
 					pst.setString(1, cliente.getNome());
 					pst.setString(2, cliente.getNome2());
 					pst.setString(3, cliente.getIndirizzo());
@@ -935,19 +919,19 @@ public class Database {
 					pst.setDouble(14, cliente.getTot_fattura());
 					pst.setDouble(15, cliente.getRitenuta());
 					pst.setDouble(16, cliente.getTot_dovuto());
-					
+
 					pst.executeUpdate();
 				} catch (Exception e) {
 					e.printStackTrace();
 
 				}
-				
+
 			}
 
 			else if (String.valueOf(mesi_vecchi.get(i + 1)) == "false"
 					&& String.valueOf(mesi_nuovi.get(i)) == "false") {
 				// niente
-				
+
 			}
 		}
 

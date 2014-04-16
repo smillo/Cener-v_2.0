@@ -18,7 +18,7 @@ public class Fattura_Singola extends JFrame {
 	private JComboBox combo_ritenuta, combo_giorno, combo_mese, combo_anno;
 	private JButton btnIndietro, btnStampa;
 	private Database database;
-	
+
 	public Fattura_Singola(Database database) {
 		this.database = database;
 		getContentPane().setLayout(null);

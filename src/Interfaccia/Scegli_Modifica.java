@@ -11,17 +11,15 @@ import javax.swing.JTextField;
 
 import General.Database;
 
-public class Scegli_Modifica extends JFrame{
+public class Scegli_Modifica extends JFrame {
 	private JButton btnSempre, btnMese;
 	private Database database;
 	private JComboBox combo_mese;
 
-	 public Scegli_Modifica(Database database) {
+	public Scegli_Modifica(Database database) {
 		this.database = database;
 		getContentPane().setLayout(null);
 		setBounds(10, 10, 360, 290);
-
-		
 
 		combo_mese = new JComboBox();
 		combo_mese.addItem("Gennaio");
