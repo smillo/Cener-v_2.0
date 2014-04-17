@@ -938,7 +938,7 @@ public class Database {
 	}
 
 	public void elimina_Cliente(String nome_cliente) {
-		
+
 		PreparedStatement prep = null;
 		try {
 
@@ -995,32 +995,31 @@ public class Database {
 			prep.setString(1, nome_cliente);
 			prep.executeUpdate();
 			JOptionPane.showMessageDialog(null, "cliente eliminato per sempre");
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 
 		}
 
-		
 	}
 
 	public void elimina_Cliente_mese(String nome_cliente, String mese) {
-		
+
 		PreparedStatement prep = null;
 		try {
 
-			prep = connection
-					.prepareStatement("DELETE from "+mese+" where cliente = ?");
-			
+			prep = connection.prepareStatement("DELETE from " + mese
+					+ " where cliente = ?");
+
 			prep.setString(1, nome_cliente);
-			
-			JOptionPane.showMessageDialog(null, "cliente eliminato da "+mese);
+
+			JOptionPane.showMessageDialog(null, "cliente eliminato da " + mese);
 			prep.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
 
 		}
-		
+
 	}
 
 	public void Modifica_Cliente_mese(String nome, String nome2,
@@ -1029,14 +1028,16 @@ public class Database {
 			double importo2, double imponibile, double iva, double imposta,
 			double tot_fattura, double ritenuta, double tot_dovuto,
 			String mese, String nome_cliente) {
-		
-		
+
 		PreparedStatement pst = null;
 
 		try {
-			
-			pst = connection.prepareStatement("UPDATE "+mese+" SET cliente = ?, cliente2 = ?, indirizzo = ?, città = ?, cap = ?, partitaIva = ?, descrizione = ?, importo = ?, descrizione2 = ?, importo2 = ?, imponibile = ?, iva = ?, imposta = ?, totale_fattura = ?, ritenuta = ?, totale_dovuto = ? where cliente = ?");
-			pst.setString(1,nome);
+
+			pst = connection
+					.prepareStatement("UPDATE "
+							+ mese
+							+ " SET cliente = ?, cliente2 = ?, indirizzo = ?, città = ?, cap = ?, partitaIva = ?, descrizione = ?, importo = ?, descrizione2 = ?, importo2 = ?, imponibile = ?, iva = ?, imposta = ?, totale_fattura = ?, ritenuta = ?, totale_dovuto = ? where cliente = ?");
+			pst.setString(1, nome);
 			pst.setString(2, nome2);
 			pst.setString(3, indirizzo);
 			pst.setString(4, città);
@@ -1044,7 +1045,7 @@ public class Database {
 			pst.setString(6, piva);
 			pst.setString(7, descrizione);
 			pst.setDouble(8, importo);
-			pst.setString(9,descrizione2);
+			pst.setString(9, descrizione2);
 			pst.setDouble(10, importo2);
 			pst.setDouble(11, imponibile);
 			pst.setDouble(12, iva);
@@ -1054,16 +1055,799 @@ public class Database {
 			pst.setDouble(16, tot_dovuto);
 			pst.setString(17, nome_cliente);
 			pst.executeUpdate();
-			
-			
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 
 		}
-		
+
 	}
 
-		
-		
+	public void nuovo_anno() {
+
+		PreparedStatement prep = null;
+		try {
+
+			prep = connection.prepareStatement("DROP TABLE gennaio;");
+			prep.executeUpdate();
+
+			prep = connection.prepareStatement("DROP TABLE febbraio;");
+
+			prep.executeUpdate();
+			prep = connection.prepareStatement("DROP TABLE marzo;");
+
+			prep.executeUpdate();
+			prep = connection.prepareStatement("DROP TABLE aprile;");
+
+			prep.executeUpdate();
+			prep = connection.prepareStatement("DROP TABLE maggio;");
+
+			prep.executeUpdate();
+			prep = connection.prepareStatement("DROP TABLE giugno;");
+
+			prep.executeUpdate();
+			prep = connection.prepareStatement("DROP TABLE luglio;");
+
+			prep.executeUpdate();
+			prep = connection.prepareStatement("DROP TABLE agosto;");
+
+			prep.executeUpdate();
+			prep = connection.prepareStatement("DROP TABLE settembre;");
+
+			prep.executeUpdate();
+			prep = connection.prepareStatement("DROP TABLE ottobre;");
+
+			prep.executeUpdate();
+			prep = connection.prepareStatement("DROP TABLE novembre;");
+
+			prep.executeUpdate();
+			prep = connection.prepareStatement("DROP TABLE dicembre;");
+
+			prep.executeUpdate();
+
+			prep = connection
+					.prepareStatement("CREATE TABLE gennaio(cliente varchar(40) NOT NULL,cliente2 varchar(40) DEFAULT NULL,indirizzo varchar(40) DEFAULT NULL,città varchar(20) DEFAULT NULL,cap varchar(10) DEFAULT NULL,partitaIva varchar(20) DEFAULT NULL,descrizione varchar(300) DEFAULT NULL,importo varchar(8) DEFAULT NULL,descrizione2 varchar(200) DEFAULT NULL,importo2 varchar(8) DEFAULT NULL,imponibile varchar(8) DEFAULT NULL,iva int(11) DEFAULT NULL,imposta varchar(8) DEFAULT NULL,totale_fattura varchar(8) DEFAULT NULL,ritenuta varchar(8) DEFAULT NULL,totale_dovuto varchar(8) DEFAULT NULL,PRIMARY KEY (cliente));");
+			prep.executeUpdate();
+
+			prep = connection
+					.prepareStatement("CREATE TABLE febbraio(cliente varchar(40) NOT NULL,cliente2 varchar(40) DEFAULT NULL,indirizzo varchar(40) DEFAULT NULL,città varchar(20) DEFAULT NULL,cap varchar(10) DEFAULT NULL,partitaIva varchar(20) DEFAULT NULL,descrizione varchar(300) DEFAULT NULL,importo varchar(8) DEFAULT NULL,descrizione2 varchar(200) DEFAULT NULL,importo2 varchar(8) DEFAULT NULL,imponibile varchar(8) DEFAULT NULL,iva int(11) DEFAULT NULL,imposta varchar(8) DEFAULT NULL,totale_fattura varchar(8) DEFAULT NULL,ritenuta varchar(8) DEFAULT NULL,totale_dovuto varchar(8) DEFAULT NULL,PRIMARY KEY (cliente));");
+			prep.executeUpdate();
+
+			prep = connection
+					.prepareStatement("CREATE TABLE marzo(cliente varchar(40) NOT NULL,cliente2 varchar(40) DEFAULT NULL,indirizzo varchar(40) DEFAULT NULL,città varchar(20) DEFAULT NULL,cap varchar(10) DEFAULT NULL,partitaIva varchar(20) DEFAULT NULL,descrizione varchar(300) DEFAULT NULL,importo varchar(8) DEFAULT NULL,descrizione2 varchar(200) DEFAULT NULL,importo2 varchar(8) DEFAULT NULL,imponibile varchar(8) DEFAULT NULL,iva int(11) DEFAULT NULL,imposta varchar(8) DEFAULT NULL,totale_fattura varchar(8) DEFAULT NULL,ritenuta varchar(8) DEFAULT NULL,totale_dovuto varchar(8) DEFAULT NULL,PRIMARY KEY (cliente));");
+			prep.executeUpdate();
+
+			prep = connection
+					.prepareStatement("CREATE TABLE aprile(cliente varchar(40) NOT NULL,cliente2 varchar(40) DEFAULT NULL,indirizzo varchar(40) DEFAULT NULL,città varchar(20) DEFAULT NULL,cap varchar(10) DEFAULT NULL,partitaIva varchar(20) DEFAULT NULL,descrizione varchar(300) DEFAULT NULL,importo varchar(8) DEFAULT NULL,descrizione2 varchar(200) DEFAULT NULL,importo2 varchar(8) DEFAULT NULL,imponibile varchar(8) DEFAULT NULL,iva int(11) DEFAULT NULL,imposta varchar(8) DEFAULT NULL,totale_fattura varchar(8) DEFAULT NULL,ritenuta varchar(8) DEFAULT NULL,totale_dovuto varchar(8) DEFAULT NULL,PRIMARY KEY (cliente));");
+			prep.executeUpdate();
+
+			prep = connection
+					.prepareStatement("CREATE TABLE maggio(cliente varchar(40) NOT NULL,cliente2 varchar(40) DEFAULT NULL,indirizzo varchar(40) DEFAULT NULL,città varchar(20) DEFAULT NULL,cap varchar(10) DEFAULT NULL,partitaIva varchar(20) DEFAULT NULL,descrizione varchar(300) DEFAULT NULL,importo varchar(8) DEFAULT NULL,descrizione2 varchar(200) DEFAULT NULL,importo2 varchar(8) DEFAULT NULL,imponibile varchar(8) DEFAULT NULL,iva int(11) DEFAULT NULL,imposta varchar(8) DEFAULT NULL,totale_fattura varchar(8) DEFAULT NULL,ritenuta varchar(8) DEFAULT NULL,totale_dovuto varchar(8) DEFAULT NULL,PRIMARY KEY (cliente));");
+			prep.executeUpdate();
+
+			prep = connection
+					.prepareStatement("CREATE TABLE giugno(cliente varchar(40) NOT NULL,cliente2 varchar(40) DEFAULT NULL,indirizzo varchar(40) DEFAULT NULL,città varchar(20) DEFAULT NULL,cap varchar(10) DEFAULT NULL,partitaIva varchar(20) DEFAULT NULL,descrizione varchar(300) DEFAULT NULL,importo varchar(8) DEFAULT NULL,descrizione2 varchar(200) DEFAULT NULL,importo2 varchar(8) DEFAULT NULL,imponibile varchar(8) DEFAULT NULL,iva int(11) DEFAULT NULL,imposta varchar(8) DEFAULT NULL,totale_fattura varchar(8) DEFAULT NULL,ritenuta varchar(8) DEFAULT NULL,totale_dovuto varchar(8) DEFAULT NULL,PRIMARY KEY (cliente));");
+			prep.executeUpdate();
+
+			prep = connection
+					.prepareStatement("CREATE TABLE luglio(cliente varchar(40) NOT NULL,cliente2 varchar(40) DEFAULT NULL,indirizzo varchar(40) DEFAULT NULL,città varchar(20) DEFAULT NULL,cap varchar(10) DEFAULT NULL,partitaIva varchar(20) DEFAULT NULL,descrizione varchar(300) DEFAULT NULL,importo varchar(8) DEFAULT NULL,descrizione2 varchar(200) DEFAULT NULL,importo2 varchar(8) DEFAULT NULL,imponibile varchar(8) DEFAULT NULL,iva int(11) DEFAULT NULL,imposta varchar(8) DEFAULT NULL,totale_fattura varchar(8) DEFAULT NULL,ritenuta varchar(8) DEFAULT NULL,totale_dovuto varchar(8) DEFAULT NULL,PRIMARY KEY (cliente));");
+			prep.executeUpdate();
+
+			prep = connection
+					.prepareStatement("CREATE TABLE agosto(cliente varchar(40) NOT NULL,cliente2 varchar(40) DEFAULT NULL,indirizzo varchar(40) DEFAULT NULL,città varchar(20) DEFAULT NULL,cap varchar(10) DEFAULT NULL,partitaIva varchar(20) DEFAULT NULL,descrizione varchar(300) DEFAULT NULL,importo varchar(8) DEFAULT NULL,descrizione2 varchar(200) DEFAULT NULL,importo2 varchar(8) DEFAULT NULL,imponibile varchar(8) DEFAULT NULL,iva int(11) DEFAULT NULL,imposta varchar(8) DEFAULT NULL,totale_fattura varchar(8) DEFAULT NULL,ritenuta varchar(8) DEFAULT NULL,totale_dovuto varchar(8) DEFAULT NULL,PRIMARY KEY (cliente));");
+			prep.executeUpdate();
+
+			prep = connection
+					.prepareStatement("CREATE TABLE settembre(cliente varchar(40) NOT NULL,cliente2 varchar(40) DEFAULT NULL,indirizzo varchar(40) DEFAULT NULL,città varchar(20) DEFAULT NULL,cap varchar(10) DEFAULT NULL,partitaIva varchar(20) DEFAULT NULL,descrizione varchar(300) DEFAULT NULL,importo varchar(8) DEFAULT NULL,descrizione2 varchar(200) DEFAULT NULL,importo2 varchar(8) DEFAULT NULL,imponibile varchar(8) DEFAULT NULL,iva int(11) DEFAULT NULL,imposta varchar(8) DEFAULT NULL,totale_fattura varchar(8) DEFAULT NULL,ritenuta varchar(8) DEFAULT NULL,totale_dovuto varchar(8) DEFAULT NULL,PRIMARY KEY (cliente));");
+			prep.executeUpdate();
+
+			prep = connection
+					.prepareStatement("CREATE TABLE ottobre(cliente varchar(40) NOT NULL,cliente2 varchar(40) DEFAULT NULL,indirizzo varchar(40) DEFAULT NULL,città varchar(20) DEFAULT NULL,cap varchar(10) DEFAULT NULL,partitaIva varchar(20) DEFAULT NULL,descrizione varchar(300) DEFAULT NULL,importo varchar(8) DEFAULT NULL,descrizione2 varchar(200) DEFAULT NULL,importo2 varchar(8) DEFAULT NULL,imponibile varchar(8) DEFAULT NULL,iva int(11) DEFAULT NULL,imposta varchar(8) DEFAULT NULL,totale_fattura varchar(8) DEFAULT NULL,ritenuta varchar(8) DEFAULT NULL,totale_dovuto varchar(8) DEFAULT NULL,PRIMARY KEY (cliente));");
+			prep.executeUpdate();
+
+			prep = connection
+					.prepareStatement("CREATE TABLE novembre(cliente varchar(40) NOT NULL,cliente2 varchar(40) DEFAULT NULL,indirizzo varchar(40) DEFAULT NULL,città varchar(20) DEFAULT NULL,cap varchar(10) DEFAULT NULL,partitaIva varchar(20) DEFAULT NULL,descrizione varchar(300) DEFAULT NULL,importo varchar(8) DEFAULT NULL,descrizione2 varchar(200) DEFAULT NULL,importo2 varchar(8) DEFAULT NULL,imponibile varchar(8) DEFAULT NULL,iva int(11) DEFAULT NULL,imposta varchar(8) DEFAULT NULL,totale_fattura varchar(8) DEFAULT NULL,ritenuta varchar(8) DEFAULT NULL,totale_dovuto varchar(8) DEFAULT NULL,PRIMARY KEY (cliente));");
+			prep.executeUpdate();
+
+			prep = connection
+					.prepareStatement("CREATE TABLE dicembre(cliente varchar(40) NOT NULL,cliente2 varchar(40) DEFAULT NULL,indirizzo varchar(40) DEFAULT NULL,città varchar(20) DEFAULT NULL,cap varchar(10) DEFAULT NULL,partitaIva varchar(20) DEFAULT NULL,descrizione varchar(300) DEFAULT NULL,importo varchar(8) DEFAULT NULL,descrizione2 varchar(200) DEFAULT NULL,importo2 varchar(8) DEFAULT NULL,imponibile varchar(8) DEFAULT NULL,iva int(11) DEFAULT NULL,imposta varchar(8) DEFAULT NULL,totale_fattura varchar(8) DEFAULT NULL,ritenuta varchar(8) DEFAULT NULL,totale_dovuto varchar(8) DEFAULT NULL,PRIMARY KEY (cliente));");
+			prep.executeUpdate();
+			ResultSet rs;
+			for (int i = 0; i < 12; i++) {
+
+				switch (String.valueOf(i)) {
+
+				case "0":
+
+					
+
+					try {
+
+						prep = connection
+								.prepareStatement("SELECT cliente,cliente2,indirizzo,città,cap,partitaIva,descrizione,importo,descrizione2,importo2,imponibile,iva,imposta,totale_fattura,ritenuta,totale_dovuto FROM cliente where gennaio = true");
+
+						rs = prep.executeQuery();
+
+						while (rs.next()) {
+							String a = rs.getString(1);
+							String b = rs.getString(2);
+							String c = rs.getString(3);
+							String d = rs.getString(4);
+							String e = rs.getString(5);
+							String f = rs.getString(6);
+							String g = rs.getString(7);
+							double h = rs.getDouble(8);
+							String l = rs.getString(9);
+							double m = rs.getDouble(10);
+							double n = rs.getDouble(11);
+							double o = rs.getDouble(12);
+							double p = rs.getDouble(13);
+							double q = rs.getDouble(14);
+							double r = rs.getDouble(15);
+							double s = rs.getDouble(16);
+
+							prep = connection
+									.prepareStatement("INSERT INTO gennaio VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+
+							prep.setString(1, a);
+							prep.setString(2, b);
+							prep.setString(3, c);
+							prep.setString(4, d);
+							prep.setString(5, e);
+							prep.setString(6, f);
+							prep.setString(7, g);
+							prep.setDouble(8, h);
+							prep.setString(9, l);
+							prep.setDouble(10, m);
+							prep.setDouble(11, n);
+							prep.setDouble(12, o);
+							prep.setDouble(13, p);
+							prep.setDouble(14, q);
+							prep.setDouble(15, r);
+							prep.setDouble(16, s);
+							prep.executeUpdate();
+						}
+
+					} catch (Exception e) {
+
+						e.printStackTrace();
+					}
+
+					break;
+
+				case "1":
+					
+
+					try {
+
+						prep = connection
+								.prepareStatement("SELECT cliente,cliente2,indirizzo,città,cap,partitaIva,descrizione,importo,descrizione2,importo2,imponibile,iva,imposta,totale_fattura,ritenuta,totale_dovuto FROM cliente where febbraio = true");
+
+						rs = prep.executeQuery();
+
+						while (rs.next()) {
+							String a = rs.getString(1);
+							String b = rs.getString(2);
+							String c = rs.getString(3);
+							String d = rs.getString(4);
+							String e = rs.getString(5);
+							String f = rs.getString(6);
+							String g = rs.getString(7);
+							double h = rs.getDouble(8);
+							String l = rs.getString(9);
+							double m = rs.getDouble(10);
+							double n = rs.getDouble(11);
+							double o = rs.getDouble(12);
+							double p = rs.getDouble(13);
+							double q = rs.getDouble(14);
+							double r = rs.getDouble(15);
+							double s = rs.getDouble(16);
+
+							prep = connection
+									.prepareStatement("INSERT INTO febbraio VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+
+							prep.setString(1, a);
+							prep.setString(2, b);
+							prep.setString(3, c);
+							prep.setString(4, d);
+							prep.setString(5, e);
+							prep.setString(6, f);
+							prep.setString(7, g);
+							prep.setDouble(8, h);
+							prep.setString(9, l);
+							prep.setDouble(10, m);
+							prep.setDouble(11, n);
+							prep.setDouble(12, o);
+							prep.setDouble(13, p);
+							prep.setDouble(14, q);
+							prep.setDouble(15, r);
+							prep.setDouble(16, s);
+							prep.executeUpdate();
+						}
+
+					} catch (Exception e) {
+
+						e.printStackTrace();
+					}
+
+					break;
+
+				case "2":
+					
+
+					try {
+
+						prep = connection
+								.prepareStatement("SELECT cliente,cliente2,indirizzo,città,cap,partitaIva,descrizione,importo,descrizione2,importo2,imponibile,iva,imposta,totale_fattura,ritenuta,totale_dovuto FROM cliente where marzo = true");
+
+						rs = prep.executeQuery();
+
+						while (rs.next()) {
+							String a = rs.getString(1);
+							String b = rs.getString(2);
+							String c = rs.getString(3);
+							String d = rs.getString(4);
+							String e = rs.getString(5);
+							String f = rs.getString(6);
+							String g = rs.getString(7);
+							double h = rs.getDouble(8);
+							String l = rs.getString(9);
+							double m = rs.getDouble(10);
+							double n = rs.getDouble(11);
+							double o = rs.getDouble(12);
+							double p = rs.getDouble(13);
+							double q = rs.getDouble(14);
+							double r = rs.getDouble(15);
+							double s = rs.getDouble(16);
+
+							prep = connection
+									.prepareStatement("INSERT INTO marzo VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+
+							prep.setString(1, a);
+							prep.setString(2, b);
+							prep.setString(3, c);
+							prep.setString(4, d);
+							prep.setString(5, e);
+							prep.setString(6, f);
+							prep.setString(7, g);
+							prep.setDouble(8, h);
+							prep.setString(9, l);
+							prep.setDouble(10, m);
+							prep.setDouble(11, n);
+							prep.setDouble(12, o);
+							prep.setDouble(13, p);
+							prep.setDouble(14, q);
+							prep.setDouble(15, r);
+							prep.setDouble(16, s);
+							prep.executeUpdate();
+						}
+
+					} catch (Exception e) {
+
+						e.printStackTrace();
+					}
+
+					break;
+
+				case "3":
+					
+
+					try {
+
+						prep = connection
+								.prepareStatement("SELECT cliente,cliente2,indirizzo,città,cap,partitaIva,descrizione,importo,descrizione2,importo2,imponibile,iva,imposta,totale_fattura,ritenuta,totale_dovuto FROM cliente where aprile = true");
+
+						rs = prep.executeQuery();
+
+						while (rs.next()) {
+							String a = rs.getString(1);
+							String b = rs.getString(2);
+							String c = rs.getString(3);
+							String d = rs.getString(4);
+							String e = rs.getString(5);
+							String f = rs.getString(6);
+							String g = rs.getString(7);
+							double h = rs.getDouble(8);
+							String l = rs.getString(9);
+							double m = rs.getDouble(10);
+							double n = rs.getDouble(11);
+							double o = rs.getDouble(12);
+							double p = rs.getDouble(13);
+							double q = rs.getDouble(14);
+							double r = rs.getDouble(15);
+							double s = rs.getDouble(16);
+
+							prep = connection
+									.prepareStatement("INSERT INTO aprile VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+
+							prep.setString(1, a);
+							prep.setString(2, b);
+							prep.setString(3, c);
+							prep.setString(4, d);
+							prep.setString(5, e);
+							prep.setString(6, f);
+							prep.setString(7, g);
+							prep.setDouble(8, h);
+							prep.setString(9, l);
+							prep.setDouble(10, m);
+							prep.setDouble(11, n);
+							prep.setDouble(12, o);
+							prep.setDouble(13, p);
+							prep.setDouble(14, q);
+							prep.setDouble(15, r);
+							prep.setDouble(16, s);
+							prep.executeUpdate();
+						}
+
+					} catch (Exception e) {
+
+						e.printStackTrace();
+					}
+
+					break;
+
+				case "4":
+					
+
+					try {
+
+						prep = connection
+								.prepareStatement("SELECT cliente,cliente2,indirizzo,città,cap,partitaIva,descrizione,importo,descrizione2,importo2,imponibile,iva,imposta,totale_fattura,ritenuta,totale_dovuto FROM cliente where maggio = true");
+
+						rs = prep.executeQuery();
+
+						while (rs.next()) {
+							String a = rs.getString(1);
+							String b = rs.getString(2);
+							String c = rs.getString(3);
+							String d = rs.getString(4);
+							String e = rs.getString(5);
+							String f = rs.getString(6);
+							String g = rs.getString(7);
+							double h = rs.getDouble(8);
+							String l = rs.getString(9);
+							double m = rs.getDouble(10);
+							double n = rs.getDouble(11);
+							double o = rs.getDouble(12);
+							double p = rs.getDouble(13);
+							double q = rs.getDouble(14);
+							double r = rs.getDouble(15);
+							double s = rs.getDouble(16);
+
+							prep = connection
+									.prepareStatement("INSERT INTO maggio VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+
+							prep.setString(1, a);
+							prep.setString(2, b);
+							prep.setString(3, c);
+							prep.setString(4, d);
+							prep.setString(5, e);
+							prep.setString(6, f);
+							prep.setString(7, g);
+							prep.setDouble(8, h);
+							prep.setString(9, l);
+							prep.setDouble(10, m);
+							prep.setDouble(11, n);
+							prep.setDouble(12, o);
+							prep.setDouble(13, p);
+							prep.setDouble(14, q);
+							prep.setDouble(15, r);
+							prep.setDouble(16, s);
+							prep.executeUpdate();
+						}
+
+					} catch (Exception e) {
+
+						e.printStackTrace();
+					}
+
+					break;
+
+				case "5":
+				
+
+					try {
+
+						prep = connection
+								.prepareStatement("SELECT cliente,cliente2,indirizzo,città,cap,partitaIva,descrizione,importo,descrizione2,importo2,imponibile,iva,imposta,totale_fattura,ritenuta,totale_dovuto FROM cliente where giugno = true");
+
+						rs = prep.executeQuery();
+
+						while (rs.next()) {
+							String a = rs.getString(1);
+							String b = rs.getString(2);
+							String c = rs.getString(3);
+							String d = rs.getString(4);
+							String e = rs.getString(5);
+							String f = rs.getString(6);
+							String g = rs.getString(7);
+							double h = rs.getDouble(8);
+							String l = rs.getString(9);
+							double m = rs.getDouble(10);
+							double n = rs.getDouble(11);
+							double o = rs.getDouble(12);
+							double p = rs.getDouble(13);
+							double q = rs.getDouble(14);
+							double r = rs.getDouble(15);
+							double s = rs.getDouble(16);
+
+							prep = connection
+									.prepareStatement("INSERT INTO giugno VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+
+							prep.setString(1, a);
+							prep.setString(2, b);
+							prep.setString(3, c);
+							prep.setString(4, d);
+							prep.setString(5, e);
+							prep.setString(6, f);
+							prep.setString(7, g);
+							prep.setDouble(8, h);
+							prep.setString(9, l);
+							prep.setDouble(10, m);
+							prep.setDouble(11, n);
+							prep.setDouble(12, o);
+							prep.setDouble(13, p);
+							prep.setDouble(14, q);
+							prep.setDouble(15, r);
+							prep.setDouble(16, s);
+							prep.executeUpdate();
+						}
+
+					} catch (Exception e) {
+
+						e.printStackTrace();
+					}
+
+					break;
+
+				case "6":
+				
+
+					try {
+
+						prep = connection
+								.prepareStatement("SELECT cliente,cliente2,indirizzo,città,cap,partitaIva,descrizione,importo,descrizione2,importo2,imponibile,iva,imposta,totale_fattura,ritenuta,totale_dovuto FROM cliente where luglio = true");
+
+						rs = prep.executeQuery();
+
+						while (rs.next()) {
+							String a = rs.getString(1);
+							String b = rs.getString(2);
+							String c = rs.getString(3);
+							String d = rs.getString(4);
+							String e = rs.getString(5);
+							String f = rs.getString(6);
+							String g = rs.getString(7);
+							double h = rs.getDouble(8);
+							String l = rs.getString(9);
+							double m = rs.getDouble(10);
+							double n = rs.getDouble(11);
+							double o = rs.getDouble(12);
+							double p = rs.getDouble(13);
+							double q = rs.getDouble(14);
+							double r = rs.getDouble(15);
+							double s = rs.getDouble(16);
+
+							prep = connection
+									.prepareStatement("INSERT INTO luglio VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+
+							prep.setString(1, a);
+							prep.setString(2, b);
+							prep.setString(3, c);
+							prep.setString(4, d);
+							prep.setString(5, e);
+							prep.setString(6, f);
+							prep.setString(7, g);
+							prep.setDouble(8, h);
+							prep.setString(9, l);
+							prep.setDouble(10, m);
+							prep.setDouble(11, n);
+							prep.setDouble(12, o);
+							prep.setDouble(13, p);
+							prep.setDouble(14, q);
+							prep.setDouble(15, r);
+							prep.setDouble(16, s);
+							prep.executeUpdate();
+						}
+
+					} catch (Exception e) {
+
+						e.printStackTrace();
+					}
+
+					break;
+
+				case "7":
+					
+
+					try {
+
+						prep = connection
+								.prepareStatement("SELECT cliente,cliente2,indirizzo,città,cap,partitaIva,descrizione,importo,descrizione2,importo2,imponibile,iva,imposta,totale_fattura,ritenuta,totale_dovuto FROM cliente where agosto = true");
+
+						rs = prep.executeQuery();
+
+						while (rs.next()) {
+							String a = rs.getString(1);
+							String b = rs.getString(2);
+							String c = rs.getString(3);
+							String d = rs.getString(4);
+							String e = rs.getString(5);
+							String f = rs.getString(6);
+							String g = rs.getString(7);
+							double h = rs.getDouble(8);
+							String l = rs.getString(9);
+							double m = rs.getDouble(10);
+							double n = rs.getDouble(11);
+							double o = rs.getDouble(12);
+							double p = rs.getDouble(13);
+							double q = rs.getDouble(14);
+							double r = rs.getDouble(15);
+							double s = rs.getDouble(16);
+
+							prep = connection
+									.prepareStatement("INSERT INTO agosto VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+
+							prep.setString(1, a);
+							prep.setString(2, b);
+							prep.setString(3, c);
+							prep.setString(4, d);
+							prep.setString(5, e);
+							prep.setString(6, f);
+							prep.setString(7, g);
+							prep.setDouble(8, h);
+							prep.setString(9, l);
+							prep.setDouble(10, m);
+							prep.setDouble(11, n);
+							prep.setDouble(12, o);
+							prep.setDouble(13, p);
+							prep.setDouble(14, q);
+							prep.setDouble(15, r);
+							prep.setDouble(16, s);
+							prep.executeUpdate();
+						}
+
+					} catch (Exception e) {
+
+						e.printStackTrace();
+					}
+
+					break;
+
+				case "8":
+					
+					try {
+
+						prep = connection
+								.prepareStatement("SELECT cliente,cliente2,indirizzo,città,cap,partitaIva,descrizione,importo,descrizione2,importo2,imponibile,iva,imposta,totale_fattura,ritenuta,totale_dovuto FROM cliente where settembre = true");
+
+						rs = prep.executeQuery();
+
+						while (rs.next()) {
+							String a = rs.getString(1);
+							String b = rs.getString(2);
+							String c = rs.getString(3);
+							String d = rs.getString(4);
+							String e = rs.getString(5);
+							String f = rs.getString(6);
+							String g = rs.getString(7);
+							double h = rs.getDouble(8);
+							String l = rs.getString(9);
+							double m = rs.getDouble(10);
+							double n = rs.getDouble(11);
+							double o = rs.getDouble(12);
+							double p = rs.getDouble(13);
+							double q = rs.getDouble(14);
+							double r = rs.getDouble(15);
+							double s = rs.getDouble(16);
+
+							prep = connection
+									.prepareStatement("INSERT INTO settembre VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+
+							prep.setString(1, a);
+							prep.setString(2, b);
+							prep.setString(3, c);
+							prep.setString(4, d);
+							prep.setString(5, e);
+							prep.setString(6, f);
+							prep.setString(7, g);
+							prep.setDouble(8, h);
+							prep.setString(9, l);
+							prep.setDouble(10, m);
+							prep.setDouble(11, n);
+							prep.setDouble(12, o);
+							prep.setDouble(13, p);
+							prep.setDouble(14, q);
+							prep.setDouble(15, r);
+							prep.setDouble(16, s);
+							prep.executeUpdate();
+						}
+
+					} catch (Exception e) {
+
+						e.printStackTrace();
+					}
+
+					break;
+
+				case "9":
+					
+
+					try {
+
+						prep = connection
+								.prepareStatement("SELECT cliente,cliente2,indirizzo,città,cap,partitaIva,descrizione,importo,descrizione2,importo2,imponibile,iva,imposta,totale_fattura,ritenuta,totale_dovuto FROM cliente where ottobre = true");
+
+						rs = prep.executeQuery();
+
+						while (rs.next()) {
+							String a = rs.getString(1);
+							String b = rs.getString(2);
+							String c = rs.getString(3);
+							String d = rs.getString(4);
+							String e = rs.getString(5);
+							String f = rs.getString(6);
+							String g = rs.getString(7);
+							double h = rs.getDouble(8);
+							String l = rs.getString(9);
+							double m = rs.getDouble(10);
+							double n = rs.getDouble(11);
+							double o = rs.getDouble(12);
+							double p = rs.getDouble(13);
+							double q = rs.getDouble(14);
+							double r = rs.getDouble(15);
+							double s = rs.getDouble(16);
+
+							prep = connection
+									.prepareStatement("INSERT INTO ottobre VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+
+							prep.setString(1, a);
+							prep.setString(2, b);
+							prep.setString(3, c);
+							prep.setString(4, d);
+							prep.setString(5, e);
+							prep.setString(6, f);
+							prep.setString(7, g);
+							prep.setDouble(8, h);
+							prep.setString(9, l);
+							prep.setDouble(10, m);
+							prep.setDouble(11, n);
+							prep.setDouble(12, o);
+							prep.setDouble(13, p);
+							prep.setDouble(14, q);
+							prep.setDouble(15, r);
+							prep.setDouble(16, s);
+							prep.executeUpdate();
+						}
+
+					} catch (Exception e) {
+
+						e.printStackTrace();
+					}
+
+					break;
+
+				case "10":
+					
+
+					try {
+
+						prep = connection
+								.prepareStatement("SELECT cliente,cliente2,indirizzo,città,cap,partitaIva,descrizione,importo,descrizione2,importo2,imponibile,iva,imposta,totale_fattura,ritenuta,totale_dovuto FROM cliente where novembre = true");
+
+						rs = prep.executeQuery();
+
+						while (rs.next()) {
+							String a = rs.getString(1);
+							String b = rs.getString(2);
+							String c = rs.getString(3);
+							String d = rs.getString(4);
+							String e = rs.getString(5);
+							String f = rs.getString(6);
+							String g = rs.getString(7);
+							double h = rs.getDouble(8);
+							String l = rs.getString(9);
+							double m = rs.getDouble(10);
+							double n = rs.getDouble(11);
+							double o = rs.getDouble(12);
+							double p = rs.getDouble(13);
+							double q = rs.getDouble(14);
+							double r = rs.getDouble(15);
+							double s = rs.getDouble(16);
+
+							prep = connection
+									.prepareStatement("INSERT INTO novembre VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+
+							prep.setString(1, a);
+							prep.setString(2, b);
+							prep.setString(3, c);
+							prep.setString(4, d);
+							prep.setString(5, e);
+							prep.setString(6, f);
+							prep.setString(7, g);
+							prep.setDouble(8, h);
+							prep.setString(9, l);
+							prep.setDouble(10, m);
+							prep.setDouble(11, n);
+							prep.setDouble(12, o);
+							prep.setDouble(13, p);
+							prep.setDouble(14, q);
+							prep.setDouble(15, r);
+							prep.setDouble(16, s);
+							prep.executeUpdate();
+						}
+
+					} catch (Exception e) {
+
+						e.printStackTrace();
+					}
+
+					break;
+
+				case "11":
+					
+
+					try {
+
+						prep = connection
+								.prepareStatement("SELECT cliente,cliente2,indirizzo,città,cap,partitaIva,descrizione,importo,descrizione2,importo2,imponibile,iva,imposta,totale_fattura,ritenuta,totale_dovuto FROM cliente where dicembre = true");
+
+						rs = prep.executeQuery();
+
+						while (rs.next()) {
+							String a = rs.getString(1);
+							String b = rs.getString(2);
+							String c = rs.getString(3);
+							String d = rs.getString(4);
+							String e = rs.getString(5);
+							String f = rs.getString(6);
+							String g = rs.getString(7);
+							double h = rs.getDouble(8);
+							String l = rs.getString(9);
+							double m = rs.getDouble(10);
+							double n = rs.getDouble(11);
+							double o = rs.getDouble(12);
+							double p = rs.getDouble(13);
+							double q = rs.getDouble(14);
+							double r = rs.getDouble(15);
+							double s = rs.getDouble(16);
+
+							prep = connection
+									.prepareStatement("INSERT INTO dicembre VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+
+							prep.setString(1, a);
+							prep.setString(2, b);
+							prep.setString(3, c);
+							prep.setString(4, d);
+							prep.setString(5, e);
+							prep.setString(6, f);
+							prep.setString(7, g);
+							prep.setDouble(8, h);
+							prep.setString(9, l);
+							prep.setDouble(10, m);
+							prep.setDouble(11, n);
+							prep.setDouble(12, o);
+							prep.setDouble(13, p);
+							prep.setDouble(14, q);
+							prep.setDouble(15, r);
+							prep.setDouble(16, s);
+							prep.executeUpdate();
+						}
+
+					} catch (Exception e) {
+
+						e.printStackTrace();
+					}
+
+					break;
+				}
+
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+		JOptionPane.showMessageDialog(null, "è ora possibile iniziare con un nuovo anno!");
+	}
 }

@@ -3,11 +3,13 @@ package Interfaccia;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
@@ -16,6 +18,7 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+
 import General.Database;
 
 public class Partenza extends JFrame {
@@ -2350,8 +2353,18 @@ public class Partenza extends JFrame {
 
 			if (e.getSource() == btnNuovo_anno) {
 
-			}
+				int confirm = JOptionPane.showOptionDialog(null,
+						"Iniziare un nuovo anno? Azzerare modifiche mensili e il numero delle fatture?", "Nuovo Anno",
+						JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,
+						null, null, null);
+				if (confirm == 0) {
 
+					database.nuovo_anno();
+					
+
+				} 
+			
+			}
 			if (e.getSource() == btnDropbox) {
 
 			}
