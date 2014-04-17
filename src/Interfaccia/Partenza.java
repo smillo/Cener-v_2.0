@@ -1,8 +1,11 @@
 package Interfaccia;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.LinkedList;
+import java.util.StringTokenizer;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -18,55 +21,104 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
+import com.sun.corba.se.pept.transport.Selector;
+
+import General.Cliente;
 import General.Database;
 
 public class Partenza extends JFrame {
 
 	private JTabbedPane tabbedPane;
 	private JTextField text_Cliente, text_indirizzo, text_cap,
-	text_descrizione, text_descrizione_2, text_imponibile,
-	text_imposta;
+			text_descrizione, text_descrizione_2, text_imponibile,
+			text_imposta;
 	private JTextField text_cliente_2, text_città, text_piva, text_importo,
-	text_importo_2, text_iva, text_tot_fattura, text_tot_dovuto,
-	text_ritenuta;
+			text_importo_2, text_iva, text_tot_fattura, text_tot_dovuto,
+			text_ritenuta;
 	private JComboBox combo_ritenuta, combo_gen, combo_feb, combo_mar,
-	combo_apr, combo_mag, combo_giu, combo_lug, combo_ago, combo_set,
-	combo_ott, combo_nov, combo_dic, combo_ritenuta_gen,
-	combo_ritenuta_feb, combo_ritenuta_mar, combo_ritenuta_apr,
-	combo_ritenuta_mag, combo_ritenuta_giu, combo_ritenuta_lug,
-	combo_ritenuta_ago, combo_ritenuta_set, combo_ritenuta_ott,
-	combo_ritenuta_nov, combo_ritenuta_dic;
+			combo_apr, combo_mag, combo_giu, combo_lug, combo_ago, combo_set,
+			combo_ott, combo_nov, combo_dic, combo_ritenuta_gen,
+			combo_ritenuta_feb, combo_ritenuta_mar, combo_ritenuta_apr,
+			combo_ritenuta_mag, combo_ritenuta_giu, combo_ritenuta_lug,
+			combo_ritenuta_ago, combo_ritenuta_set, combo_ritenuta_ott,
+			combo_ritenuta_nov, combo_ritenuta_dic;
 	private JPanel panel_home, panel_gen, panel_feb, panel_mar, panel_apr,
-	panel_mag, panel_giu, panel_lug, panel_ago, panel_set, panel_ott,
-	panel_nov, panel_dic, panel_el_pag, panel_ent_usc, panel_list;
+			panel_mag, panel_giu, panel_lug, panel_ago, panel_set, panel_ott,
+			panel_nov, panel_dic, panel_el_pag, panel_ent_usc, panel_list;
 	private JTextField text_entrate, text_uscite, text_entrate_prec,
-	text_uscite_prec;
+			text_uscite_prec;
 	private JScrollPane scrollPane, scrollPane_gen, scrollPane_1, scrollPane_2,
-	scrollPane_feb, scrollPane_mar, scrollPane_apr, scrollPane_mag,
-	scrollPane_giu, scrollPane_lug, scrollPane_ago, scrollPane_set,
-	scrollPane_ott, scrollPane_nov, scrollPane_dic;
+			scrollPane_feb, scrollPane_mar, scrollPane_apr, scrollPane_mag,
+			scrollPane_giu, scrollPane_lug, scrollPane_ago, scrollPane_set,
+			scrollPane_ott, scrollPane_nov, scrollPane_dic;
 	private JButton btnAggiungiUscita, btnEliminaUscita, btnNuovo_cliente,
-	btnModifica_cliente, btnElimina_cliente, btnStampa,
-	btnFattura_singola, btnModifica_fattura, btnNuovo_anno, btnDropbox;
+			btnModifica_cliente, btnElimina_cliente, btnStampa,
+			btnFattura_singola, btnModifica_fattura, btnNuovo_anno, btnDropbox;
 	private JButton btnRiepilogo;
 	private JList list_clienti, list_cause_uscite, list_dettagli_uscite,
-	list_clienti_gen, list_clienti_feb, list_clienti_mar,
-	list_clienti_apr, list_clienti_mag, list_clienti_giu,
-	list_clienti_lug, list_clienti_ago, list_clienti_set,
-	list_clienti_ott, list_clienti_nov, list_clienti_dic;
+			list_clienti_gen, list_clienti_feb, list_clienti_mar,
+			list_clienti_apr, list_clienti_mag, list_clienti_giu,
+			list_clienti_lug, list_clienti_ago, list_clienti_set,
+			list_clienti_ott, list_clienti_nov, list_clienti_dic;
 	private Database database;
+	private JLabel Cliente_gen, indirizzo_gen, cap_gen, descrizione_gen,
+			descrizione_2_gen, imponibile_gen, imposta_gen, cliente_2_gen,
+			città_gen, piva_gen, importo_gen, importo_2_gen, iva_gen,
+			tot_fattura_gen, tot_dovuto_gen, ritenuta_gen, Cliente_feb,
+			indirizzo_feb, cap_feb, descrizione_feb, descrizione_2_feb,
+			imponibile_feb, imposta_feb, cliente_2_feb, città_feb, piva_feb,
+			importo_feb, importo_2_feb, iva_feb, tot_fattura_feb,
+			tot_dovuto_feb, ritenuta_feb, Cliente_mar, indirizzo_mar, cap_mar,
+			descrizione_mar, descrizione_2_mar, imponibile_mar, imposta_mar,
+			cliente_2_mar, città_mar, piva_mar, importo_mar, importo_2_mar,
+			iva_mar, tot_fattura_mar, tot_dovuto_mar, ritenuta_mar,
+			Cliente_apr, indirizzo_apr, cap_apr, descrizione_apr,
+			descrizione_2_apr, imponibile_apr, imposta_apr, cliente_2_apr,
+			città_apr, piva_apr, importo_apr, importo_2_apr, iva_apr,
+			tot_fattura_apr, tot_dovuto_apr, ritenuta_apr, Cliente_mag,
+			indirizzo_mag, cap_mag, descrizione_mag, descrizione_2_mag,
+			imponibile_mag, imposta_mag, cliente_2_mag, città_mag, piva_mag,
+			importo_mag, importo_2_mag, iva_mag, tot_fattura_mag,
+			tot_dovuto_mag, ritenuta_mag, Cliente_giu, indirizzo_giu, cap_giu,
+			descrizione_giu, descrizione_2_giu, imponibile_giu, imposta_giu,
+			cliente_2_giu, città_giu, piva_giu, importo_giu, importo_2_giu,
+			iva_giu, tot_fattura_giu, tot_dovuto_giu, ritenuta_giu,
+			Cliente_lug, indirizzo_lug, cap_lug, descrizione_lug,
+			descrizione_2_lug, imponibile_lug, imposta_lug, cliente_2_lug,
+			città_lug, piva_lug, importo_lug, importo_2_lug, iva_lug,
+			tot_fattura_lug, tot_dovuto_lug, ritenuta_lug, Cliente_ago,
+			indirizzo_ago, cap_ago, descrizione_ago, descrizione_2_ago,
+			imponibile_ago, imposta_ago, cliente_2_ago, città_ago, piva_ago,
+			importo_ago, importo_2_ago, iva_ago, tot_fattura_ago,
+			tot_dovuto_ago, ritenuta_ago, Cliente_set, indirizzo_set, cap_set,
+			descrizione_set, descrizione_2_set, imponibile_set, imposta_set,
+			cliente_2_set, città_set, piva_set, importo_set, importo_2_set,
+			iva_set, tot_fattura_set, tot_dovuto_set, ritenuta_set,
+			Cliente_ott, indirizzo_ott, cap_ott, descrizione_ott,
+			descrizione_2_ott, imponibile_ott, imposta_ott, cliente_2_ott,
+			città_ott, piva_ott, importo_ott, importo_2_ott, iva_ott,
+			tot_fattura_ott, tot_dovuto_ott, ritenuta_ott, Cliente_nov,
+			indirizzo_nov, cap_nov, descrizione_nov, descrizione_2_nov,
+			imponibile_nov, imposta_nov, cliente_2_nov, città_nov, piva_nov,
+			importo_nov, importo_2_nov, iva_nov, tot_fattura_nov,
+			tot_dovuto_nov, ritenuta_nov, Cliente_dic, indirizzo_dic, cap_dic,
+			descrizione_dic, descrizione_2_dic, imponibile_dic, imposta_dic,
+			cliente_2_dic, città_dic, piva_dic, importo_dic, importo_2_dic,
+			iva_dic, tot_fattura_dic, tot_dovuto_dic, ritenuta_dic;
 
 	public static void main(String[] args) throws ClassNotFoundException,
-	InstantiationException, IllegalAccessException,
-	UnsupportedLookAndFeelException {
+			InstantiationException, IllegalAccessException,
+			UnsupportedLookAndFeelException {
 
 		Partenza window = new Partenza();
 
 	}
 
 	public Partenza() throws ClassNotFoundException, InstantiationException,
-	IllegalAccessException, UnsupportedLookAndFeelException {
+			IllegalAccessException, UnsupportedLookAndFeelException {
 
 		database = new Database();
 		setBounds(100, 100, 904, 504);
@@ -175,49 +227,49 @@ public class Partenza extends JFrame {
 		btnNuovo_cliente.setBounds(23, 39, 194, 113);
 		panel_home.add(btnNuovo_cliente);
 		btnNuovo_cliente
-		.setToolTipText("clicca qui per aggiungere un nuovo cliente al tuo elenco dei clienti");
+				.setToolTipText("clicca qui per aggiungere un nuovo cliente al tuo elenco dei clienti");
 		btnNuovo_cliente.addActionListener(new ButtonListener());
 
 		btnModifica_cliente = new JButton("Modifica Cliente");
 		btnModifica_cliente.setBounds(227, 39, 194, 113);
 		panel_home.add(btnModifica_cliente);
 		btnModifica_cliente
-		.setToolTipText("clicca qui per modificare un cliente del tuo elenco dei clienti");
+				.setToolTipText("clicca qui per modificare un cliente del tuo elenco dei clienti");
 		btnModifica_cliente.addActionListener(new ButtonListener());
 
 		btnElimina_cliente = new JButton("Elimina Cliente");
 		btnElimina_cliente.setBounds(431, 39, 194, 113);
 		panel_home.add(btnElimina_cliente);
 		btnElimina_cliente
-		.setToolTipText("clicca qui per eliminare un cliente dal tuo elenco dei clienti");
+				.setToolTipText("clicca qui per eliminare un cliente dal tuo elenco dei clienti");
 		btnElimina_cliente.addActionListener(new ButtonListener());
 
 		btnStampa = new JButton("Stampa");
 		btnStampa.setBounds(635, 39, 194, 113);
 		panel_home.add(btnStampa);
 		btnStampa
-		.setToolTipText("clicca qui per creare il file di fatture del mese");
+				.setToolTipText("clicca qui per creare il file di fatture del mese");
 		btnStampa.addActionListener(new ButtonListener());
 
 		btnFattura_singola = new JButton("Crea Fattura singola");
 		btnFattura_singola.setBounds(23, 251, 194, 113);
 		panel_home.add(btnFattura_singola);
 		btnFattura_singola
-		.setToolTipText("clicca qui per creare una fattura singola (cioè una fattura che non hai fatto nel mese)");
+				.setToolTipText("clicca qui per creare una fattura singola (cioè una fattura che non hai fatto nel mese)");
 		btnFattura_singola.addActionListener(new ButtonListener());
 
 		btnModifica_fattura = new JButton("Modifica Fattura singola");
 		btnModifica_fattura.setBounds(227, 251, 194, 113);
 		panel_home.add(btnModifica_fattura);
 		btnModifica_fattura
-		.setToolTipText("clicca qui per modificare una fattura errata");
+				.setToolTipText("clicca qui per modificare una fattura errata");
 		btnModifica_fattura.addActionListener(new ButtonListener());
 
 		btnNuovo_anno = new JButton("Nuovo Anno");
 		btnNuovo_anno.setBounds(431, 251, 194, 113);
 		panel_home.add(btnNuovo_anno);
 		btnNuovo_anno
-		.setToolTipText("clicca qui per iniziare un nuovo anno (numero fatture a 0 e modifiche mensili eliminate)");
+				.setToolTipText("clicca qui per iniziare un nuovo anno (numero fatture a 0 e modifiche mensili eliminate)");
 		btnNuovo_anno.addActionListener(new ButtonListener());
 
 		btnDropbox = new JButton("Dropbox");
@@ -229,6 +281,8 @@ public class Partenza extends JFrame {
 		// TODO lista clienti
 
 		list_clienti = new JList(database.elenco_clienti());
+		list_clienti.addListSelectionListener(new ListSelection());
+
 		scrollPane_2 = new JScrollPane(list_clienti);
 		scrollPane_2.setBounds(546, 21, 312, 405);
 		panel_list.add(scrollPane_2);
@@ -550,7 +604,8 @@ public class Partenza extends JFrame {
 
 		// TODO gennaio
 
-		list_clienti_gen = new JList(database.elenco_clienti_gennaio());
+		list_clienti_gen = new JList(database.elenco_clienti_mese("gennaio"));
+		list_clienti_gen.addListSelectionListener(new ListSelection());
 
 		scrollPane_gen = new JScrollPane(list_clienti_gen);
 		scrollPane_gen.setBounds(546, 21, 312, 405);
@@ -620,67 +675,67 @@ public class Partenza extends JFrame {
 		lblTotDovuto_gen.setBounds(270, 235, 84, 14);
 		panel_gen.add(lblTotDovuto_gen);
 
-		JLabel Cliente_gen = new JLabel("");
+		Cliente_gen = new JLabel("");
 		Cliente_gen.setBounds(88, 22, 172, 20);
 		panel_gen.add(Cliente_gen);
 
-		JLabel indirizzo_gen = new JLabel("");
+		indirizzo_gen = new JLabel("");
 		indirizzo_gen.setBounds(88, 52, 172, 20);
 		panel_gen.add(indirizzo_gen);
 
-		JLabel cap_gen = new JLabel("");
+		cap_gen = new JLabel("");
 		cap_gen.setBounds(88, 82, 172, 20);
 		panel_gen.add(cap_gen);
 
-		JLabel descrizione_gen = new JLabel("");
+		descrizione_gen = new JLabel("");
 		descrizione_gen.setBounds(88, 112, 172, 20);
 		panel_gen.add(descrizione_gen);
 
-		JLabel descrizione_2_gen = new JLabel("");
+		descrizione_2_gen = new JLabel("");
 		descrizione_2_gen.setBounds(88, 142, 172, 20);
 		panel_gen.add(descrizione_2_gen);
 
-		JLabel imponibile_gen = new JLabel("");
+		imponibile_gen = new JLabel("");
 		imponibile_gen.setBounds(88, 172, 172, 20);
 		panel_gen.add(imponibile_gen);
 
-		JLabel imposta_gen = new JLabel("");
+		imposta_gen = new JLabel("");
 		imposta_gen.setBounds(88, 202, 172, 20);
 		panel_gen.add(imposta_gen);
 
-		JLabel cliente_2_gen = new JLabel("");
+		cliente_2_gen = new JLabel("");
 		cliente_2_gen.setBounds(340, 22, 172, 20);
 		panel_gen.add(cliente_2_gen);
 
-		JLabel città_gen = new JLabel("");
+		città_gen = new JLabel("");
 		città_gen.setBounds(340, 52, 172, 20);
 		panel_gen.add(città_gen);
 
-		JLabel piva_gen = new JLabel("");
+		piva_gen = new JLabel("");
 		piva_gen.setBounds(340, 82, 172, 20);
 		panel_gen.add(piva_gen);
 
-		JLabel importo_gen = new JLabel("");
+		importo_gen = new JLabel("");
 		importo_gen.setBounds(340, 112, 172, 20);
 		panel_gen.add(importo_gen);
 
-		JLabel importo_2_gen = new JLabel("");
+		importo_2_gen = new JLabel("");
 		importo_2_gen.setBounds(340, 142, 172, 20);
 		panel_gen.add(importo_2_gen);
 
-		JLabel iva_gen = new JLabel("");
+		iva_gen = new JLabel("");
 		iva_gen.setBounds(340, 172, 172, 20);
 		panel_gen.add(iva_gen);
 
-		JLabel tot_fattura_gen = new JLabel("");
+		tot_fattura_gen = new JLabel("");
 		tot_fattura_gen.setBounds(340, 202, 172, 20);
 		panel_gen.add(tot_fattura_gen);
 
-		JLabel tot_dovuto_gen = new JLabel("");
+		tot_dovuto_gen = new JLabel("");
 		tot_dovuto_gen.setBounds(340, 232, 172, 20);
 		panel_gen.add(tot_dovuto_gen);
 
-		JLabel ritenuta_gen = new JLabel("");
+		ritenuta_gen = new JLabel("");
 		ritenuta_gen.setBounds(180, 232, 80, 20);
 		panel_gen.add(ritenuta_gen);
 
@@ -693,8 +748,9 @@ public class Partenza extends JFrame {
 
 		// TODO febbraio
 
-		list_clienti_feb = new JList(database.elenco_clienti_febbraio());
-
+		list_clienti_feb = new JList(database.elenco_clienti_mese("febbraio"));
+		list_clienti_feb.addListSelectionListener(new ListSelection());
+		
 		scrollPane_feb = new JScrollPane(list_clienti_feb);
 		scrollPane_feb.setBounds(546, 21, 312, 405);
 		panel_feb.add(scrollPane_feb);
@@ -763,67 +819,67 @@ public class Partenza extends JFrame {
 		lblTotDovuto_feb.setBounds(270, 235, 84, 14);
 		panel_feb.add(lblTotDovuto_feb);
 
-		JLabel Cliente_feb = new JLabel("");
+		Cliente_feb = new JLabel("");
 		Cliente_feb.setBounds(88, 22, 172, 20);
 		panel_feb.add(Cliente_feb);
 
-		JLabel indirizzo_feb = new JLabel("");
+		indirizzo_feb = new JLabel("");
 		indirizzo_feb.setBounds(88, 52, 172, 20);
 		panel_feb.add(indirizzo_feb);
 
-		JLabel cap_feb = new JLabel("");
+		cap_feb = new JLabel("");
 		cap_feb.setBounds(88, 82, 172, 20);
 		panel_feb.add(cap_feb);
 
-		JLabel descrizione_feb = new JLabel("");
+		descrizione_feb = new JLabel("");
 		descrizione_feb.setBounds(88, 112, 172, 20);
 		panel_feb.add(descrizione_feb);
 
-		JLabel descrizione_2_feb = new JLabel("");
+		descrizione_2_feb = new JLabel("");
 		descrizione_2_feb.setBounds(88, 142, 172, 20);
 		panel_feb.add(descrizione_2_feb);
 
-		JLabel imponibile_feb = new JLabel("");
+		imponibile_feb = new JLabel("");
 		imponibile_feb.setBounds(88, 172, 172, 20);
 		panel_feb.add(imponibile_feb);
 
-		JLabel imposta_feb = new JLabel("");
+		imposta_feb = new JLabel("");
 		imposta_feb.setBounds(88, 202, 172, 20);
 		panel_feb.add(imposta_feb);
 
-		JLabel cliente_2_feb = new JLabel("");
+		cliente_2_feb = new JLabel("");
 		cliente_2_feb.setBounds(340, 22, 172, 20);
 		panel_feb.add(cliente_2_feb);
 
-		JLabel città_feb = new JLabel("");
+		città_feb = new JLabel("");
 		città_feb.setBounds(340, 52, 172, 20);
 		panel_feb.add(città_feb);
 
-		JLabel piva_feb = new JLabel("");
+		piva_feb = new JLabel("");
 		piva_feb.setBounds(340, 82, 172, 20);
 		panel_feb.add(piva_feb);
 
-		JLabel importo_feb = new JLabel("");
+		importo_feb = new JLabel("");
 		importo_feb.setBounds(340, 112, 172, 20);
 		panel_feb.add(importo_feb);
 
-		JLabel importo_2_feb = new JLabel("");
+		importo_2_feb = new JLabel("");
 		importo_2_feb.setBounds(340, 142, 172, 20);
 		panel_feb.add(importo_2_feb);
 
-		JLabel iva_feb = new JLabel("");
+		iva_feb = new JLabel("");
 		iva_feb.setBounds(340, 172, 172, 20);
 		panel_feb.add(iva_feb);
 
-		JLabel tot_fattura_feb = new JLabel("");
+		tot_fattura_feb = new JLabel("");
 		tot_fattura_feb.setBounds(340, 202, 172, 20);
 		panel_feb.add(tot_fattura_feb);
 
-		JLabel tot_dovuto_feb = new JLabel("");
+		tot_dovuto_feb = new JLabel("");
 		tot_dovuto_feb.setBounds(340, 232, 172, 20);
 		panel_feb.add(tot_dovuto_feb);
 
-		JLabel ritenuta_feb = new JLabel("");
+		ritenuta_feb = new JLabel("");
 		ritenuta_feb.setBounds(180, 232, 80, 20);
 		panel_feb.add(ritenuta_feb);
 
@@ -836,8 +892,9 @@ public class Partenza extends JFrame {
 
 		// TODO marzo
 
-		list_clienti_mar = new JList(database.elenco_clienti_marzo());
-
+		list_clienti_mar = new JList(database.elenco_clienti_mese("marzo"));
+		list_clienti_mar.addListSelectionListener(new ListSelection());
+		
 		scrollPane_mar = new JScrollPane(list_clienti_mar);
 		scrollPane_mar.setBounds(546, 21, 312, 405);
 		panel_mar.add(scrollPane_mar);
@@ -906,67 +963,67 @@ public class Partenza extends JFrame {
 		lblTotDovuto_mar.setBounds(270, 235, 84, 14);
 		panel_mar.add(lblTotDovuto_mar);
 
-		JLabel Cliente_mar = new JLabel("");
+		Cliente_mar = new JLabel("");
 		Cliente_mar.setBounds(88, 22, 172, 20);
 		panel_mar.add(Cliente_mar);
 
-		JLabel indirizzo_mar = new JLabel("");
+		indirizzo_mar = new JLabel("");
 		indirizzo_mar.setBounds(88, 52, 172, 20);
 		panel_mar.add(indirizzo_mar);
 
-		JLabel cap_mar = new JLabel("");
+		cap_mar = new JLabel("");
 		cap_mar.setBounds(88, 82, 172, 20);
 		panel_mar.add(cap_mar);
 
-		JLabel descrizione_mar = new JLabel("");
+		descrizione_mar = new JLabel("");
 		descrizione_mar.setBounds(88, 112, 172, 20);
 		panel_mar.add(descrizione_mar);
 
-		JLabel descrizione_2_mar = new JLabel("");
+		descrizione_2_mar = new JLabel("");
 		descrizione_2_mar.setBounds(88, 142, 172, 20);
 		panel_mar.add(descrizione_2_mar);
 
-		JLabel imponibile_mar = new JLabel("");
+		imponibile_mar = new JLabel("");
 		imponibile_mar.setBounds(88, 172, 172, 20);
 		panel_mar.add(imponibile_mar);
 
-		JLabel imposta_mar = new JLabel("");
+		imposta_mar = new JLabel("");
 		imposta_mar.setBounds(88, 202, 172, 20);
 		panel_mar.add(imposta_mar);
 
-		JLabel cliente_2_mar = new JLabel("");
+		cliente_2_mar = new JLabel("");
 		cliente_2_mar.setBounds(340, 22, 172, 20);
 		panel_mar.add(cliente_2_mar);
 
-		JLabel città_mar = new JLabel("");
+		città_mar = new JLabel("");
 		città_mar.setBounds(340, 52, 172, 20);
 		panel_mar.add(città_mar);
 
-		JLabel piva_mar = new JLabel("");
+		piva_mar = new JLabel("");
 		piva_mar.setBounds(340, 82, 172, 20);
 		panel_mar.add(piva_mar);
 
-		JLabel importo_mar = new JLabel("");
+		importo_mar = new JLabel("");
 		importo_mar.setBounds(340, 112, 172, 20);
 		panel_mar.add(importo_mar);
 
-		JLabel importo_2_mar = new JLabel("");
+		importo_2_mar = new JLabel("");
 		importo_2_mar.setBounds(340, 142, 172, 20);
 		panel_mar.add(importo_2_mar);
 
-		JLabel iva_mar = new JLabel("");
+		iva_mar = new JLabel("");
 		iva_mar.setBounds(340, 172, 172, 20);
 		panel_mar.add(iva_mar);
 
-		JLabel tot_fattura_mar = new JLabel("");
+		tot_fattura_mar = new JLabel("");
 		tot_fattura_mar.setBounds(340, 202, 172, 20);
 		panel_mar.add(tot_fattura_mar);
 
-		JLabel tot_dovuto_mar = new JLabel("");
+		tot_dovuto_mar = new JLabel("");
 		tot_dovuto_mar.setBounds(340, 232, 172, 20);
 		panel_mar.add(tot_dovuto_mar);
 
-		JLabel ritenuta_mar = new JLabel("");
+		ritenuta_mar = new JLabel("");
 		ritenuta_mar.setBounds(180, 232, 80, 20);
 		panel_mar.add(ritenuta_mar);
 
@@ -979,8 +1036,9 @@ public class Partenza extends JFrame {
 
 		// TODO aprile
 
-		list_clienti_apr = new JList(database.elenco_clienti_aprile());
-
+		list_clienti_apr = new JList(database.elenco_clienti_mese("aprile"));
+		list_clienti_apr.addListSelectionListener(new ListSelection());
+		
 		scrollPane_apr = new JScrollPane(list_clienti_apr);
 		scrollPane_apr.setBounds(546, 21, 312, 405);
 		panel_apr.add(scrollPane_apr);
@@ -1049,67 +1107,67 @@ public class Partenza extends JFrame {
 		lblTotDovuto_apr.setBounds(270, 235, 84, 14);
 		panel_apr.add(lblTotDovuto_apr);
 
-		JLabel Cliente_apr = new JLabel("");
+		Cliente_apr = new JLabel("");
 		Cliente_apr.setBounds(88, 22, 172, 20);
 		panel_apr.add(Cliente_apr);
 
-		JLabel indirizzo_apr = new JLabel("");
+		indirizzo_apr = new JLabel("");
 		indirizzo_apr.setBounds(88, 52, 172, 20);
 		panel_apr.add(indirizzo_apr);
 
-		JLabel cap_apr = new JLabel("");
+		cap_apr = new JLabel("");
 		cap_apr.setBounds(88, 82, 172, 20);
 		panel_apr.add(cap_apr);
 
-		JLabel descrizione_apr = new JLabel("");
+		descrizione_apr = new JLabel("");
 		descrizione_apr.setBounds(88, 112, 172, 20);
 		panel_apr.add(descrizione_apr);
 
-		JLabel descrizione_2_apr = new JLabel("");
+		descrizione_2_apr = new JLabel("");
 		descrizione_2_apr.setBounds(88, 142, 172, 20);
 		panel_apr.add(descrizione_2_apr);
 
-		JLabel imponibile_apr = new JLabel("");
+		imponibile_apr = new JLabel("");
 		imponibile_apr.setBounds(88, 172, 172, 20);
 		panel_apr.add(imponibile_apr);
 
-		JLabel imposta_apr = new JLabel("");
+		imposta_apr = new JLabel("");
 		imposta_apr.setBounds(88, 202, 172, 20);
 		panel_apr.add(imposta_apr);
 
-		JLabel cliente_2_apr = new JLabel("");
+		cliente_2_apr = new JLabel("");
 		cliente_2_apr.setBounds(340, 22, 172, 20);
 		panel_apr.add(cliente_2_apr);
 
-		JLabel città_apr = new JLabel("");
+		città_apr = new JLabel("");
 		città_apr.setBounds(340, 52, 172, 20);
 		panel_apr.add(città_apr);
 
-		JLabel piva_apr = new JLabel("");
+		piva_apr = new JLabel("");
 		piva_apr.setBounds(340, 82, 172, 20);
 		panel_apr.add(piva_apr);
 
-		JLabel importo_apr = new JLabel("");
+		importo_apr = new JLabel("");
 		importo_apr.setBounds(340, 112, 172, 20);
 		panel_apr.add(importo_apr);
 
-		JLabel importo_2_apr = new JLabel("");
+		importo_2_apr = new JLabel("");
 		importo_2_apr.setBounds(340, 142, 172, 20);
 		panel_apr.add(importo_2_apr);
 
-		JLabel iva_apr = new JLabel("");
+		iva_apr = new JLabel("");
 		iva_apr.setBounds(340, 172, 172, 20);
 		panel_apr.add(iva_apr);
 
-		JLabel tot_fattura_apr = new JLabel("");
+		tot_fattura_apr = new JLabel("");
 		tot_fattura_apr.setBounds(340, 202, 172, 20);
 		panel_apr.add(tot_fattura_apr);
 
-		JLabel tot_dovuto_apr = new JLabel("");
+		tot_dovuto_apr = new JLabel("");
 		tot_dovuto_apr.setBounds(340, 232, 172, 20);
 		panel_apr.add(tot_dovuto_apr);
 
-		JLabel ritenuta_apr = new JLabel("");
+		ritenuta_apr = new JLabel("");
 		ritenuta_apr.setBounds(180, 232, 80, 20);
 		panel_apr.add(ritenuta_apr);
 
@@ -1122,8 +1180,9 @@ public class Partenza extends JFrame {
 
 		// TODO maggio
 
-		list_clienti_mag = new JList(database.elenco_clienti_maggio());
-
+		list_clienti_mag = new JList(database.elenco_clienti_mese("maggio"));
+		list_clienti_mag.addListSelectionListener(new ListSelection());
+		
 		scrollPane_mag = new JScrollPane(list_clienti_mag);
 		scrollPane_mag.setBounds(546, 21, 312, 405);
 		panel_mag.add(scrollPane_mag);
@@ -1192,67 +1251,67 @@ public class Partenza extends JFrame {
 		lblTotDovuto_mag.setBounds(270, 235, 84, 14);
 		panel_mag.add(lblTotDovuto_mag);
 
-		JLabel Cliente_mag = new JLabel("");
+		Cliente_mag = new JLabel("");
 		Cliente_mag.setBounds(88, 22, 172, 20);
 		panel_mag.add(Cliente_mag);
 
-		JLabel indirizzo_mag = new JLabel("");
+		indirizzo_mag = new JLabel("");
 		indirizzo_mag.setBounds(88, 52, 172, 20);
 		panel_mag.add(indirizzo_mag);
 
-		JLabel cap_mag = new JLabel("");
+		cap_mag = new JLabel("");
 		cap_mag.setBounds(88, 82, 172, 20);
 		panel_mag.add(cap_mag);
 
-		JLabel descrizione_mag = new JLabel("");
+		descrizione_mag = new JLabel("");
 		descrizione_mag.setBounds(88, 112, 172, 20);
 		panel_mag.add(descrizione_mag);
 
-		JLabel descrizione_2_mag = new JLabel("");
+		descrizione_2_mag = new JLabel("");
 		descrizione_2_mag.setBounds(88, 142, 172, 20);
 		panel_mag.add(descrizione_2_mag);
 
-		JLabel imponibile_mag = new JLabel("");
+		imponibile_mag = new JLabel("");
 		imponibile_mag.setBounds(88, 172, 172, 20);
 		panel_mag.add(imponibile_mag);
 
-		JLabel imposta_mag = new JLabel("");
+		imposta_mag = new JLabel("");
 		imposta_mag.setBounds(88, 202, 172, 20);
 		panel_mag.add(imposta_mag);
 
-		JLabel cliente_2_mag = new JLabel("");
+		cliente_2_mag = new JLabel("");
 		cliente_2_mag.setBounds(340, 22, 172, 20);
 		panel_mag.add(cliente_2_mag);
 
-		JLabel città_mag = new JLabel("");
+		città_mag = new JLabel("");
 		città_mag.setBounds(340, 52, 172, 20);
 		panel_mag.add(città_mag);
 
-		JLabel piva_mag = new JLabel("");
+		piva_mag = new JLabel("");
 		piva_mag.setBounds(340, 82, 172, 20);
 		panel_mag.add(piva_mag);
 
-		JLabel importo_mag = new JLabel("");
+		importo_mag = new JLabel("");
 		importo_mag.setBounds(340, 112, 172, 20);
 		panel_mag.add(importo_mag);
 
-		JLabel importo_2_mag = new JLabel("");
+		importo_2_mag = new JLabel("");
 		importo_2_mag.setBounds(340, 142, 172, 20);
 		panel_mag.add(importo_2_mag);
 
-		JLabel iva_mag = new JLabel("");
+		iva_mag = new JLabel("");
 		iva_mag.setBounds(340, 172, 172, 20);
 		panel_mag.add(iva_mag);
 
-		JLabel tot_fattura_mag = new JLabel("");
+		tot_fattura_mag = new JLabel("");
 		tot_fattura_mag.setBounds(340, 202, 172, 20);
 		panel_mag.add(tot_fattura_mag);
 
-		JLabel tot_dovuto_mag = new JLabel("");
+		tot_dovuto_mag = new JLabel("");
 		tot_dovuto_mag.setBounds(340, 232, 172, 20);
 		panel_mag.add(tot_dovuto_mag);
 
-		JLabel ritenuta_mag = new JLabel("");
+		ritenuta_mag = new JLabel("");
 		ritenuta_mag.setBounds(180, 232, 80, 20);
 		panel_mag.add(ritenuta_mag);
 
@@ -1265,8 +1324,9 @@ public class Partenza extends JFrame {
 
 		// TODO giugno
 
-		list_clienti_giu = new JList(database.elenco_clienti_giugno());
-
+		list_clienti_giu = new JList(database.elenco_clienti_mese("giugno"));
+		list_clienti_giu.addListSelectionListener(new ListSelection());
+		
 		scrollPane_giu = new JScrollPane(list_clienti_giu);
 		scrollPane_giu.setBounds(546, 21, 312, 405);
 		panel_giu.add(scrollPane_giu);
@@ -1335,67 +1395,67 @@ public class Partenza extends JFrame {
 		lblTotDovuto_giu.setBounds(270, 235, 84, 14);
 		panel_giu.add(lblTotDovuto_giu);
 
-		JLabel Cliente_giu = new JLabel("");
+		Cliente_giu = new JLabel("");
 		Cliente_giu.setBounds(88, 22, 172, 20);
 		panel_giu.add(Cliente_giu);
 
-		JLabel indirizzo_giu = new JLabel("");
+		indirizzo_giu = new JLabel("");
 		indirizzo_giu.setBounds(88, 52, 172, 20);
 		panel_giu.add(indirizzo_giu);
 
-		JLabel cap_giu = new JLabel("");
+		cap_giu = new JLabel("");
 		cap_giu.setBounds(88, 82, 172, 20);
 		panel_giu.add(cap_giu);
 
-		JLabel descrizione_giu = new JLabel("");
+		descrizione_giu = new JLabel("");
 		descrizione_giu.setBounds(88, 112, 172, 20);
 		panel_giu.add(descrizione_giu);
 
-		JLabel descrizione_2_giu = new JLabel("");
+		descrizione_2_giu = new JLabel("");
 		descrizione_2_giu.setBounds(88, 142, 172, 20);
 		panel_giu.add(descrizione_2_giu);
 
-		JLabel imponibile_giu = new JLabel("");
+		imponibile_giu = new JLabel("");
 		imponibile_giu.setBounds(88, 172, 172, 20);
 		panel_giu.add(imponibile_giu);
 
-		JLabel imposta_giu = new JLabel("");
+		imposta_giu = new JLabel("");
 		imposta_giu.setBounds(88, 202, 172, 20);
 		panel_giu.add(imposta_giu);
 
-		JLabel cliente_2_giu = new JLabel("");
+		cliente_2_giu = new JLabel("");
 		cliente_2_giu.setBounds(340, 22, 172, 20);
 		panel_giu.add(cliente_2_giu);
 
-		JLabel città_giu = new JLabel("");
+		città_giu = new JLabel("");
 		città_giu.setBounds(340, 52, 172, 20);
 		panel_giu.add(città_giu);
 
-		JLabel piva_giu = new JLabel("");
+		piva_giu = new JLabel("");
 		piva_giu.setBounds(340, 82, 172, 20);
 		panel_giu.add(piva_giu);
 
-		JLabel importo_giu = new JLabel("");
+		importo_giu = new JLabel("");
 		importo_giu.setBounds(340, 112, 172, 20);
 		panel_giu.add(importo_giu);
 
-		JLabel importo_2_giu = new JLabel("");
+		importo_2_giu = new JLabel("");
 		importo_2_giu.setBounds(340, 142, 172, 20);
 		panel_giu.add(importo_2_giu);
 
-		JLabel iva_giu = new JLabel("");
+		iva_giu = new JLabel("");
 		iva_giu.setBounds(340, 172, 172, 20);
 		panel_giu.add(iva_giu);
 
-		JLabel tot_fattura_giu = new JLabel("");
+		tot_fattura_giu = new JLabel("");
 		tot_fattura_giu.setBounds(340, 202, 172, 20);
 		panel_giu.add(tot_fattura_giu);
 
-		JLabel tot_dovuto_giu = new JLabel("");
+		tot_dovuto_giu = new JLabel("");
 		tot_dovuto_giu.setBounds(340, 232, 172, 20);
 		panel_giu.add(tot_dovuto_giu);
 
-		JLabel ritenuta_giu = new JLabel("");
+		ritenuta_giu = new JLabel("");
 		ritenuta_giu.setBounds(180, 232, 80, 20);
 		panel_giu.add(ritenuta_giu);
 
@@ -1408,8 +1468,9 @@ public class Partenza extends JFrame {
 
 		// TODO luglio
 
-		list_clienti_lug = new JList(database.elenco_clienti_luglio());
-
+		list_clienti_lug = new JList(database.elenco_clienti_mese("luglio"));
+		list_clienti_lug.addListSelectionListener(new ListSelection());
+		
 		scrollPane_lug = new JScrollPane(list_clienti_lug);
 		scrollPane_lug.setBounds(546, 21, 312, 405);
 		panel_lug.add(scrollPane_lug);
@@ -1478,67 +1539,67 @@ public class Partenza extends JFrame {
 		lblTotDovuto_lug.setBounds(270, 235, 84, 14);
 		panel_lug.add(lblTotDovuto_lug);
 
-		JLabel Cliente_lug = new JLabel("");
+		Cliente_lug = new JLabel("");
 		Cliente_lug.setBounds(88, 22, 172, 20);
 		panel_lug.add(Cliente_lug);
 
-		JLabel indirizzo_lug = new JLabel("");
+		indirizzo_lug = new JLabel("");
 		indirizzo_lug.setBounds(88, 52, 172, 20);
 		panel_lug.add(indirizzo_lug);
 
-		JLabel cap_lug = new JLabel("");
+		cap_lug = new JLabel("");
 		cap_lug.setBounds(88, 82, 172, 20);
 		panel_lug.add(cap_lug);
 
-		JLabel descrizione_lug = new JLabel("");
+		descrizione_lug = new JLabel("");
 		descrizione_lug.setBounds(88, 112, 172, 20);
 		panel_lug.add(descrizione_lug);
 
-		JLabel descrizione_2_lug = new JLabel("");
+		descrizione_2_lug = new JLabel("");
 		descrizione_2_lug.setBounds(88, 142, 172, 20);
 		panel_lug.add(descrizione_2_lug);
 
-		JLabel imponibile_lug = new JLabel("");
+		imponibile_lug = new JLabel("");
 		imponibile_lug.setBounds(88, 172, 172, 20);
 		panel_lug.add(imponibile_lug);
 
-		JLabel imposta_lug = new JLabel("");
+		imposta_lug = new JLabel("");
 		imposta_lug.setBounds(88, 202, 172, 20);
 		panel_lug.add(imposta_lug);
 
-		JLabel cliente_2_lug = new JLabel("");
+		cliente_2_lug = new JLabel("");
 		cliente_2_lug.setBounds(340, 22, 172, 20);
 		panel_lug.add(cliente_2_lug);
 
-		JLabel città_lug = new JLabel("");
+		città_lug = new JLabel("");
 		città_lug.setBounds(340, 52, 172, 20);
 		panel_lug.add(città_lug);
 
-		JLabel piva_lug = new JLabel("");
+		piva_lug = new JLabel("");
 		piva_lug.setBounds(340, 82, 172, 20);
 		panel_lug.add(piva_lug);
 
-		JLabel importo_lug = new JLabel("");
+		importo_lug = new JLabel("");
 		importo_lug.setBounds(340, 112, 172, 20);
 		panel_lug.add(importo_lug);
 
-		JLabel importo_2_lug = new JLabel("");
+		importo_2_lug = new JLabel("");
 		importo_2_lug.setBounds(340, 142, 172, 20);
 		panel_lug.add(importo_2_lug);
 
-		JLabel iva_lug = new JLabel("");
+		iva_lug = new JLabel("");
 		iva_lug.setBounds(340, 172, 172, 20);
 		panel_lug.add(iva_lug);
 
-		JLabel tot_fattura_lug = new JLabel("");
+		tot_fattura_lug = new JLabel("");
 		tot_fattura_lug.setBounds(340, 202, 172, 20);
 		panel_lug.add(tot_fattura_lug);
 
-		JLabel tot_dovuto_lug = new JLabel("");
+		tot_dovuto_lug = new JLabel("");
 		tot_dovuto_lug.setBounds(340, 232, 172, 20);
 		panel_lug.add(tot_dovuto_lug);
 
-		JLabel ritenuta_lug = new JLabel("");
+		ritenuta_lug = new JLabel("");
 		ritenuta_lug.setBounds(180, 232, 80, 20);
 		panel_lug.add(ritenuta_lug);
 
@@ -1551,8 +1612,9 @@ public class Partenza extends JFrame {
 
 		// TODO agosto
 
-		list_clienti_ago = new JList(database.elenco_clienti_agosto());
-
+		list_clienti_ago = new JList(database.elenco_clienti_mese("agosto"));
+		list_clienti_ago.addListSelectionListener(new ListSelection());
+		
 		scrollPane_ago = new JScrollPane(list_clienti_ago);
 		scrollPane_ago.setBounds(546, 21, 312, 405);
 		panel_ago.add(scrollPane_ago);
@@ -1621,67 +1683,67 @@ public class Partenza extends JFrame {
 		lblTotDovuto_ago.setBounds(270, 235, 84, 14);
 		panel_ago.add(lblTotDovuto_ago);
 
-		JLabel Cliente_ago = new JLabel("");
+		Cliente_ago = new JLabel("");
 		Cliente_ago.setBounds(88, 22, 172, 20);
 		panel_ago.add(Cliente_ago);
 
-		JLabel indirizzo_ago = new JLabel("");
+		indirizzo_ago = new JLabel("");
 		indirizzo_ago.setBounds(88, 52, 172, 20);
 		panel_ago.add(indirizzo_ago);
 
-		JLabel cap_ago = new JLabel("");
+		cap_ago = new JLabel("");
 		cap_ago.setBounds(88, 82, 172, 20);
 		panel_ago.add(cap_ago);
 
-		JLabel descrizione_ago = new JLabel("");
+		descrizione_ago = new JLabel("");
 		descrizione_ago.setBounds(88, 112, 172, 20);
 		panel_ago.add(descrizione_ago);
 
-		JLabel descrizione_2_ago = new JLabel("");
+		descrizione_2_ago = new JLabel("");
 		descrizione_2_ago.setBounds(88, 142, 172, 20);
 		panel_ago.add(descrizione_2_ago);
 
-		JLabel imponibile_ago = new JLabel("");
+		imponibile_ago = new JLabel("");
 		imponibile_ago.setBounds(88, 172, 172, 20);
 		panel_ago.add(imponibile_ago);
 
-		JLabel imposta_ago = new JLabel("");
+		imposta_ago = new JLabel("");
 		imposta_ago.setBounds(88, 202, 172, 20);
 		panel_ago.add(imposta_ago);
 
-		JLabel cliente_2_ago = new JLabel("");
+		cliente_2_ago = new JLabel("");
 		cliente_2_ago.setBounds(340, 22, 172, 20);
 		panel_ago.add(cliente_2_ago);
 
-		JLabel città_ago = new JLabel("");
+		città_ago = new JLabel("");
 		città_ago.setBounds(340, 52, 172, 20);
 		panel_ago.add(città_ago);
 
-		JLabel piva_ago = new JLabel("");
+		piva_ago = new JLabel("");
 		piva_ago.setBounds(340, 82, 172, 20);
 		panel_ago.add(piva_ago);
 
-		JLabel importo_ago = new JLabel("");
+		importo_ago = new JLabel("");
 		importo_ago.setBounds(340, 112, 172, 20);
 		panel_ago.add(importo_ago);
 
-		JLabel importo_2_ago = new JLabel("");
+		importo_2_ago = new JLabel("");
 		importo_2_ago.setBounds(340, 142, 172, 20);
 		panel_ago.add(importo_2_ago);
 
-		JLabel iva_ago = new JLabel("");
+		iva_ago = new JLabel("");
 		iva_ago.setBounds(340, 172, 172, 20);
 		panel_ago.add(iva_ago);
 
-		JLabel tot_fattura_ago = new JLabel("");
+		tot_fattura_ago = new JLabel("");
 		tot_fattura_ago.setBounds(340, 202, 172, 20);
 		panel_ago.add(tot_fattura_ago);
 
-		JLabel tot_dovuto_ago = new JLabel("");
+		tot_dovuto_ago = new JLabel("");
 		tot_dovuto_ago.setBounds(340, 232, 172, 20);
 		panel_ago.add(tot_dovuto_ago);
 
-		JLabel ritenuta_ago = new JLabel("");
+		ritenuta_ago = new JLabel("");
 		ritenuta_ago.setBounds(180, 232, 80, 20);
 		panel_ago.add(ritenuta_ago);
 
@@ -1694,8 +1756,9 @@ public class Partenza extends JFrame {
 
 		// TODO settembre
 
-		list_clienti_set = new JList(database.elenco_clienti_settembre());
-
+		list_clienti_set = new JList(database.elenco_clienti_mese("settembre"));
+		list_clienti_set.addListSelectionListener(new ListSelection());
+		
 		scrollPane_set = new JScrollPane(list_clienti_set);
 		scrollPane_set.setBounds(546, 21, 312, 405);
 		panel_set.add(scrollPane_set);
@@ -1764,67 +1827,67 @@ public class Partenza extends JFrame {
 		lblTotDovuto_set.setBounds(270, 235, 84, 14);
 		panel_set.add(lblTotDovuto_set);
 
-		JLabel Cliente_set = new JLabel("");
+		Cliente_set = new JLabel("");
 		Cliente_set.setBounds(88, 22, 172, 20);
 		panel_set.add(Cliente_set);
 
-		JLabel indirizzo_set = new JLabel("");
+		indirizzo_set = new JLabel("");
 		indirizzo_set.setBounds(88, 52, 172, 20);
 		panel_set.add(indirizzo_set);
 
-		JLabel cap_set = new JLabel("");
+		cap_set = new JLabel("");
 		cap_set.setBounds(88, 82, 172, 20);
 		panel_set.add(cap_set);
 
-		JLabel descrizione_set = new JLabel("");
+		descrizione_set = new JLabel("");
 		descrizione_set.setBounds(88, 112, 172, 20);
 		panel_set.add(descrizione_set);
 
-		JLabel descrizione_2_set = new JLabel("");
+		descrizione_2_set = new JLabel("");
 		descrizione_2_set.setBounds(88, 142, 172, 20);
 		panel_set.add(descrizione_2_set);
 
-		JLabel imponibile_set = new JLabel("");
+		imponibile_set = new JLabel("");
 		imponibile_set.setBounds(88, 172, 172, 20);
 		panel_set.add(imponibile_set);
 
-		JLabel imposta_set = new JLabel("");
+		imposta_set = new JLabel("");
 		imposta_set.setBounds(88, 202, 172, 20);
 		panel_set.add(imposta_set);
 
-		JLabel cliente_2_set = new JLabel("");
+		cliente_2_set = new JLabel("");
 		cliente_2_set.setBounds(340, 22, 172, 20);
 		panel_set.add(cliente_2_set);
 
-		JLabel città_set = new JLabel("");
+		città_set = new JLabel("");
 		città_set.setBounds(340, 52, 172, 20);
 		panel_set.add(città_set);
 
-		JLabel piva_set = new JLabel("");
+		piva_set = new JLabel("");
 		piva_set.setBounds(340, 82, 172, 20);
 		panel_set.add(piva_set);
 
-		JLabel importo_set = new JLabel("");
+		importo_set = new JLabel("");
 		importo_set.setBounds(340, 112, 172, 20);
 		panel_set.add(importo_set);
 
-		JLabel importo_2_set = new JLabel("");
+		importo_2_set = new JLabel("");
 		importo_2_set.setBounds(340, 142, 172, 20);
 		panel_set.add(importo_2_set);
 
-		JLabel iva_set = new JLabel("");
+		iva_set = new JLabel("");
 		iva_set.setBounds(340, 172, 172, 20);
 		panel_set.add(iva_set);
 
-		JLabel tot_fattura_set = new JLabel("");
+		tot_fattura_set = new JLabel("");
 		tot_fattura_set.setBounds(340, 202, 172, 20);
 		panel_set.add(tot_fattura_set);
 
-		JLabel tot_dovuto_set = new JLabel("");
+		tot_dovuto_set = new JLabel("");
 		tot_dovuto_set.setBounds(340, 232, 172, 20);
 		panel_set.add(tot_dovuto_set);
 
-		JLabel ritenuta_set = new JLabel("");
+		ritenuta_set = new JLabel("");
 		ritenuta_set.setBounds(180, 232, 80, 20);
 		panel_set.add(ritenuta_set);
 
@@ -1837,8 +1900,9 @@ public class Partenza extends JFrame {
 
 		// TODO ottobre
 
-		list_clienti_ott = new JList(database.elenco_clienti_ottobre());
-
+		list_clienti_ott = new JList(database.elenco_clienti_mese("ottobre"));
+		list_clienti_ott.addListSelectionListener(new ListSelection());
+		
 		scrollPane_ott = new JScrollPane(list_clienti_ott);
 		scrollPane_ott.setBounds(546, 21, 312, 405);
 		panel_ott.add(scrollPane_ott);
@@ -1907,67 +1971,67 @@ public class Partenza extends JFrame {
 		lblTotDovuto_ott.setBounds(270, 235, 84, 14);
 		panel_ott.add(lblTotDovuto_ott);
 
-		JLabel Cliente_ott = new JLabel("");
+		Cliente_ott = new JLabel("");
 		Cliente_ott.setBounds(88, 22, 172, 20);
 		panel_ott.add(Cliente_ott);
 
-		JLabel indirizzo_ott = new JLabel("");
+		indirizzo_ott = new JLabel("");
 		indirizzo_ott.setBounds(88, 52, 172, 20);
 		panel_ott.add(indirizzo_ott);
 
-		JLabel cap_ott = new JLabel("");
+		cap_ott = new JLabel("");
 		cap_ott.setBounds(88, 82, 172, 20);
 		panel_ott.add(cap_ott);
 
-		JLabel descrizione_ott = new JLabel("");
+		descrizione_ott = new JLabel("");
 		descrizione_ott.setBounds(88, 112, 172, 20);
 		panel_ott.add(descrizione_ott);
 
-		JLabel descrizione_2_ott = new JLabel("");
+		descrizione_2_ott = new JLabel("");
 		descrizione_2_ott.setBounds(88, 142, 172, 20);
 		panel_ott.add(descrizione_2_ott);
 
-		JLabel imponibile_ott = new JLabel("");
+		imponibile_ott = new JLabel("");
 		imponibile_ott.setBounds(88, 172, 172, 20);
 		panel_ott.add(imponibile_ott);
 
-		JLabel imposta_ott = new JLabel("");
+		imposta_ott = new JLabel("");
 		imposta_ott.setBounds(88, 202, 172, 20);
 		panel_ott.add(imposta_ott);
 
-		JLabel cliente_2_ott = new JLabel("");
+		cliente_2_ott = new JLabel("");
 		cliente_2_ott.setBounds(340, 22, 172, 20);
 		panel_ott.add(cliente_2_ott);
 
-		JLabel città_ott = new JLabel("");
+		città_ott = new JLabel("");
 		città_ott.setBounds(340, 52, 172, 20);
 		panel_ott.add(città_ott);
 
-		JLabel piva_ott = new JLabel("");
+		piva_ott = new JLabel("");
 		piva_ott.setBounds(340, 82, 172, 20);
 		panel_ott.add(piva_ott);
 
-		JLabel importo_ott = new JLabel("");
+		importo_ott = new JLabel("");
 		importo_ott.setBounds(340, 112, 172, 20);
 		panel_ott.add(importo_ott);
 
-		JLabel importo_2_ott = new JLabel("");
+		importo_2_ott = new JLabel("");
 		importo_2_ott.setBounds(340, 142, 172, 20);
 		panel_ott.add(importo_2_ott);
 
-		JLabel iva_ott = new JLabel("");
+		iva_ott = new JLabel("");
 		iva_ott.setBounds(340, 172, 172, 20);
 		panel_ott.add(iva_ott);
 
-		JLabel tot_fattura_ott = new JLabel("");
+		tot_fattura_ott = new JLabel("");
 		tot_fattura_ott.setBounds(340, 202, 172, 20);
 		panel_ott.add(tot_fattura_ott);
 
-		JLabel tot_dovuto_ott = new JLabel("");
+		tot_dovuto_ott = new JLabel("");
 		tot_dovuto_ott.setBounds(340, 232, 172, 20);
 		panel_ott.add(tot_dovuto_ott);
 
-		JLabel ritenuta_ott = new JLabel("");
+		ritenuta_ott = new JLabel("");
 		ritenuta_ott.setBounds(180, 232, 80, 20);
 		panel_ott.add(ritenuta_ott);
 
@@ -1980,8 +2044,9 @@ public class Partenza extends JFrame {
 
 		// TODO novembre
 
-		list_clienti_nov = new JList(database.elenco_clienti_novembre());
-
+		list_clienti_nov = new JList(database.elenco_clienti_mese("novembre"));
+		list_clienti_nov.addListSelectionListener(new ListSelection());
+		
 		scrollPane_nov = new JScrollPane(list_clienti_nov);
 		scrollPane_nov.setBounds(546, 21, 312, 405);
 		panel_nov.add(scrollPane_nov);
@@ -2050,67 +2115,67 @@ public class Partenza extends JFrame {
 		lblTotDovuto_nov.setBounds(270, 235, 84, 14);
 		panel_nov.add(lblTotDovuto_nov);
 
-		JLabel Cliente_nov = new JLabel("");
+		Cliente_nov = new JLabel("");
 		Cliente_nov.setBounds(88, 22, 172, 20);
 		panel_nov.add(Cliente_nov);
 
-		JLabel indirizzo_nov = new JLabel("");
+		indirizzo_nov = new JLabel("");
 		indirizzo_nov.setBounds(88, 52, 172, 20);
 		panel_nov.add(indirizzo_nov);
 
-		JLabel cap_nov = new JLabel("");
+		cap_nov = new JLabel("");
 		cap_nov.setBounds(88, 82, 172, 20);
 		panel_nov.add(cap_nov);
 
-		JLabel descrizione_nov = new JLabel("");
+		descrizione_nov = new JLabel("");
 		descrizione_nov.setBounds(88, 112, 172, 20);
 		panel_nov.add(descrizione_nov);
 
-		JLabel descrizione_2_nov = new JLabel("");
+		descrizione_2_nov = new JLabel("");
 		descrizione_2_nov.setBounds(88, 142, 172, 20);
 		panel_nov.add(descrizione_2_nov);
 
-		JLabel imponibile_nov = new JLabel("");
+		imponibile_nov = new JLabel("");
 		imponibile_nov.setBounds(88, 172, 172, 20);
 		panel_nov.add(imponibile_nov);
 
-		JLabel imposta_nov = new JLabel("");
+		imposta_nov = new JLabel("");
 		imposta_nov.setBounds(88, 202, 172, 20);
 		panel_nov.add(imposta_nov);
 
-		JLabel cliente_2_nov = new JLabel("");
+		cliente_2_nov = new JLabel("");
 		cliente_2_nov.setBounds(340, 22, 172, 20);
 		panel_nov.add(cliente_2_nov);
 
-		JLabel città_nov = new JLabel("");
+		città_nov = new JLabel("");
 		città_nov.setBounds(340, 52, 172, 20);
 		panel_nov.add(città_nov);
 
-		JLabel piva_nov = new JLabel("");
+		piva_nov = new JLabel("");
 		piva_nov.setBounds(340, 82, 172, 20);
 		panel_nov.add(piva_nov);
 
-		JLabel importo_nov = new JLabel("");
+		importo_nov = new JLabel("");
 		importo_nov.setBounds(340, 112, 172, 20);
 		panel_nov.add(importo_nov);
 
-		JLabel importo_2_nov = new JLabel("");
+		importo_2_nov = new JLabel("");
 		importo_2_nov.setBounds(340, 142, 172, 20);
 		panel_nov.add(importo_2_nov);
 
-		JLabel iva_nov = new JLabel("");
+		iva_nov = new JLabel("");
 		iva_nov.setBounds(340, 172, 172, 20);
 		panel_nov.add(iva_nov);
 
-		JLabel tot_fattura_nov = new JLabel("");
+		tot_fattura_nov = new JLabel("");
 		tot_fattura_nov.setBounds(340, 202, 172, 20);
 		panel_nov.add(tot_fattura_nov);
 
-		JLabel tot_dovuto_nov = new JLabel("");
+		tot_dovuto_nov = new JLabel("");
 		tot_dovuto_nov.setBounds(340, 232, 172, 20);
 		panel_nov.add(tot_dovuto_nov);
 
-		JLabel ritenuta_nov = new JLabel("");
+		ritenuta_nov = new JLabel("");
 		ritenuta_nov.setBounds(180, 232, 80, 20);
 		panel_nov.add(ritenuta_nov);
 
@@ -2123,8 +2188,9 @@ public class Partenza extends JFrame {
 
 		// TODO dicembre
 
-		list_clienti_dic = new JList(database.elenco_clienti_dicembre());
-
+		list_clienti_dic = new JList(database.elenco_clienti_mese("dicembre"));
+		list_clienti_dic.addListSelectionListener(new ListSelection());
+		
 		scrollPane_dic = new JScrollPane(list_clienti_dic);
 		scrollPane_dic.setBounds(546, 21, 312, 405);
 		panel_dic.add(scrollPane_dic);
@@ -2193,67 +2259,67 @@ public class Partenza extends JFrame {
 		lblTotDovuto_dic.setBounds(270, 235, 84, 14);
 		panel_dic.add(lblTotDovuto_dic);
 
-		JLabel Cliente_dic = new JLabel("");
+		Cliente_dic = new JLabel("");
 		Cliente_dic.setBounds(88, 22, 172, 20);
 		panel_dic.add(Cliente_dic);
 
-		JLabel indirizzo_dic = new JLabel("");
+		indirizzo_dic = new JLabel("");
 		indirizzo_dic.setBounds(88, 52, 172, 20);
 		panel_dic.add(indirizzo_dic);
 
-		JLabel cap_dic = new JLabel("");
+		cap_dic = new JLabel("");
 		cap_dic.setBounds(88, 82, 172, 20);
 		panel_dic.add(cap_dic);
 
-		JLabel descrizione_dic = new JLabel("");
+		descrizione_dic = new JLabel("");
 		descrizione_dic.setBounds(88, 112, 172, 20);
 		panel_dic.add(descrizione_dic);
 
-		JLabel descrizione_2_dic = new JLabel("");
+		descrizione_2_dic = new JLabel("");
 		descrizione_2_dic.setBounds(88, 142, 172, 20);
 		panel_dic.add(descrizione_2_dic);
 
-		JLabel imponibile_dic = new JLabel("");
+		imponibile_dic = new JLabel("");
 		imponibile_dic.setBounds(88, 172, 172, 20);
 		panel_dic.add(imponibile_dic);
 
-		JLabel imposta_dic = new JLabel("");
+		imposta_dic = new JLabel("");
 		imposta_dic.setBounds(88, 202, 172, 20);
 		panel_dic.add(imposta_dic);
 
-		JLabel cliente_2_dic = new JLabel("");
+		cliente_2_dic = new JLabel("");
 		cliente_2_dic.setBounds(340, 22, 172, 20);
 		panel_dic.add(cliente_2_dic);
 
-		JLabel città_dic = new JLabel("");
+		città_dic = new JLabel("");
 		città_dic.setBounds(340, 52, 172, 20);
 		panel_dic.add(città_dic);
 
-		JLabel piva_dic = new JLabel("");
+		piva_dic = new JLabel("");
 		piva_dic.setBounds(340, 82, 172, 20);
 		panel_dic.add(piva_dic);
 
-		JLabel importo_dic = new JLabel("");
+		importo_dic = new JLabel("");
 		importo_dic.setBounds(340, 112, 172, 20);
 		panel_dic.add(importo_dic);
 
-		JLabel importo_2_dic = new JLabel("");
+		importo_2_dic = new JLabel("");
 		importo_2_dic.setBounds(340, 142, 172, 20);
 		panel_dic.add(importo_2_dic);
 
-		JLabel iva_dic = new JLabel("");
+		iva_dic = new JLabel("");
 		iva_dic.setBounds(340, 172, 172, 20);
 		panel_dic.add(iva_dic);
 
-		JLabel tot_fattura_dic = new JLabel("");
+		tot_fattura_dic = new JLabel("");
 		tot_fattura_dic.setBounds(340, 202, 172, 20);
 		panel_dic.add(tot_fattura_dic);
 
-		JLabel tot_dovuto_dic = new JLabel("");
+		tot_dovuto_dic = new JLabel("");
 		tot_dovuto_dic.setBounds(340, 232, 172, 20);
 		panel_dic.add(tot_dovuto_dic);
 
-		JLabel ritenuta_dic = new JLabel("");
+		ritenuta_dic = new JLabel("");
 		ritenuta_dic.setBounds(180, 232, 80, 20);
 		panel_dic.add(ritenuta_dic);
 
@@ -2353,21 +2419,760 @@ public class Partenza extends JFrame {
 
 			if (e.getSource() == btnNuovo_anno) {
 
-				int confirm = JOptionPane.showOptionDialog(null,
-						"Iniziare un nuovo anno? Azzerare modifiche mensili e il numero delle fatture?", "Nuovo Anno",
-						JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,
-						null, null, null);
+				int confirm = JOptionPane
+						.showOptionDialog(
+								null,
+								"Iniziare un nuovo anno? Azzerare modifiche mensili e il numero delle fatture?",
+								"Nuovo Anno", JOptionPane.YES_NO_OPTION,
+								JOptionPane.QUESTION_MESSAGE, null, null, null);
 				if (confirm == 0) {
 
 					database.nuovo_anno();
-					
 
-				} 
-			
+				}
+
 			}
 			if (e.getSource() == btnDropbox) {
 
 			}
+		}
+
+	}
+
+	public class ListSelection implements ListSelectionListener {
+
+		@Override
+		public void valueChanged(ListSelectionEvent e) {
+			int luogo = tabbedPane.getSelectedIndex();
+			String nome_cliente, test, test1, test2, test3, test4, test5;
+			Cliente client;
+			switch (String.valueOf(luogo)) {
+
+			case "1":
+				nome_cliente = (String) list_clienti.getSelectedValue();
+				client = database.seleziona(nome_cliente);
+
+				text_Cliente.setText(client.getNome());
+				test = client.getNome2();
+				if (test.equals("null")) {
+					text_cliente_2.setText("");
+				} else {
+					text_cliente_2.setText(test);
+				}
+				text_indirizzo.setText(client.getIndirizzo());
+				text_città.setText(client.getCittà());
+				text_cap.setText(client.getCap());
+				text_piva.setText(client.getPiva());
+				text_descrizione.setText(client.getDescrizione());
+				text_importo.setText(String.valueOf(client.getImporto()));
+				test2 = client.getDescrizione2();
+				if (test2.equals("null")) {
+					text_descrizione_2.setText("");
+				} else {
+					text_descrizione_2.setText(test2);
+				}
+				test3 = String.valueOf(client.getImporto2());
+				if (test3.equals("0.0")) {
+					text_importo_2.setText("");
+				} else {
+					text_importo_2.setText(test3);
+				}
+				text_imponibile.setText(String.valueOf(client.getImponibile()));
+				text_iva.setText(String.valueOf(client.getIva()));
+				text_imposta.setText(String.valueOf(client.getImposta()));
+				text_tot_fattura
+						.setText(String.valueOf(client.getTot_fattura()));
+				test4 = String.valueOf(client.getRitenuta());
+				if (test4.equals("0.0")) {
+					text_ritenuta.setText("");
+					combo_ritenuta.setSelectedItem("No");
+				} else {
+					text_ritenuta.setText(test4);
+					combo_ritenuta.setSelectedItem("Si");
+				}
+				test5 = String.valueOf(client.getTot_dovuto());
+				if (test5.equals("0.0")) {
+					text_tot_dovuto.setText("");
+				} else {
+					text_tot_dovuto.setText(test5);
+				}
+				boolean a = client.isGennaio();
+				boolean b = client.isFebbraio();
+				boolean c = client.isMarzo();
+				boolean d = client.isAprile();
+				boolean e2 = client.isMaggio();
+				boolean f = client.isGiugno();
+				boolean g = client.isLuglio();
+				boolean h = client.isAgosto();
+				boolean i = client.isSettembre();
+				boolean l = client.isOttobre();
+				boolean m = client.isNovembre();
+				boolean n = client.isDicembre();
+
+				if (a)
+					combo_gen.setSelectedItem("Si");
+				else
+					combo_gen.setSelectedItem("No");
+				if (b)
+					combo_feb.setSelectedItem("Si");
+				else
+					combo_feb.setSelectedItem("No");
+				if (c)
+					combo_mar.setSelectedItem("Si");
+				else
+					combo_mar.setSelectedItem("No");
+				if (d)
+					combo_apr.setSelectedItem("Si");
+				else
+					combo_apr.setSelectedItem("No");
+				if (e2)
+					combo_mag.setSelectedItem("Si");
+				else
+					combo_mag.setSelectedItem("No");
+				if (f)
+					combo_giu.setSelectedItem("Si");
+				else
+					combo_giu.setSelectedItem("No");
+				if (g)
+					combo_lug.setSelectedItem("Si");
+				else
+					combo_lug.setSelectedItem("No");
+				if (h)
+					combo_ago.setSelectedItem("Si");
+				else
+					combo_ago.setSelectedItem("No");
+				if (i)
+					combo_set.setSelectedItem("Si");
+				else
+					combo_set.setSelectedItem("No");
+				if (l)
+					combo_ott.setSelectedItem("Si");
+				else
+					combo_ott.setSelectedItem("No");
+				if (m)
+					combo_nov.setSelectedItem("Si");
+				else
+					combo_nov.setSelectedItem("No");
+				if (n)
+					combo_dic.setSelectedItem("Si");
+				else
+					combo_dic.setSelectedItem("No");
+
+				break;
+
+			case "2":
+				nome_cliente = (String) list_clienti_gen.getSelectedValue();
+				client = database.seleziona(nome_cliente);
+
+				Cliente_gen.setText(client.getNome());
+				test = client.getNome2();
+				if (test.equals("null")) {
+					cliente_2_gen.setText("");
+				} else {
+					cliente_2_gen.setText(test);
+				}
+				indirizzo_gen.setText(client.getIndirizzo());
+				città_gen.setText(client.getCittà());
+				cap_gen.setText(client.getCap());
+				piva_gen.setText(client.getPiva());
+				descrizione_gen.setText(client.getDescrizione());
+				importo_gen.setText(String.valueOf(client.getImporto()));
+				test2 = client.getDescrizione2();
+				if (test2.equals("null")) {
+					descrizione_2_gen.setText("");
+				} else {
+					descrizione_2_gen.setText(test2);
+				}
+				test3 = String.valueOf(client.getImporto2());
+				if (test3.equals("0.0")) {
+					importo_2_gen.setText("");
+				} else {
+					importo_2_gen.setText(test3);
+				}
+				imponibile_gen.setText(String.valueOf(client.getImponibile()));
+				iva_gen.setText(String.valueOf(client.getIva()));
+				imposta_gen.setText(String.valueOf(client.getImposta()));
+				tot_fattura_gen
+						.setText(String.valueOf(client.getTot_fattura()));
+				test4 = String.valueOf(client.getRitenuta());
+				if (test4.equals("0.0")) {
+					ritenuta_gen.setText("");
+					combo_ritenuta_gen.setSelectedItem("No");
+				} else {
+					ritenuta_gen.setText(test4);
+					combo_ritenuta_gen.setSelectedItem("Si");
+				}
+				test5 = String.valueOf(client.getTot_dovuto());
+				if (test5.equals("0.0")) {
+					tot_dovuto_gen.setText("");
+				} else {
+					tot_dovuto_gen.setText(test5);
+				}
+
+				break;
+				
+			case "3":
+				nome_cliente = (String) list_clienti_feb.getSelectedValue();
+				client = database.seleziona(nome_cliente);
+
+				Cliente_feb.setText(client.getNome());
+				test = client.getNome2();
+				if (test.equals("null")) {
+					cliente_2_feb.setText("");
+				} else {
+					cliente_2_feb.setText(test);
+				}
+				indirizzo_feb.setText(client.getIndirizzo());
+				città_feb.setText(client.getCittà());
+				cap_feb.setText(client.getCap());
+				piva_feb.setText(client.getPiva());
+				descrizione_feb.setText(client.getDescrizione());
+				importo_feb.setText(String.valueOf(client.getImporto()));
+				test2 = client.getDescrizione2();
+				if (test2.equals("null")) {
+					descrizione_2_feb.setText("");
+				} else {
+					descrizione_2_feb.setText(test2);
+				}
+				test3 = String.valueOf(client.getImporto2());
+				if (test3.equals("0.0")) {
+					importo_2_feb.setText("");
+				} else {
+					importo_2_feb.setText(test3);
+				}
+				imponibile_feb.setText(String.valueOf(client.getImponibile()));
+				iva_feb.setText(String.valueOf(client.getIva()));
+				imposta_feb.setText(String.valueOf(client.getImposta()));
+				tot_fattura_feb
+						.setText(String.valueOf(client.getTot_fattura()));
+				test4 = String.valueOf(client.getRitenuta());
+				if (test4.equals("0.0")) {
+					ritenuta_feb.setText("");
+					combo_ritenuta_feb.setSelectedItem("No");
+				} else {
+					ritenuta_feb.setText(test4);
+					combo_ritenuta_feb.setSelectedItem("Si");
+				}
+				test5 = String.valueOf(client.getTot_dovuto());
+				if (test5.equals("0.0")) {
+					tot_dovuto_feb.setText("");
+				} else {
+					tot_dovuto_feb.setText(test5);
+				}
+
+				break;
+				
+			case "4":
+				nome_cliente = (String) list_clienti_mar.getSelectedValue();
+				client = database.seleziona(nome_cliente);
+
+				Cliente_mar.setText(client.getNome());
+				test = client.getNome2();
+				if (test.equals("null")) {
+					cliente_2_mar.setText("");
+				} else {
+					cliente_2_mar.setText(test);
+				}
+				indirizzo_mar.setText(client.getIndirizzo());
+				città_mar.setText(client.getCittà());
+				cap_mar.setText(client.getCap());
+				piva_mar.setText(client.getPiva());
+				descrizione_mar.setText(client.getDescrizione());
+				importo_mar.setText(String.valueOf(client.getImporto()));
+				test2 = client.getDescrizione2();
+				if (test2.equals("null")) {
+					descrizione_2_mar.setText("");
+				} else {
+					descrizione_2_mar.setText(test2);
+				}
+				test3 = String.valueOf(client.getImporto2());
+				if (test3.equals("0.0")) {
+					importo_2_mar.setText("");
+				} else {
+					importo_2_mar.setText(test3);
+				}
+				imponibile_mar.setText(String.valueOf(client.getImponibile()));
+				iva_mar.setText(String.valueOf(client.getIva()));
+				imposta_mar.setText(String.valueOf(client.getImposta()));
+				tot_fattura_mar
+						.setText(String.valueOf(client.getTot_fattura()));
+				test4 = String.valueOf(client.getRitenuta());
+				if (test4.equals("0.0")) {
+					ritenuta_mar.setText("");
+					combo_ritenuta_mar.setSelectedItem("No");
+				} else {
+					ritenuta_mar.setText(test4);
+					combo_ritenuta_mar.setSelectedItem("Si");
+				}
+				test5 = String.valueOf(client.getTot_dovuto());
+				if (test5.equals("0.0")) {
+					tot_dovuto_mar.setText("");
+				} else {
+					tot_dovuto_mar.setText(test5);
+				}
+
+				break;
+				
+			case "5":
+				nome_cliente = (String) list_clienti_apr.getSelectedValue();
+				client = database.seleziona(nome_cliente);
+
+				Cliente_apr.setText(client.getNome());
+				test = client.getNome2();
+				if (test.equals("null")) {
+					cliente_2_apr.setText("");
+				} else {
+					cliente_2_apr.setText(test);
+				}
+				indirizzo_apr.setText(client.getIndirizzo());
+				città_apr.setText(client.getCittà());
+				cap_apr.setText(client.getCap());
+				piva_apr.setText(client.getPiva());
+				descrizione_apr.setText(client.getDescrizione());
+				importo_apr.setText(String.valueOf(client.getImporto()));
+				test2 = client.getDescrizione2();
+				if (test2.equals("null")) {
+					descrizione_2_apr.setText("");
+				} else {
+					descrizione_2_apr.setText(test2);
+				}
+				test3 = String.valueOf(client.getImporto2());
+				if (test3.equals("0.0")) {
+					importo_2_apr.setText("");
+				} else {
+					importo_2_apr.setText(test3);
+				}
+				imponibile_apr.setText(String.valueOf(client.getImponibile()));
+				iva_apr.setText(String.valueOf(client.getIva()));
+				imposta_apr.setText(String.valueOf(client.getImposta()));
+				tot_fattura_apr
+						.setText(String.valueOf(client.getTot_fattura()));
+				test4 = String.valueOf(client.getRitenuta());
+				if (test4.equals("0.0")) {
+					ritenuta_apr.setText("");
+					combo_ritenuta_apr.setSelectedItem("No");
+				} else {
+					ritenuta_apr.setText(test4);
+					combo_ritenuta_apr.setSelectedItem("Si");
+				}
+				test5 = String.valueOf(client.getTot_dovuto());
+				if (test5.equals("0.0")) {
+					tot_dovuto_apr.setText("");
+				} else {
+					tot_dovuto_apr.setText(test5);
+				}
+
+				break;
+				
+			case "6":
+				nome_cliente = (String) list_clienti_mag.getSelectedValue();
+				client = database.seleziona(nome_cliente);
+
+				Cliente_mag.setText(client.getNome());
+				test = client.getNome2();
+				if (test.equals("null")) {
+					cliente_2_mag.setText("");
+				} else {
+					cliente_2_mag.setText(test);
+				}
+				indirizzo_mag.setText(client.getIndirizzo());
+				città_mag.setText(client.getCittà());
+				cap_mag.setText(client.getCap());
+				piva_mag.setText(client.getPiva());
+				descrizione_mag.setText(client.getDescrizione());
+				importo_mag.setText(String.valueOf(client.getImporto()));
+				test2 = client.getDescrizione2();
+				if (test2.equals("null")) {
+					descrizione_2_mag.setText("");
+				} else {
+					descrizione_2_mag.setText(test2);
+				}
+				test3 = String.valueOf(client.getImporto2());
+				if (test3.equals("0.0")) {
+					importo_2_mag.setText("");
+				} else {
+					importo_2_mag.setText(test3);
+				}
+				imponibile_mag.setText(String.valueOf(client.getImponibile()));
+				iva_mag.setText(String.valueOf(client.getIva()));
+				imposta_mag.setText(String.valueOf(client.getImposta()));
+				tot_fattura_mag
+						.setText(String.valueOf(client.getTot_fattura()));
+				test4 = String.valueOf(client.getRitenuta());
+				if (test4.equals("0.0")) {
+					ritenuta_mag.setText("");
+					combo_ritenuta_mag.setSelectedItem("No");
+				} else {
+					ritenuta_mag.setText(test4);
+					combo_ritenuta_mag.setSelectedItem("Si");
+				}
+				test5 = String.valueOf(client.getTot_dovuto());
+				if (test5.equals("0.0")) {
+					tot_dovuto_mag.setText("");
+				} else {
+					tot_dovuto_mag.setText(test5);
+				}
+
+				break;
+				
+			case "7":
+				nome_cliente = (String) list_clienti_giu.getSelectedValue();
+				client = database.seleziona(nome_cliente);
+
+				Cliente_giu.setText(client.getNome());
+				test = client.getNome2();
+				if (test.equals("null")) {
+					cliente_2_giu.setText("");
+				} else {
+					cliente_2_giu.setText(test);
+				}
+				indirizzo_giu.setText(client.getIndirizzo());
+				città_giu.setText(client.getCittà());
+				cap_giu.setText(client.getCap());
+				piva_giu.setText(client.getPiva());
+				descrizione_giu.setText(client.getDescrizione());
+				importo_giu.setText(String.valueOf(client.getImporto()));
+				test2 = client.getDescrizione2();
+				if (test2.equals("null")) {
+					descrizione_2_giu.setText("");
+				} else {
+					descrizione_2_giu.setText(test2);
+				}
+				test3 = String.valueOf(client.getImporto2());
+				if (test3.equals("0.0")) {
+					importo_2_giu.setText("");
+				} else {
+					importo_2_giu.setText(test3);
+				}
+				imponibile_giu.setText(String.valueOf(client.getImponibile()));
+				iva_giu.setText(String.valueOf(client.getIva()));
+				imposta_giu.setText(String.valueOf(client.getImposta()));
+				tot_fattura_giu
+						.setText(String.valueOf(client.getTot_fattura()));
+				test4 = String.valueOf(client.getRitenuta());
+				if (test4.equals("0.0")) {
+					ritenuta_giu.setText("");
+					combo_ritenuta_giu.setSelectedItem("No");
+				} else {
+					ritenuta_giu.setText(test4);
+					combo_ritenuta_giu.setSelectedItem("Si");
+				}
+				test5 = String.valueOf(client.getTot_dovuto());
+				if (test5.equals("0.0")) {
+					tot_dovuto_giu.setText("");
+				} else {
+					tot_dovuto_giu.setText(test5);
+				}
+
+				break;
+				
+			case "8":
+				nome_cliente = (String) list_clienti_lug.getSelectedValue();
+				client = database.seleziona(nome_cliente);
+
+				Cliente_lug.setText(client.getNome());
+				test = client.getNome2();
+				if (test.equals("null")) {
+					cliente_2_lug.setText("");
+				} else {
+					cliente_2_lug.setText(test);
+				}
+				indirizzo_lug.setText(client.getIndirizzo());
+				città_lug.setText(client.getCittà());
+				cap_lug.setText(client.getCap());
+				piva_lug.setText(client.getPiva());
+				descrizione_lug.setText(client.getDescrizione());
+				importo_lug.setText(String.valueOf(client.getImporto()));
+				test2 = client.getDescrizione2();
+				if (test2.equals("null")) {
+					descrizione_2_lug.setText("");
+				} else {
+					descrizione_2_lug.setText(test2);
+				}
+				test3 = String.valueOf(client.getImporto2());
+				if (test3.equals("0.0")) {
+					importo_2_lug.setText("");
+				} else {
+					importo_2_lug.setText(test3);
+				}
+				imponibile_lug.setText(String.valueOf(client.getImponibile()));
+				iva_lug.setText(String.valueOf(client.getIva()));
+				imposta_lug.setText(String.valueOf(client.getImposta()));
+				tot_fattura_lug
+						.setText(String.valueOf(client.getTot_fattura()));
+				test4 = String.valueOf(client.getRitenuta());
+				if (test4.equals("0.0")) {
+					ritenuta_lug.setText("");
+					combo_ritenuta_lug.setSelectedItem("No");
+				} else {
+					ritenuta_lug.setText(test4);
+					combo_ritenuta_lug.setSelectedItem("Si");
+				}
+				test5 = String.valueOf(client.getTot_dovuto());
+				if (test5.equals("0.0")) {
+					tot_dovuto_lug.setText("");
+				} else {
+					tot_dovuto_lug.setText(test5);
+				}
+
+				break;
+				
+			case "9":
+				nome_cliente = (String) list_clienti_ago.getSelectedValue();
+				client = database.seleziona(nome_cliente);
+
+				Cliente_ago.setText(client.getNome());
+				test = client.getNome2();
+				if (test.equals("null")) {
+					cliente_2_ago.setText("");
+				} else {
+					cliente_2_ago.setText(test);
+				}
+				indirizzo_ago.setText(client.getIndirizzo());
+				città_ago.setText(client.getCittà());
+				cap_ago.setText(client.getCap());
+				piva_ago.setText(client.getPiva());
+				descrizione_ago.setText(client.getDescrizione());
+				importo_ago.setText(String.valueOf(client.getImporto()));
+				test2 = client.getDescrizione2();
+				if (test2.equals("null")) {
+					descrizione_2_ago.setText("");
+				} else {
+					descrizione_2_ago.setText(test2);
+				}
+				test3 = String.valueOf(client.getImporto2());
+				if (test3.equals("0.0")) {
+					importo_2_ago.setText("");
+				} else {
+					importo_2_ago.setText(test3);
+				}
+				imponibile_ago.setText(String.valueOf(client.getImponibile()));
+				iva_ago.setText(String.valueOf(client.getIva()));
+				imposta_ago.setText(String.valueOf(client.getImposta()));
+				tot_fattura_ago
+						.setText(String.valueOf(client.getTot_fattura()));
+				test4 = String.valueOf(client.getRitenuta());
+				if (test4.equals("0.0")) {
+					ritenuta_ago.setText("");
+					combo_ritenuta_ago.setSelectedItem("No");
+				} else {
+					ritenuta_ago.setText(test4);
+					combo_ritenuta_ago.setSelectedItem("Si");
+				}
+				test5 = String.valueOf(client.getTot_dovuto());
+				if (test5.equals("0.0")) {
+					tot_dovuto_ago.setText("");
+				} else {
+					tot_dovuto_ago.setText(test5);
+				}
+
+				break;
+				
+			case "10":
+				nome_cliente = (String) list_clienti_set.getSelectedValue();
+				client = database.seleziona(nome_cliente);
+
+				Cliente_set.setText(client.getNome());
+				test = client.getNome2();
+				if (test.equals("null")) {
+					cliente_2_set.setText("");
+				} else {
+					cliente_2_set.setText(test);
+				}
+				indirizzo_set.setText(client.getIndirizzo());
+				città_set.setText(client.getCittà());
+				cap_set.setText(client.getCap());
+				piva_set.setText(client.getPiva());
+				descrizione_set.setText(client.getDescrizione());
+				importo_set.setText(String.valueOf(client.getImporto()));
+				test2 = client.getDescrizione2();
+				if (test2.equals("null")) {
+					descrizione_2_set.setText("");
+				} else {
+					descrizione_2_set.setText(test2);
+				}
+				test3 = String.valueOf(client.getImporto2());
+				if (test3.equals("0.0")) {
+					importo_2_set.setText("");
+				} else {
+					importo_2_set.setText(test3);
+				}
+				imponibile_set.setText(String.valueOf(client.getImponibile()));
+				iva_set.setText(String.valueOf(client.getIva()));
+				imposta_set.setText(String.valueOf(client.getImposta()));
+				tot_fattura_set
+						.setText(String.valueOf(client.getTot_fattura()));
+				test4 = String.valueOf(client.getRitenuta());
+				if (test4.equals("0.0")) {
+					ritenuta_set.setText("");
+					combo_ritenuta_set.setSelectedItem("No");
+				} else {
+					ritenuta_set.setText(test4);
+					combo_ritenuta_set.setSelectedItem("Si");
+				}
+				test5 = String.valueOf(client.getTot_dovuto());
+				if (test5.equals("0.0")) {
+					tot_dovuto_set.setText("");
+				} else {
+					tot_dovuto_set.setText(test5);
+				}
+
+				break;
+				
+			case "11":
+				nome_cliente = (String) list_clienti_ott.getSelectedValue();
+				client = database.seleziona(nome_cliente);
+
+				Cliente_ott.setText(client.getNome());
+				test = client.getNome2();
+				if (test.equals("null")) {
+					cliente_2_ott.setText("");
+				} else {
+					cliente_2_ott.setText(test);
+				}
+				indirizzo_ott.setText(client.getIndirizzo());
+				città_ott.setText(client.getCittà());
+				cap_ott.setText(client.getCap());
+				piva_ott.setText(client.getPiva());
+				descrizione_ott.setText(client.getDescrizione());
+				importo_ott.setText(String.valueOf(client.getImporto()));
+				test2 = client.getDescrizione2();
+				if (test2.equals("null")) {
+					descrizione_2_ott.setText("");
+				} else {
+					descrizione_2_ott.setText(test2);
+				}
+				test3 = String.valueOf(client.getImporto2());
+				if (test3.equals("0.0")) {
+					importo_2_ott.setText("");
+				} else {
+					importo_2_ott.setText(test3);
+				}
+				imponibile_ott.setText(String.valueOf(client.getImponibile()));
+				iva_ott.setText(String.valueOf(client.getIva()));
+				imposta_ott.setText(String.valueOf(client.getImposta()));
+				tot_fattura_ott
+						.setText(String.valueOf(client.getTot_fattura()));
+				test4 = String.valueOf(client.getRitenuta());
+				if (test4.equals("0.0")) {
+					ritenuta_ott.setText("");
+					combo_ritenuta_ott.setSelectedItem("No");
+				} else {
+					ritenuta_ott.setText(test4);
+					combo_ritenuta_ott.setSelectedItem("Si");
+				}
+				test5 = String.valueOf(client.getTot_dovuto());
+				if (test5.equals("0.0")) {
+					tot_dovuto_ott.setText("");
+				} else {
+					tot_dovuto_ott.setText(test5);
+				}
+
+				break;
+				
+			case "12":
+				nome_cliente = (String) list_clienti_nov.getSelectedValue();
+				client = database.seleziona(nome_cliente);
+
+				Cliente_nov.setText(client.getNome());
+				test = client.getNome2();
+				if (test.equals("null")) {
+					cliente_2_nov.setText("");
+				} else {
+					cliente_2_nov.setText(test);
+				}
+				indirizzo_nov.setText(client.getIndirizzo());
+				città_nov.setText(client.getCittà());
+				cap_nov.setText(client.getCap());
+				piva_nov.setText(client.getPiva());
+				descrizione_nov.setText(client.getDescrizione());
+				importo_nov.setText(String.valueOf(client.getImporto()));
+				test2 = client.getDescrizione2();
+				if (test2.equals("null")) {
+					descrizione_2_nov.setText("");
+				} else {
+					descrizione_2_nov.setText(test2);
+				}
+				test3 = String.valueOf(client.getImporto2());
+				if (test3.equals("0.0")) {
+					importo_2_nov.setText("");
+				} else {
+					importo_2_nov.setText(test3);
+				}
+				imponibile_nov.setText(String.valueOf(client.getImponibile()));
+				iva_nov.setText(String.valueOf(client.getIva()));
+				imposta_nov.setText(String.valueOf(client.getImposta()));
+				tot_fattura_nov
+						.setText(String.valueOf(client.getTot_fattura()));
+				test4 = String.valueOf(client.getRitenuta());
+				if (test4.equals("0.0")) {
+					ritenuta_nov.setText("");
+					combo_ritenuta_nov.setSelectedItem("No");
+				} else {
+					ritenuta_nov.setText(test4);
+					combo_ritenuta_nov.setSelectedItem("Si");
+				}
+				test5 = String.valueOf(client.getTot_dovuto());
+				if (test5.equals("0.0")) {
+					tot_dovuto_nov.setText("");
+				} else {
+					tot_dovuto_nov.setText(test5);
+				}
+
+				break;
+				
+			case "13":
+				nome_cliente = (String) list_clienti_dic.getSelectedValue();
+				client = database.seleziona(nome_cliente);
+
+				Cliente_dic.setText(client.getNome());
+				test = client.getNome2();
+				if (test.equals("null")) {
+					cliente_2_dic.setText("");
+				} else {
+					cliente_2_dic.setText(test);
+				}
+				indirizzo_dic.setText(client.getIndirizzo());
+				città_dic.setText(client.getCittà());
+				cap_dic.setText(client.getCap());
+				piva_dic.setText(client.getPiva());
+				descrizione_dic.setText(client.getDescrizione());
+				importo_dic.setText(String.valueOf(client.getImporto()));
+				test2 = client.getDescrizione2();
+				if (test2.equals("null")) {
+					descrizione_2_dic.setText("");
+				} else {
+					descrizione_2_dic.setText(test2);
+				}
+				test3 = String.valueOf(client.getImporto2());
+				if (test3.equals("0.0")) {
+					importo_2_dic.setText("");
+				} else {
+					importo_2_dic.setText(test3);
+				}
+				imponibile_dic.setText(String.valueOf(client.getImponibile()));
+				iva_dic.setText(String.valueOf(client.getIva()));
+				imposta_dic.setText(String.valueOf(client.getImposta()));
+				tot_fattura_dic
+						.setText(String.valueOf(client.getTot_fattura()));
+				test4 = String.valueOf(client.getRitenuta());
+				if (test4.equals("0.0")) {
+					ritenuta_dic.setText("");
+					combo_ritenuta_dic.setSelectedItem("No");
+				} else {
+					ritenuta_dic.setText(test4);
+					combo_ritenuta_dic.setSelectedItem("Si");
+				}
+				test5 = String.valueOf(client.getTot_dovuto());
+				if (test5.equals("0.0")) {
+					tot_dovuto_dic.setText("");
+				} else {
+					tot_dovuto_dic.setText(test5);
+				}
+
+				break;
+			}
+
 		}
 
 	}
@@ -2384,55 +3189,63 @@ public class Partenza extends JFrame {
 				list_clienti.setListData(database.elenco_clienti());
 			}
 			if (pos == 2) {
-				list_clienti_gen.setListData(database.elenco_clienti_gennaio());
+				list_clienti_gen.setListData(database
+						.elenco_clienti_mese("gennaio"));
 
 			}
 			if (pos == 3) {
-				list_clienti_feb
-				.setListData(database.elenco_clienti_febbraio());
+				list_clienti_feb.setListData(database
+						.elenco_clienti_mese("febbraio"));
 
 			}
 			if (pos == 4) {
-				list_clienti_mar.setListData(database.elenco_clienti_marzo());
+				list_clienti_mar.setListData(database
+						.elenco_clienti_mese("marzo"));
 
 			}
 			if (pos == 5) {
-				list_clienti_apr.setListData(database.elenco_clienti_aprile());
+				list_clienti_apr.setListData(database
+						.elenco_clienti_mese("aprile"));
 
 			}
 			if (pos == 6) {
-				list_clienti_mag.setListData(database.elenco_clienti_maggio());
+				list_clienti_mag.setListData(database
+						.elenco_clienti_mese("maggio"));
 
 			}
 			if (pos == 7) {
-				list_clienti_giu.setListData(database.elenco_clienti_giugno());
+				list_clienti_giu.setListData(database
+						.elenco_clienti_mese("giugno"));
 
 			}
 			if (pos == 8) {
-				list_clienti_lug.setListData(database.elenco_clienti_luglio());
+				list_clienti_lug.setListData(database
+						.elenco_clienti_mese("luglio"));
 
 			}
 			if (pos == 9) {
-				list_clienti_ago.setListData(database.elenco_clienti_agosto());
+				list_clienti_ago.setListData(database
+						.elenco_clienti_mese("agosto"));
 
 			}
 			if (pos == 10) {
 				list_clienti_set.setListData(database
-						.elenco_clienti_settembre());
+						.elenco_clienti_mese("settembre"));
 
 			}
 			if (pos == 11) {
-				list_clienti_ott.setListData(database.elenco_clienti_ottobre());
+				list_clienti_ott.setListData(database
+						.elenco_clienti_mese("ottobre"));
 
 			}
 			if (pos == 12) {
-				list_clienti_nov
-				.setListData(database.elenco_clienti_novembre());
+				list_clienti_nov.setListData(database
+						.elenco_clienti_mese("novembre"));
 
 			}
 			if (pos == 13) {
-				list_clienti_dic
-				.setListData(database.elenco_clienti_dicembre());
+				list_clienti_dic.setListData(database
+						.elenco_clienti_mese("dicembre"));
 
 			}
 			if (pos == 14) {

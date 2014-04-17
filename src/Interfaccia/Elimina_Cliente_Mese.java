@@ -37,29 +37,29 @@ public class Elimina_Cliente_Mese extends JFrame {
 		btnElimina.addActionListener(new ButtonListener());
 		
 		if(mese.equals("Gennaio")){
-		list.setListData(database.elenco_clienti_gennaio());}
+		list.setListData(database.elenco_clienti_mese("gennaio"));}
 		else if(mese.equals("Febbraio")){
-			list.setListData(database.elenco_clienti_febbraio());}
+			list.setListData(database.elenco_clienti_mese("febbraio"));}
 		else if(mese.equals("Marzo")){
-			list.setListData(database.elenco_clienti_marzo());}
+			list.setListData(database.elenco_clienti_mese("marzo"));}
 		else if(mese.equals("Aprile")){
-			list.setListData(database.elenco_clienti_aprile());}
+			list.setListData(database.elenco_clienti_mese("aprile"));}
 		else if(mese.equals("Maggio")){
-			list.setListData(database.elenco_clienti_maggio());}
+			list.setListData(database.elenco_clienti_mese("maggio"));}
 		else if(mese.equals("Giugno")){
-			list.setListData(database.elenco_clienti_giugno());}
+			list.setListData(database.elenco_clienti_mese("giugno"));}
 		else if(mese.equals("Luglio")){
-			list.setListData(database.elenco_clienti_luglio());}
+			list.setListData(database.elenco_clienti_mese("luglio"));}
 		else if(mese.equals("Agosto")){
-			list.setListData(database.elenco_clienti_agosto());}
+			list.setListData(database.elenco_clienti_mese("agosto"));}
 		else if(mese.equals("Settembre")){
-			list.setListData(database.elenco_clienti_settembre());}
+			list.setListData(database.elenco_clienti_mese("settembre"));}
 		else if(mese.equals("Ottobre")){
-			list.setListData(database.elenco_clienti_ottobre());}
+			list.setListData(database.elenco_clienti_mese("ottobre"));}
 		else if(mese.equals("Novembre")){
-			list.setListData(database.elenco_clienti_novembre());}
+			list.setListData(database.elenco_clienti_mese("novembre"));}
 		else if(mese.equals("Dicembre")){
-			list.setListData(database.elenco_clienti_dicembre());}
+			list.setListData(database.elenco_clienti_mese("dicembre"));}
 
 		scrollPane = new JScrollPane(list);
 		scrollPane.setBounds(20, 22, 302, 368);
@@ -79,29 +79,29 @@ public class Elimina_Cliente_Mese extends JFrame {
 			if (e.getSource() == btnElimina) {
 				database.elimina_Cliente_mese(nome_cliente,mese.toLowerCase());
 				if(mese.equals("Gennaio")){
-					list.setListData(database.elenco_clienti_gennaio());}
+					list.setListData(database.elenco_clienti_mese("gennaio"));}
 					else if(mese.equals("Febbraio")){
-						list.setListData(database.elenco_clienti_febbraio());}
+						list.setListData(database.elenco_clienti_mese("febbraio"));}
 					else if(mese.equals("Marzo")){
-						list.setListData(database.elenco_clienti_marzo());}
+						list.setListData(database.elenco_clienti_mese("marzo"));}
 					else if(mese.equals("Aprile")){
-						list.setListData(database.elenco_clienti_aprile());}
+						list.setListData(database.elenco_clienti_mese("aprile"));}
 					else if(mese.equals("Maggio")){
-						list.setListData(database.elenco_clienti_maggio());}
+						list.setListData(database.elenco_clienti_mese("maggio"));}
 					else if(mese.equals("Giugno")){
-						list.setListData(database.elenco_clienti_giugno());}
+						list.setListData(database.elenco_clienti_mese("giugno"));}
 					else if(mese.equals("Luglio")){
-						list.setListData(database.elenco_clienti_luglio());}
+						list.setListData(database.elenco_clienti_mese("luglio"));}
 					else if(mese.equals("Agosto")){
-						list.setListData(database.elenco_clienti_agosto());}
+						list.setListData(database.elenco_clienti_mese("agosto"));}
 					else if(mese.equals("Settembre")){
-						list.setListData(database.elenco_clienti_settembre());}
+						list.setListData(database.elenco_clienti_mese("settembre"));}
 					else if(mese.equals("Ottobre")){
-						list.setListData(database.elenco_clienti_ottobre());}
+						list.setListData(database.elenco_clienti_mese("ottobre"));}
 					else if(mese.equals("Novembre")){
-						list.setListData(database.elenco_clienti_novembre());}
+						list.setListData(database.elenco_clienti_mese("novembre"));}
 					else if(mese.equals("Dicembre")){
-						list.setListData(database.elenco_clienti_dicembre());}
+						list.setListData(database.elenco_clienti_mese("dicembre"));}
 			}
 		}
 

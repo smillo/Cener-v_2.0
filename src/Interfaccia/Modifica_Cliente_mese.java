@@ -288,40 +288,39 @@ public class Modifica_Cliente_mese extends JFrame {
 		public void valueChanged(ListSelectionEvent e) {
 
 			nome_cliente = (String) list.getSelectedValue();
-			String dati = database.seleziona_modifica_cliente(nome_cliente);
+			Cliente client = database.seleziona(nome_cliente);
 			
 
-			StringTokenizer stk = new StringTokenizer(dati, " ");
-			text_Cliente.setText(stk.nextToken());
-			String test = stk.nextToken();
+			text_Cliente.setText(client.getNome());
+			String test = client.getNome2();
 			if (test.equals("null")) {
 				text_cliente_2.setText("");
 			} else {
 				text_cliente_2.setText(test);
 			}
-			text_indirizzo.setText(stk.nextToken());
-			text_città.setText(stk.nextToken());
-			text_cap.setText(stk.nextToken());
-			text_piva.setText(stk.nextToken());
-			text_descrizione.setText(stk.nextToken());
-			text_importo.setText(stk.nextToken());
-			String test2 = stk.nextToken();
+			text_indirizzo.setText(client.getIndirizzo());
+			text_città.setText(client.getCittà());
+			text_cap.setText(client.getCap());
+			text_piva.setText(client.getPiva());
+			text_descrizione.setText(client.getDescrizione());
+			text_importo.setText(String.valueOf(client.getImporto()));
+			String test2 = client.getDescrizione2();
 			if (test2.equals("null")) {
 				text_descrizione_2.setText("");
 			} else {
 				text_descrizione_2.setText(test2);
 			}
-			String test3 = stk.nextToken();
+			String test3 = String.valueOf(client.getImporto2());
 			if (test3.equals("0.0")) {
 				text_importo_2.setText("");
 			} else {
 				text_importo_2.setText(test3);
 			}
-			text_imponibile.setText(stk.nextToken());
-			text_iva.setText(stk.nextToken());
-			text_imposta.setText(stk.nextToken());
-			text_tot_fattura.setText(stk.nextToken());
-			String test4 = stk.nextToken();
+			text_imponibile.setText(String.valueOf(client.getImponibile()));
+			text_iva.setText(String.valueOf(client.getIva()));
+			text_imposta.setText(String.valueOf(client.getImposta()));
+			text_tot_fattura.setText(String.valueOf(client.getTot_fattura()));
+			String test4 = String.valueOf(client.getRitenuta());
 			if (test4.equals("0.0")) {
 				text_ritenuta.setText("");
 				combo_ritenuta.setSelectedItem("No");
@@ -329,12 +328,13 @@ public class Modifica_Cliente_mese extends JFrame {
 				text_ritenuta.setText(test4);
 				combo_ritenuta.setSelectedItem("Si");
 			}
-			String test5 = stk.nextToken();
+			String test5 = String.valueOf(client.getTot_dovuto());
 			if (test5.equals("0.0")) {
 				text_tot_dovuto.setText("");
 			} else {
 				text_tot_dovuto.setText(test5);
 			}
+			
 			
 		}
 	}
