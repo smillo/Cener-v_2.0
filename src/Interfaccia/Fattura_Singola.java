@@ -115,6 +115,7 @@ public class Fattura_Singola extends JFrame {
 
 		text_imponibile = new JTextField();
 		text_imponibile.setBounds(88, 172, 172, 20);
+		text_imponibile.setEditable(false);
 		getContentPane().add(text_imponibile);
 		text_imponibile.setColumns(10);
 

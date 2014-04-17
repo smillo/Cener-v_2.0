@@ -44,7 +44,7 @@ public class Partenza extends JFrame {
 			combo_ritenuta_feb, combo_ritenuta_mar, combo_ritenuta_apr,
 			combo_ritenuta_mag, combo_ritenuta_giu, combo_ritenuta_lug,
 			combo_ritenuta_ago, combo_ritenuta_set, combo_ritenuta_ott,
-			combo_ritenuta_nov, combo_ritenuta_dic;
+			combo_ritenuta_nov, combo_ritenuta_dic,combo_mese_pag,combo_anno_pag;
 	private JPanel panel_home, panel_gen, panel_feb, panel_mar, panel_apr,
 			panel_mag, panel_giu, panel_lug, panel_ago, panel_set, panel_ott,
 			panel_nov, panel_dic, panel_el_pag, panel_ent_usc, panel_list;
@@ -53,16 +53,16 @@ public class Partenza extends JFrame {
 	private JScrollPane scrollPane, scrollPane_gen, scrollPane_1, scrollPane_2,
 			scrollPane_feb, scrollPane_mar, scrollPane_apr, scrollPane_mag,
 			scrollPane_giu, scrollPane_lug, scrollPane_ago, scrollPane_set,
-			scrollPane_ott, scrollPane_nov, scrollPane_dic;
+			scrollPane_ott, scrollPane_nov, scrollPane_dic,scrollPane_pag;
 	private JButton btnAggiungiUscita, btnEliminaUscita, btnNuovo_cliente,
 			btnModifica_cliente, btnElimina_cliente, btnStampa,
-			btnFattura_singola, btnModifica_fattura, btnNuovo_anno, btnDropbox;
+			btnFattura_singola, btnModifica_fattura, btnNuovo_anno, btnDropbox,btnRimuoviDallelenco,btnAggiungiAllelenco,btnRiepilogo_pag;
 	private JButton btnRiepilogo;
 	private JList list_clienti, list_cause_uscite, list_dettagli_uscite,
 			list_clienti_gen, list_clienti_feb, list_clienti_mar,
 			list_clienti_apr, list_clienti_mag, list_clienti_giu,
 			list_clienti_lug, list_clienti_ago, list_clienti_set,
-			list_clienti_ott, list_clienti_nov, list_clienti_dic;
+			list_clienti_ott, list_clienti_nov, list_clienti_dic,list_el_paganti;
 	private Database database;
 	private JLabel Cliente_gen, indirizzo_gen, cap_gen, descrizione_gen,
 			descrizione_2_gen, imponibile_gen, imposta_gen, cliente_2_gen,
@@ -2329,6 +2329,78 @@ public class Partenza extends JFrame {
 		combo_ritenuta_dic.addItem("Si");
 		combo_ritenuta_dic.setBounds(88, 232, 80, 20);
 		panel_dic.add(combo_ritenuta_dic);
+		
+		// TODO elenco paganti
+		
+		 combo_mese_pag = new JComboBox();
+			combo_mese_pag.setBounds(40, 37, 199, 25);
+			combo_mese_pag.addItem("Gennaio");
+			combo_mese_pag.addItem("Febbraio");
+			combo_mese_pag.addItem("Marzo");
+			combo_mese_pag.addItem("Aprile");
+			combo_mese_pag.addItem("Maggio");
+			combo_mese_pag.addItem("Giugno");
+			combo_mese_pag.addItem("Luglio");
+			combo_mese_pag.addItem("Agosto");
+			combo_mese_pag.addItem("Settembre");
+			combo_mese_pag.addItem("Ottobre");
+			combo_mese_pag.addItem("Novembre");
+			combo_mese_pag.addItem("Dicembre");
+			
+			panel_el_pag.add(combo_mese_pag);
+			
+			 combo_anno_pag = new JComboBox();
+			combo_anno_pag.setBounds(40, 88, 199, 25);
+			combo_anno_pag.addItem("2014");
+			combo_anno_pag.addItem("2015");
+			combo_anno_pag.addItem("2016");
+			combo_anno_pag.addItem("2017");
+			combo_anno_pag.addItem("2018");
+			combo_anno_pag.addItem("2019");
+			combo_anno_pag.addItem("2020");
+			combo_anno_pag.addItem("2021");
+			combo_anno_pag.addItem("2022");
+			combo_anno_pag.addItem("2023");
+			combo_anno_pag.addItem("2024");
+			combo_anno_pag.addItem("2025");
+			combo_anno_pag.addItem("2026");
+			combo_anno_pag.addItem("2027");
+			combo_anno_pag.addItem("2028");
+			combo_anno_pag.addItem("2029");
+			combo_anno_pag.addItem("2030");
+			combo_anno_pag.addItem("2031");
+			combo_anno_pag.addItem("2032");
+			combo_anno_pag.addItem("2033");
+			combo_anno_pag.addItem("2034");
+			combo_anno_pag.addItem("2035");
+			combo_anno_pag.addItem("2036");
+			combo_anno_pag.addItem("2037");
+			combo_anno_pag.addItem("2038");
+			combo_anno_pag.addItem("2039");
+			combo_anno_pag.addItem("2040");
+
+			panel_el_pag.add(combo_anno_pag);
+			
+			list_el_paganti = new JList();
+			 scrollPane_pag = new JScrollPane(list_el_paganti);
+			scrollPane_pag.setBounds(342, 11, 401, 415);
+			panel_el_pag.add(scrollPane_pag);
+			
+			 btnAggiungiAllelenco = new JButton("Aggiungi all'elenco");
+			btnAggiungiAllelenco.setBounds(40, 153, 199, 25);
+			btnAggiungiAllelenco.addActionListener(new ButtonListener());
+			panel_el_pag.add(btnAggiungiAllelenco);
+			
+			
+			 btnRimuoviDallelenco = new JButton("Rimuovi dall'elenco");
+			btnRimuoviDallelenco.setBounds(40, 205, 199, 25);
+			btnRimuoviDallelenco.addActionListener(new ButtonListener());
+			panel_el_pag.add(btnRimuoviDallelenco);
+			
+			 btnRiepilogo_pag = new JButton("Riepilogo");
+			btnRiepilogo_pag.setBounds(40, 259, 199, 25);
+			btnRiepilogo_pag.addActionListener(new ButtonListener());
+			panel_el_pag.add(btnRiepilogo_pag);
 
 		// TODO tabbed pane
 
@@ -2367,6 +2439,7 @@ public class Partenza extends JFrame {
 		tabbedPane.addTab("Dicembre", panel_dic);
 
 		tabbedPane.addTab("Elenco Paganti", panel_el_pag);
+		
 
 		tabbedPane.addTab("Entrate/Uscite", panel_ent_usc);
 
@@ -2379,6 +2452,18 @@ public class Partenza extends JFrame {
 		public void actionPerformed(ActionEvent e) {
 
 			if (e.getSource() == btnAggiungiUscita) {
+
+			}
+			
+			if (e.getSource() == btnAggiungiAllelenco) {
+
+			}
+			
+			if (e.getSource() == btnRiepilogo_pag) {
+
+			}
+			
+			if (e.getSource() == btnRimuoviDallelenco) {
 
 			}
 
@@ -3257,5 +3342,4 @@ public class Partenza extends JFrame {
 
 		}
 	}
-
 }
