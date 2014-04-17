@@ -1,12 +1,23 @@
 package Interfaccia;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 public class Riepilogo extends JFrame {
 
+	private JButton dett_13, dett_14, dett_15, dett_16, dett_17, dett_18,
+	dett_19, dett_20, dett_21, dett_22, dett_23, dett_24, dett_25,
+	dett_26, dett_27, dett_28, dett_29, dett_30, dett_31, dett_32,
+	dett_33, dett_34, dett_35, dett_36, dett_37, dett_38, dett_39,
+	dett_40;
+
 	public Riepilogo() {
 
+		setBounds(10, 10, 487, 658);
 		getContentPane().setLayout(null);
 
 		JLabel lblAnno = new JLabel("Anno");
@@ -137,10 +148,15 @@ public class Riepilogo extends JFrame {
 		label_28.setBounds(126, 45, 105, 14);
 		getContentPane().add(label_28);
 
+		dett_13 = new JButton("Dettagli");
+		dett_13.setBounds(369, 43, 80, 16);
+		getContentPane().add(dett_13);
+		dett_13.addActionListener(new ButtonListener());
+
 		JLabel label_29 = new JLabel("");
 		label_29.setBounds(261, 45, 105, 14);
 		getContentPane().add(label_29);
-		setBounds(10, 10, 475, 658);
+		setBounds(10, 10, 551, 658);
 
 		JLabel label_30 = new JLabel("");
 		label_30.setBounds(126, 65, 105, 14);
@@ -383,7 +399,236 @@ public class Riepilogo extends JFrame {
 		JLabel label_83 = new JLabel("");
 		label_83.setBounds(261, 585, 105, 14);
 		getContentPane().add(label_83);
-		setBounds(10, 10, 475, 658);
+
+		dett_14 = new JButton("Dettagli");
+		dett_14.setBounds(369, 61, 80, 16);
+		getContentPane().add(dett_14);
+		dett_14.addActionListener(new ButtonListener());
+
+		dett_15 = new JButton("Dettagli");
+		dett_15.setBounds(369, 81, 80, 16);
+		getContentPane().add(dett_15);
+		dett_15.addActionListener(new ButtonListener());
+
+		dett_16 = new JButton("Dettagli");
+		dett_16.setBounds(369, 101, 80, 16);
+		getContentPane().add(dett_16);
+		dett_16.addActionListener(new ButtonListener());
+
+		dett_17 = new JButton("Dettagli");
+		dett_17.setBounds(369, 121, 80, 16);
+		getContentPane().add(dett_17);
+		dett_17.addActionListener(new ButtonListener());
+
+		dett_18 = new JButton("Dettagli");
+		dett_18.setBounds(369, 141, 80, 16);
+		getContentPane().add(dett_18);
+		dett_18.addActionListener(new ButtonListener());
+
+		dett_19 = new JButton("Dettagli");
+		dett_19.setBounds(369, 161, 80, 16);
+		getContentPane().add(dett_19);
+		dett_19.addActionListener(new ButtonListener());
+
+		dett_20 = new JButton("Dettagli");
+		dett_20.setBounds(369, 181, 80, 16);
+		getContentPane().add(dett_20);
+		dett_20.addActionListener(new ButtonListener());
+
+		dett_21 = new JButton("Dettagli");
+		dett_21.setBounds(369, 201, 80, 16);
+		getContentPane().add(dett_21);
+		dett_21.addActionListener(new ButtonListener());
+
+		dett_22 = new JButton("Dettagli");
+		dett_22.setBounds(369, 221, 80, 16);
+		getContentPane().add(dett_22);
+		dett_22.addActionListener(new ButtonListener());
+
+		dett_23 = new JButton("Dettagli");
+		dett_23.setBounds(369, 241, 80, 16);
+		getContentPane().add(dett_23);
+		dett_23.addActionListener(new ButtonListener());
+
+		dett_24 = new JButton("Dettagli");
+		dett_24.setBounds(369, 261, 80, 16);
+		getContentPane().add(dett_24);
+		dett_24.addActionListener(new ButtonListener());
+
+		dett_25 = new JButton("Dettagli");
+		dett_25.setBounds(369, 281, 80, 16);
+		getContentPane().add(dett_25);
+		dett_25.addActionListener(new ButtonListener());
+
+		dett_26 = new JButton("Dettagli");
+		dett_26.setBounds(369, 301, 80, 16);
+		getContentPane().add(dett_26);
+		dett_26.addActionListener(new ButtonListener());
+
+		dett_27 = new JButton("Dettagli");
+		dett_27.setBounds(369, 321, 80, 16);
+		getContentPane().add(dett_27);
+		dett_27.addActionListener(new ButtonListener());
+
+		dett_28 = new JButton("Dettagli");
+		dett_28.setBounds(369, 341, 80, 16);
+		getContentPane().add(dett_28);
+		dett_28.addActionListener(new ButtonListener());
+
+		dett_29 = new JButton("Dettagli");
+		dett_29.setBounds(369, 361, 80, 16);
+		getContentPane().add(dett_29);
+		dett_29.addActionListener(new ButtonListener());
+
+		dett_30 = new JButton("Dettagli");
+		dett_30.setBounds(369, 381, 80, 16);
+		getContentPane().add(dett_30);
+		dett_30.addActionListener(new ButtonListener());
+
+		dett_31 = new JButton("Dettagli");
+		dett_31.setBounds(369, 401, 80, 16);
+		getContentPane().add(dett_31);
+		dett_31.addActionListener(new ButtonListener());
+
+		dett_32 = new JButton("Dettagli");
+		dett_32.setBounds(369, 421, 80, 16);
+		getContentPane().add(dett_32);
+		dett_32.addActionListener(new ButtonListener());
+
+		dett_33 = new JButton("Dettagli");
+		dett_33.setBounds(369, 441, 80, 16);
+		getContentPane().add(dett_33);
+		dett_33.addActionListener(new ButtonListener());
+
+		dett_34 = new JButton("Dettagli");
+		dett_34.setBounds(369, 461, 80, 16);
+		getContentPane().add(dett_34);
+		dett_34.addActionListener(new ButtonListener());
+
+		dett_35 = new JButton("Dettagli");
+		dett_35.setBounds(369, 481, 80, 16);
+		getContentPane().add(dett_35);
+		dett_35.addActionListener(new ButtonListener());
+
+		dett_36 = new JButton("Dettagli");
+		dett_36.setBounds(369, 501, 80, 16);
+		getContentPane().add(dett_36);
+		dett_36.addActionListener(new ButtonListener());
+
+		dett_37 = new JButton("Dettagli");
+		dett_37.setBounds(369, 521, 80, 16);
+		getContentPane().add(dett_37);
+		dett_37.addActionListener(new ButtonListener());
+
+		dett_38 = new JButton("Dettagli");
+		dett_38.setBounds(369, 541, 80, 16);
+		getContentPane().add(dett_38);
+		dett_38.addActionListener(new ButtonListener());
+
+		dett_39 = new JButton("Dettagli");
+		dett_39.setBounds(369, 561, 80, 16);
+		getContentPane().add(dett_39);
+		dett_39.addActionListener(new ButtonListener());
+
+		dett_40 = new JButton("Dettagli");
+		dett_40.setBounds(369, 581, 80, 16);
+		getContentPane().add(dett_40);
+		dett_40.addActionListener(new ButtonListener());
+
+		this.setVisible(true);
+	}
+
+	public class ButtonListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+
+			if (e.getSource() == dett_13) {
+
+			}
+			if (e.getSource() == dett_14) {
+
+			}
+			if (e.getSource() == dett_15) {
+
+			}
+			if (e.getSource() == dett_16) {
+
+			}
+			if (e.getSource() == dett_17) {
+
+			}
+			if (e.getSource() == dett_18) {
+
+			}
+			if (e.getSource() == dett_19) {
+
+			}
+			if (e.getSource() == dett_20) {
+
+			}
+			if (e.getSource() == dett_21) {
+
+			}
+			if (e.getSource() == dett_22) {
+
+			}
+			if (e.getSource() == dett_23) {
+
+			}
+			if (e.getSource() == dett_24) {
+
+			}
+			if (e.getSource() == dett_25) {
+
+			}
+			if (e.getSource() == dett_26) {
+
+			}
+			if (e.getSource() == dett_27) {
+
+			}
+			if (e.getSource() == dett_28) {
+
+			}
+			if (e.getSource() == dett_29) {
+
+			}
+			if (e.getSource() == dett_30) {
+
+			}
+			if (e.getSource() == dett_31) {
+
+			}
+			if (e.getSource() == dett_32) {
+
+			}
+			if (e.getSource() == dett_33) {
+
+			}
+			if (e.getSource() == dett_34) {
+
+			}
+			if (e.getSource() == dett_35) {
+
+			}
+			if (e.getSource() == dett_36) {
+
+			}
+			if (e.getSource() == dett_37) {
+
+			}
+			if (e.getSource() == dett_38) {
+
+			}
+			if (e.getSource() == dett_39) {
+
+			}
+			if (e.getSource() == dett_40) {
+
+			}
+
+		}
 
 	}
 }

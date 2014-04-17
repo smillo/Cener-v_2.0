@@ -2321,7 +2321,7 @@ public class Partenza extends JFrame {
 			}
 
 			if (e.getSource() == btnRiepilogo) {
-				Anteprima_Riepilogo anteprima = new Anteprima_Riepilogo();
+				Riepilogo anteprima = new Riepilogo();
 			}
 
 			if (e.getSource() == btnNuovo_cliente) {
