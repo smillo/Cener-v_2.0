@@ -936,4 +936,134 @@ public class Database {
 		}
 
 	}
+
+	public void elimina_Cliente(String nome_cliente) {
+		
+		PreparedStatement prep = null;
+		try {
+
+			prep = connection
+					.prepareStatement("DELETE from cliente where cliente = ?;");
+			prep.setString(1, nome_cliente);
+			prep.executeUpdate();
+			prep = connection
+					.prepareStatement("DELETE from gennaio where cliente = ?;");
+			prep.setString(1, nome_cliente);
+			prep.executeUpdate();
+			prep = connection
+					.prepareStatement("DELETE from febbraio where cliente = ?;");
+			prep.setString(1, nome_cliente);
+			prep.executeUpdate();
+			prep = connection
+					.prepareStatement("DELETE from marzo where cliente = ?;");
+			prep.setString(1, nome_cliente);
+			prep.executeUpdate();
+			prep = connection
+					.prepareStatement("DELETE from aprile where cliente = ?;");
+			prep.setString(1, nome_cliente);
+			prep.executeUpdate();
+			prep = connection
+					.prepareStatement("DELETE from maggio where cliente = ?;");
+			prep.setString(1, nome_cliente);
+			prep.executeUpdate();
+			prep = connection
+					.prepareStatement("DELETE from giugno where cliente = ?;");
+			prep.setString(1, nome_cliente);
+			prep.executeUpdate();
+			prep = connection
+					.prepareStatement("DELETE from luglio where cliente = ?;");
+			prep.setString(1, nome_cliente);
+			prep.executeUpdate();
+			prep = connection
+					.prepareStatement("DELETE from agosto where cliente = ?;");
+			prep.setString(1, nome_cliente);
+			prep.executeUpdate();
+			prep = connection
+					.prepareStatement("DELETE from settembre where cliente = ?;");
+			prep.setString(1, nome_cliente);
+			prep.executeUpdate();
+			prep = connection
+					.prepareStatement("DELETE from ottobre where cliente = ?;");
+			prep.setString(1, nome_cliente);
+			prep.executeUpdate();
+			prep = connection
+					.prepareStatement("DELETE from novembre where cliente = ?;");
+			prep.setString(1, nome_cliente);
+			prep.executeUpdate();
+			prep = connection
+					.prepareStatement("DELETE from dicembre where cliente = ?;");
+			prep.setString(1, nome_cliente);
+			prep.executeUpdate();
+			JOptionPane.showMessageDialog(null, "cliente eliminato per sempre");
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+
+		
+	}
+
+	public void elimina_Cliente_mese(String nome_cliente, String mese) {
+		
+		PreparedStatement prep = null;
+		try {
+
+			prep = connection
+					.prepareStatement("DELETE from "+mese+" where cliente = ?");
+			
+			prep.setString(1, nome_cliente);
+			
+			JOptionPane.showMessageDialog(null, "cliente eliminato da "+mese);
+			prep.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+		
+	}
+
+	public void Modifica_Cliente_mese(String nome, String nome2,
+			String indirizzo, String città, String cap, String piva,
+			String descrizione, double importo, String descrizione2,
+			double importo2, double imponibile, double iva, double imposta,
+			double tot_fattura, double ritenuta, double tot_dovuto,
+			String mese, String nome_cliente) {
+		
+		
+		PreparedStatement pst = null;
+
+		try {
+			
+			pst = connection.prepareStatement("UPDATE "+mese+" SET cliente = ?, cliente2 = ?, indirizzo = ?, città = ?, cap = ?, partitaIva = ?, descrizione = ?, importo = ?, descrizione2 = ?, importo2 = ?, imponibile = ?, iva = ?, imposta = ?, totale_fattura = ?, ritenuta = ?, totale_dovuto = ? where cliente = ?");
+			pst.setString(1,nome);
+			pst.setString(2, nome2);
+			pst.setString(3, indirizzo);
+			pst.setString(4, città);
+			pst.setString(5, cap);
+			pst.setString(6, piva);
+			pst.setString(7, descrizione);
+			pst.setDouble(8, importo);
+			pst.setString(9,descrizione2);
+			pst.setDouble(10, importo2);
+			pst.setDouble(11, imponibile);
+			pst.setDouble(12, iva);
+			pst.setDouble(13, imposta);
+			pst.setDouble(14, tot_fattura);
+			pst.setDouble(15, ritenuta);
+			pst.setDouble(16, tot_dovuto);
+			pst.setString(17, nome_cliente);
+			pst.executeUpdate();
+			
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+		
+	}
+
+		
+		
 }

@@ -12,7 +12,7 @@ import javax.swing.JTextField;
 import General.Database;
 
 public class Scegli_Elimina extends JFrame {
-	private JButton btnSempre, btnMese;
+	private JButton btnSempre, btnMensile;
 	private Database database;
 	private JComboBox combo_mese;
 
@@ -42,10 +42,10 @@ public class Scegli_Elimina extends JFrame {
 		getContentPane().add(btnSempre);
 		btnSempre.addActionListener(new ButtonListener());
 
-		btnMese = new JButton("Per questo mese");
-		btnMese.setBounds(104, 128, 133, 23);
-		getContentPane().add(btnMese);
-		btnMese.addActionListener(new ButtonListener());
+		btnMensile = new JButton("Per Questo Mese");
+		btnMensile.setBounds(80, 137, 178, 20);
+		getContentPane().add(btnMensile);
+		btnMensile.addActionListener(new ButtonListener());
 
 		this.setVisible(true);
 
@@ -60,11 +60,17 @@ public class Scegli_Elimina extends JFrame {
 				dispose();
 			}
 
-			if (e.getSource() == btnMese) {
+			if (e.getSource() == btnMensile) {
+				
+				String mese = (String) combo_mese.getSelectedItem();
+				
+				Elimina_Cliente_Mese el = new Elimina_Cliente_Mese(database,
+						mese);
+				
+				dispose();
 
 			}
 		}
 
 	}
-
 }

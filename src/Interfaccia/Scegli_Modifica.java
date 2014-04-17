@@ -62,6 +62,12 @@ public class Scegli_Modifica extends JFrame {
 
 			if (e.getSource() == btnMese) {
 
+				String mese = (String) combo_mese.getSelectedItem();
+				
+				Modifica_Cliente_mese mcm = new Modifica_Cliente_mese(database,
+						mese);
+				
+				dispose();
 			}
 		}
 

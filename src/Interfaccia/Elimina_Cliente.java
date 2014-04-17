@@ -3,6 +3,8 @@ package Interfaccia;
 import java.awt.event.*;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import General.Database;
 
@@ -11,6 +13,7 @@ public class Elimina_Cliente extends JFrame {
 	private JButton btnIndietro, btnElimina;
 	private JScrollPane scrollPane;
 	private JList list;
+	private String nome_cliente;
 	private Database database;
 
 	public Elimina_Cliente(Database database) {
@@ -29,6 +32,7 @@ public class Elimina_Cliente extends JFrame {
 		btnElimina.addActionListener(new ButtonListener());
 
 		list = new JList(database.elenco_clienti());
+		list.addListSelectionListener(new ListSelection());
 
 		scrollPane = new JScrollPane(list);
 		scrollPane.setBounds(20, 22, 302, 368);
@@ -47,8 +51,21 @@ public class Elimina_Cliente extends JFrame {
 
 			if (e.getSource() == btnElimina) {
 
+				database.elimina_Cliente(nome_cliente);
+				list.setListData(database.elenco_clienti());
 			}
 		}
 
 	}
+	
+	private class ListSelection implements ListSelectionListener {
+
+		public void valueChanged(ListSelectionEvent e) {
+			
+			 nome_cliente = (String) list.getSelectedValue();
+			 System.out.println(nome_cliente);
+			
+		}
+	
+		}
 }
