@@ -4,11 +4,13 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.util.LinkedList;
 import java.util.StringTokenizer;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -16,6 +18,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -2510,9 +2513,16 @@ public class Partenza extends JFrame {
 								"Iniziare un nuovo anno? Azzerare modifiche mensili e il numero delle fatture?",
 								"Nuovo Anno", JOptionPane.YES_NO_OPTION,
 								JOptionPane.QUESTION_MESSAGE, null, null, null);
+				
 				if (confirm == 0) {
-
+					Attesa att = new Attesa();
 					database.nuovo_anno();
+					File a = new File("C:\\Users\\massimiliano\\Documents\\conteggio.txt");
+					if(a.exists())
+						a.delete();
+					att.dispose();
+					JOptionPane.showMessageDialog(null,
+							"è ora possibile iniziare con un nuovo anno!");
 
 				}
 

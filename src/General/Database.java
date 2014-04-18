@@ -1557,8 +1557,7 @@ public class Database {
 			e.printStackTrace();
 
 		}
-		JOptionPane.showMessageDialog(null,
-				"è ora possibile iniziare con un nuovo anno!");
+		
 	}
 
 	public Cliente seleziona(String nome_cliente) {
@@ -1613,7 +1612,7 @@ public class Database {
 
 	public void stampafattura(String mese, String data, String anno) {
 		try {
-
+			
 			ResultSet rs;
 			PreparedStatement prep = connection
 					.prepareStatement("SELECT * FROM " + mese);
@@ -1645,9 +1644,9 @@ public class Database {
 				double r = rs.getDouble(15);
 				double s = rs.getDouble(16);
 
-				// aumenta conteggio
+				String numero = Numero_fattura.contaFattura();
 				Paragraph prefazione = new Paragraph();
-				Stampa_fatt.print_fatture(prefazione, data, a, b, c, d, e, f,
+				Stampa_fatt.print_fatture(prefazione, data,numero, a, b, c, d, e, f,
 						g, h, l, m, n, o, p, q, r, s);
 				document.add(prefazione);
 				document.newPage();
