@@ -1,5 +1,7 @@
 package General;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -10,6 +12,10 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 import javax.swing.JOptionPane;
+
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
 
 public class Database {
 	private static Connection connection;
@@ -427,13 +433,13 @@ public class Database {
 
 	}
 
-	public String[] elenco_clienti_mese( String mese) {
+	public String[] elenco_clienti_mese(String mese) {
 
 		ResultSet rs;
 		PreparedStatement pst = null;
 		try {
 			ArrayList<String> list = new ArrayList<String>();
-			pst = connection.prepareStatement("SELECT cliente FROM "+mese);
+			pst = connection.prepareStatement("SELECT cliente FROM " + mese);
 
 			rs = pst.executeQuery();
 
@@ -874,8 +880,6 @@ public class Database {
 
 				case "0":
 
-					
-
 					try {
 
 						prep = connection
@@ -931,7 +935,6 @@ public class Database {
 					break;
 
 				case "1":
-					
 
 					try {
 
@@ -988,7 +991,6 @@ public class Database {
 					break;
 
 				case "2":
-					
 
 					try {
 
@@ -1045,7 +1047,6 @@ public class Database {
 					break;
 
 				case "3":
-					
 
 					try {
 
@@ -1102,7 +1103,6 @@ public class Database {
 					break;
 
 				case "4":
-					
 
 					try {
 
@@ -1159,7 +1159,6 @@ public class Database {
 					break;
 
 				case "5":
-				
 
 					try {
 
@@ -1216,7 +1215,6 @@ public class Database {
 					break;
 
 				case "6":
-				
 
 					try {
 
@@ -1273,7 +1271,6 @@ public class Database {
 					break;
 
 				case "7":
-					
 
 					try {
 
@@ -1330,7 +1327,7 @@ public class Database {
 					break;
 
 				case "8":
-					
+
 					try {
 
 						prep = connection
@@ -1386,7 +1383,6 @@ public class Database {
 					break;
 
 				case "9":
-					
 
 					try {
 
@@ -1443,7 +1439,6 @@ public class Database {
 					break;
 
 				case "10":
-					
 
 					try {
 
@@ -1500,7 +1495,6 @@ public class Database {
 					break;
 
 				case "11":
-					
 
 					try {
 
@@ -1563,7 +1557,8 @@ public class Database {
 			e.printStackTrace();
 
 		}
-		JOptionPane.showMessageDialog(null, "è ora possibile iniziare con un nuovo anno!");
+		JOptionPane.showMessageDialog(null,
+				"è ora possibile iniziare con un nuovo anno!");
 	}
 
 	public Cliente seleziona(String nome_cliente) {
@@ -1575,7 +1570,7 @@ public class Database {
 			prep.setString(1, nome_cliente);
 			rs = prep.executeQuery();
 
-			while(rs.next()){
+			while (rs.next()) {
 				String a = rs.getString(1);
 				String b = rs.getString(2);
 				String c = rs.getString(3);
@@ -1605,13 +1600,69 @@ public class Database {
 				boolean nov = rs.getBoolean(27);
 				boolean dic = rs.getBoolean(28);
 
-			
-				 client = new Cliente(a,b,c,d,e,f,g,h,l,m,n,o,p,q,r,s,gen,feb,mar,apr,mag,giu,lug,ago,set,ott,nov,dic);
+				client = new Cliente(a, b, c, d, e, f, g, h, l, m, n, o, p, q,
+						r, s, gen, feb, mar, apr, mag, giu, lug, ago, set, ott,
+						nov, dic);
 			}
-	return client;
-}
-		catch(Exception e){
+			return client;
+		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
-		}}
 		}
+	}
+
+	public void stampafattura(String mese, String data, String anno) {
+		try {
+
+			ResultSet rs;
+			PreparedStatement prep = connection
+					.prepareStatement("SELECT * FROM " + mese);
+
+			String FILE = "C:\\Users\\massimiliano\\Documents\\" + mese + "_"
+					+ anno + ".pdf";
+
+			Document document = new Document();
+			PdfWriter.getInstance(document, new FileOutputStream(FILE));
+			document.open();
+
+			rs = prep.executeQuery();
+
+			while (rs.next()) {
+				String a = rs.getString(1);
+				String b = rs.getString(2);
+				String c = rs.getString(3);
+				String d = rs.getString(4);
+				String e = rs.getString(5);
+				String f = rs.getString(6);
+				String g = rs.getString(7);
+				double h = rs.getDouble(8);
+				String l = rs.getString(9);
+				double m = rs.getDouble(10);
+				double n = rs.getDouble(11);
+				double o = rs.getDouble(12);
+				double p = rs.getDouble(13);
+				double q = rs.getDouble(14);
+				double r = rs.getDouble(15);
+				double s = rs.getDouble(16);
+
+				// aumenta conteggio
+				Paragraph prefazione = new Paragraph();
+				Stampa_fatt.print_fatture(prefazione, data, a, b, c, d, e, f,
+						g, h, l, m, n, o, p, q, r, s);
+				document.add(prefazione);
+				document.newPage();
+
+			}
+			document.close();
+			JOptionPane.showMessageDialog(null, "stampato!");
+			File f = new File("C:\\Users\\massimiliano\\Documents\\" + mese
+					+ "_" + anno + ".pdf");
+			java.awt.Desktop.getDesktop().open(f);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+	}
+
+}

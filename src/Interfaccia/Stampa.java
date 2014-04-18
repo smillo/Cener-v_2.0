@@ -6,6 +6,7 @@ import java.io.IOException;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
@@ -96,12 +97,18 @@ public class Stampa extends JFrame {
 			}
 
 			if (e.getSource() == btnStampa) {
-				try {
-					Stampa_fatt print = new Stampa_fatt();
-				} catch (DocumentException | IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+				if (text_giorno.getText().length() == 2
+						&& text_mese.getText().length() == 2
+						&& text_anno.getText().length() == 4) {
+					String data = text_giorno.getText() + "/"
+							+ text_mese.getText() + "/" + text_anno.getText();
+					database.stampafattura(
+							(String) combo_mese.getSelectedItem(), data,
+							text_anno.getText());
+					dispose();
+				} else
+					JOptionPane.showMessageDialog(null,
+							"ERRORE: inserire la data nel formato gg/mm/aaaa");
 			}
 		}
 

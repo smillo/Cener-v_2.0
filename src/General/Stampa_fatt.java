@@ -11,8 +11,11 @@ import javax.swing.event.*;
 
 import java.io.*;
 import java.text.DateFormat;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.Locale;
 
 import javax.swing.*;
 
@@ -27,7 +30,6 @@ import java.awt.event.ActionListener;
 
 public class Stampa_fatt {
 
-	Document document;
 	private static Font sigla = new Font(Font.FontFamily.TIMES_ROMAN, 20,
 			Font.BOLD);
 	private static Font intestazione = new Font(Font.FontFamily.TIMES_ROMAN, 8);
@@ -36,27 +38,41 @@ public class Stampa_fatt {
 	private static Font dati = new Font(Font.FontFamily.TIMES_ROMAN, 11,
 			Font.BOLD);
 	private static Font campi = new Font(Font.FontFamily.TIMES_ROMAN, 11);
-
+	static DecimalFormatSymbols form = new DecimalFormatSymbols(Locale.ENGLISH);
+	static DecimalFormat formatter = new DecimalFormat("#.##", form);
 	static int indice, index;
+	static String imp, imp2, imponib, iva, impos, tot_fat, rit, tot_dov;
 
 	public Stampa_fatt() throws DocumentException, IOException {
-		print_fatture(document);
+
 	}
 
-	private static void print_fatture(Document document)
-			throws DocumentException, IOException {
+	public static void print_fatture(Paragraph pref, String data, String a,
+			String b, String c, String d, String e, String f, String g,
+			double h, String l, double m, double n, double o, double p,
+			double q, double r, double s) throws DocumentException, IOException {
 
-		String FILE = "C:\\Users\\massimiliano\\Documents\\test.pdf";
-		document = new Document();
-		PdfWriter.getInstance(document, new FileOutputStream(FILE));
-		document.open();
+		Paragraph prefazione = pref;
 
-		
-		Paragraph prefazione = new Paragraph();
-
-for (int i = 0; i < 5; i++) {
-	
-
+		formatter.setMaximumFractionDigits(2);
+		formatter.setMinimumFractionDigits(2);
+		imp = formatter.format(h);
+		imp2 = formatter.format(m);
+		if (imp2.equals("0.00")) {
+			imp2 = "";
+		}
+		imponib = formatter.format(n);
+		iva = formatter.format(o);
+		impos = formatter.format(p);
+		tot_fat = formatter.format(q);
+		rit = formatter.format(r);
+		if (rit.equals("0.00")) {
+			rit = "";
+		}
+		tot_dov = formatter.format(s);
+		if (tot_dov.equals("0.00")) {
+			tot_dov = "";
+		}
 		// Aggiungiamo il titolo
 		Paragraph titolo1 = new Paragraph("SD", sigla);
 		titolo1.setAlignment(Element.ALIGN_LEFT);
@@ -121,29 +137,29 @@ for (int i = 0; i < 5; i++) {
 		cell4.setBorderWidth(0);
 
 		PdfPCell cell5 = new PdfPCell(new Paragraph(
-				"Data                          2/12/2014", dati));
+				"Data                          " + data, dati));
 		cell5.setBorderWidth(0);
 
-		PdfPCell cell6 = new PdfPCell(new Paragraph("       NOME CLIENTE 1", campi));
+		PdfPCell cell6 = new PdfPCell(new Paragraph("       " + a, campi));
 		cell6.setBorderWidth(0);
 
 		PdfPCell cell7 = new PdfPCell(new Paragraph(""));
 		cell7.setBorderWidth(0);
 
-		PdfPCell cell8 = new PdfPCell(new Paragraph("       NOME CLIENTE 2", campi));
+		PdfPCell cell8 = new PdfPCell(new Paragraph("       " + b, campi));
 		cell8.setBorderWidth(0);
 
 		PdfPCell cell9 = new PdfPCell(new Paragraph(""));
 		cell9.setBorderWidth(0);
 
-		PdfPCell cell10 = new PdfPCell(new Paragraph("       VIA CLIENTE", campi));
+		PdfPCell cell10 = new PdfPCell(new Paragraph("       " + c, campi));
 		cell10.setBorderWidth(0);
 
 		PdfPCell cell11 = new PdfPCell(new Paragraph(""));
 		cell11.setBorderWidth(0);
 
-		PdfPCell cell12 = new PdfPCell(new Paragraph("       CITTA CLIENTE      CAP",
-				campi));
+		PdfPCell cell12 = new PdfPCell(new Paragraph("       " + d + "      "
+				+ e, campi));
 		cell12.setBorderWidth(0);
 
 		table.addCell(cell3);
@@ -167,7 +183,8 @@ for (int i = 0; i < 5; i++) {
 				dati));
 		cell13.setBorderWidth(0);
 
-		PdfPCell cell14 = new PdfPCell(new Paragraph("       C.F. / Partita IVA", dati));
+		PdfPCell cell14 = new PdfPCell(new Paragraph(
+				"       C.F. / Partita IVA", dati));
 		cell14.setBorderWidth(0);
 
 		table2.addCell(cell13);
@@ -183,7 +200,7 @@ for (int i = 0; i < 5; i++) {
 				"BONIFICO BANCARIO RIC FATTURA", campi));
 		cell19.setBorderWidth(0);
 
-		PdfPCell cell20 = new PdfPCell(new Paragraph("       PARTITA IVA",campi));
+		PdfPCell cell20 = new PdfPCell(new Paragraph("       " + f, campi));
 		cell20.setBorderWidth(0);
 
 		PdfPCell cell21 = new PdfPCell(new Paragraph(
@@ -197,10 +214,8 @@ for (int i = 0; i < 5; i++) {
 				"IBAN IT42O0306910810000037029124", campi));
 		cell23.setBorderWidth(0);
 
-		PdfPCell cell24 = new PdfPCell(
-				new Paragraph(""));
+		PdfPCell cell24 = new PdfPCell(new Paragraph(""));
 		cell24.setBorderWidth(0);
-
 
 		table3.addCell(cell19);
 		table3.addCell(cell20);
@@ -208,7 +223,7 @@ for (int i = 0; i < 5; i++) {
 		table3.addCell(cell22);
 		table3.addCell(cell23);
 		table3.addCell(cell24);
-		
+
 		prefazione.add(table3);
 
 		aggiungiLineaVuota(prefazione, 3);
@@ -220,7 +235,8 @@ for (int i = 0; i < 5; i++) {
 				new Paragraph("DESCRIZIONE       ", dati));
 		cell27.setBorderWidth(0);
 
-		PdfPCell cell28 = new PdfPCell(new Paragraph("                      IMPORTO", dati));
+		PdfPCell cell28 = new PdfPCell(new Paragraph(
+				"                      IMPORTO", dati));
 		cell28.setBorderWidth(0);
 
 		table4.addCell(cell27);
@@ -232,18 +248,18 @@ for (int i = 0; i < 5; i++) {
 		PdfPTable table5 = new PdfPTable(2);
 		table5.setWidths(columnWidths);
 
-		PdfPCell cell29 = new PdfPCell(new Paragraph("DESCRIZIONE LAVORO 1",
-				campi));
+		PdfPCell cell29 = new PdfPCell(new Paragraph(g, campi));
 		cell29.setBorderWidth(0);
 
-		PdfPCell cell30 = new PdfPCell(new Paragraph("                      IMPORTO 1", campi));
+		PdfPCell cell30 = new PdfPCell(new Paragraph("                      "
+				+ imp, campi));
 		cell30.setBorderWidth(0);
 
-		PdfPCell cell31 = new PdfPCell(new Paragraph("DESCRIZIONE LAVORO 2",
-				campi));
+		PdfPCell cell31 = new PdfPCell(new Paragraph(l, campi));
 		cell31.setBorderWidth(0);
 
-		PdfPCell cell32 = new PdfPCell(new Paragraph("                      IMPORTO 2", campi));
+		PdfPCell cell32 = new PdfPCell(new Paragraph("                      "
+				+ imp2, campi));
 		cell32.setBorderWidth(0);
 
 		table5.addCell(cell29);
@@ -263,12 +279,14 @@ for (int i = 0; i < 5; i++) {
 
 		PdfPCell cell34 = new PdfPCell(new Paragraph(
 				"IMPOSTA        TOTALE FATTURA", dati));
-		cell34.setBorderWidth(0); 
- 
-		PdfPCell cell35 = new PdfPCell(new Paragraph("    IMPON                      ALIQU", campi));
+		cell34.setBorderWidth(0);
+
+		PdfPCell cell35 = new PdfPCell(new Paragraph("    " + imponib
+				+ "                      " + iva, campi));
 		cell35.setBorderWidth(0);
 
-		PdfPCell cell36 = new PdfPCell(new Paragraph("     IM                        TOTALE F", campi));
+		PdfPCell cell36 = new PdfPCell(new Paragraph("     " + impos
+				+ "                        " + tot_fat, campi));
 		cell36.setBorderWidth(0);
 
 		table6.addCell(cell33);
@@ -286,13 +304,16 @@ for (int i = 0; i < 5; i++) {
 				dati));
 		cell37.setBorderWidth(0);
 
-		PdfPCell cell38 = new PdfPCell(new Paragraph("      TOTALE DOVUTO", dati));
+		PdfPCell cell38 = new PdfPCell(new Paragraph("      TOTALE DOVUTO",
+				dati));
 		cell38.setBorderWidth(0);
 
-		PdfPCell cell39 = new PdfPCell(new Paragraph("                   rit", campi));
+		PdfPCell cell39 = new PdfPCell(new Paragraph("                   "
+				+ rit, campi));
 		cell39.setBorderWidth(0);
 
-		PdfPCell cell40 = new PdfPCell(new Paragraph("                  totdov", campi));
+		PdfPCell cell40 = new PdfPCell(new Paragraph("                  "
+				+ tot_dov, campi));
 		cell40.setBorderWidth(0);
 
 		table7.addCell(cell37);
@@ -302,20 +323,14 @@ for (int i = 0; i < 5; i++) {
 		prefazione.add(table7);
 
 		// Aggiunta al documento
-		document.add(prefazione);
-		
-		document.newPage();
-	}
-		document.close();
 
-		File f = new File("C:\\Users\\massimiliano\\Documents\\test.pdf");
-		java.awt.Desktop.getDesktop().open(f);
 	}
 
 	private static void aggiungiLineaVuota(Paragraph paragraph, int number) {
 		for (int i = 0; i < number; i++) {
 			paragraph.add(new Paragraph(" "));
 		}
+
 	}
 
 }
