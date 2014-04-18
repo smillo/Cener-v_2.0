@@ -263,7 +263,7 @@ for (int i = 0; i < 5; i++) {
 
 		PdfPCell cell34 = new PdfPCell(new Paragraph(
 				"IMPOSTA        TOTALE FATTURA", dati));
-		cell34.setBorderWidth(0);
+		cell34.setBorderWidth(0); 
  
 		PdfPCell cell35 = new PdfPCell(new Paragraph("    IMPON                      ALIQU", campi));
 		cell35.setBorderWidth(0);
