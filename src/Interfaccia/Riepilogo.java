@@ -10,10 +10,10 @@ import javax.swing.JLabel;
 public class Riepilogo extends JFrame {
 
 	private JButton dett_13, dett_14, dett_15, dett_16, dett_17, dett_18,
-	dett_19, dett_20, dett_21, dett_22, dett_23, dett_24, dett_25,
-	dett_26, dett_27, dett_28, dett_29, dett_30, dett_31, dett_32,
-	dett_33, dett_34, dett_35, dett_36, dett_37, dett_38, dett_39,
-	dett_40;
+			dett_19, dett_20, dett_21, dett_22, dett_23, dett_24, dett_25,
+			dett_26, dett_27, dett_28, dett_29, dett_30, dett_31, dett_32,
+			dett_33, dett_34, dett_35, dett_36, dett_37, dett_38, dett_39,
+			dett_40;
 
 	public Riepilogo() {
 

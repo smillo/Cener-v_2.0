@@ -2,11 +2,11 @@ package General;
 
 public class Fatture {
 
-	String numero,data;
+	String numero, data;
 	double totale;
-	
-	public Fatture(String numero,String data,double totale){
-	
+
+	public Fatture(String numero, String data, double totale) {
+
 		this.numero = numero;
 		this.data = data;
 		this.totale = totale;

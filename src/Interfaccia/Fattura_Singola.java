@@ -10,11 +10,11 @@ import General.Database;
 public class Fattura_Singola extends JFrame {
 
 	private JTextField text_Cliente, text_indirizzo, text_cap,
-	text_descrizione, text_descrizione_2, text_imponibile,
-	text_imposta;
+			text_descrizione, text_descrizione_2, text_imponibile,
+			text_imposta;
 	private JTextField text_cliente_2, text_città, text_piva, text_importo,
-	text_importo_2, text_iva, text_tot_fattura, text_tot_dovuto,
-	text_ritenuta;
+			text_importo_2, text_iva, text_tot_fattura, text_tot_dovuto,
+			text_ritenuta;
 	private JComboBox combo_ritenuta, combo_giorno, combo_mese, combo_anno;
 	private JButton btnIndietro, btnStampa;
 	private Database database;

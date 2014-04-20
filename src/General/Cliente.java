@@ -4,9 +4,9 @@ public class Cliente {
 
 	String nome, nome2, indirizzo, città, cap, piva, descrizione, descrizione2;
 	double importo, importo2, imponibile, iva, imposta, tot_fattura, ritenuta,
-	tot_dovuto;
+			tot_dovuto;
 	boolean gennaio, febbraio, marzo, aprile, maggio, giugno, luglio, agosto,
-	settembre, ottobre, novembre, dicembre;
+			settembre, ottobre, novembre, dicembre;
 
 	public Cliente(String nome, String nome2, String indirizzo, String città,
 			String cap, String piva, String descrizione, double importo,

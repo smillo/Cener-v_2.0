@@ -15,19 +15,19 @@ import General.Database;
 public class Modifica_Cliente_mese extends JFrame {
 
 	private JTextField text_Cliente, text_indirizzo, text_cap,
-	text_descrizione, text_descrizione_2, text_imponibile,
-	text_imposta;
+			text_descrizione, text_descrizione_2, text_imponibile,
+			text_imposta;
 	private JTextField text_cliente_2, text_città, text_piva, text_importo,
-	text_importo_2, text_iva, text_tot_fattura, text_tot_dovuto,
-	text_ritenuta;
+			text_importo_2, text_iva, text_tot_fattura, text_tot_dovuto,
+			text_ritenuta;
 	private JComboBox combo_ritenuta;
 	private JButton btnIndietro, btnSalva;
 	private JScrollPane scrollPane;
 	private JList list;
-	private String mese,nome_cliente ;
+	private String mese, nome_cliente;
 	private Database database;
 
-	public Modifica_Cliente_mese(Database database,String mese) {
+	public Modifica_Cliente_mese(Database database, String mese) {
 		this.mese = mese;
 		this.database = database;
 		getContentPane().setLayout(null);
@@ -188,7 +188,6 @@ public class Modifica_Cliente_mese extends JFrame {
 		combo_ritenuta.setBounds(88, 232, 80, 20);
 		getContentPane().add(combo_ritenuta);
 
-		
 		btnIndietro = new JButton("Indietro");
 		btnIndietro.setBounds(296, 368, 89, 23);
 		getContentPane().add(btnIndietro);
@@ -219,11 +218,9 @@ public class Modifica_Cliente_mese extends JFrame {
 
 			if (e.getSource() == btnSalva) {
 
-				
 				String nome2, descrizione2;
 				double importo2, ritenuta, tot_dovuto;
 
-				
 				calcola();
 
 				String nome = text_Cliente.getText();
@@ -265,13 +262,14 @@ public class Modifica_Cliente_mese extends JFrame {
 					tot_dovuto = 0.00;
 				}
 
-
 				try {
 					database.Modifica_Cliente_mese(nome, nome2, indirizzo,
-							città, cap, piva, descrizione, importo, descrizione2,
-							importo2, imponibile, iva, imposta, tot_fattura,
-							ritenuta, tot_dovuto,mese,nome_cliente);
-					JOptionPane.showMessageDialog(null, "cliente modificato in "+mese);
+							città, cap, piva, descrizione, importo,
+							descrizione2, importo2, imponibile, iva, imposta,
+							tot_fattura, ritenuta, tot_dovuto, mese,
+							nome_cliente);
+					JOptionPane.showMessageDialog(null,
+							"cliente modificato in " + mese);
 					dispose();
 
 				} catch (Exception ee) {
@@ -289,7 +287,6 @@ public class Modifica_Cliente_mese extends JFrame {
 
 			nome_cliente = (String) list.getSelectedValue();
 			Cliente client = database.seleziona(nome_cliente);
-			
 
 			text_Cliente.setText(client.getNome());
 			String test = client.getNome2();
@@ -334,8 +331,7 @@ public class Modifica_Cliente_mese extends JFrame {
 			} else {
 				text_tot_dovuto.setText(test5);
 			}
-			
-			
+
 		}
 	}
 

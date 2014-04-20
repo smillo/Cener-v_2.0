@@ -13,6 +13,8 @@ import java.util.LinkedList;
 
 import javax.swing.JOptionPane;
 
+import sun.awt.image.ImageWatched.Link;
+
 import com.itextpdf.text.Document;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
@@ -1557,7 +1559,7 @@ public class Database {
 			e.printStackTrace();
 
 		}
-		
+
 	}
 
 	public Cliente seleziona(String nome_cliente) {
@@ -1612,7 +1614,7 @@ public class Database {
 
 	public void stampafattura(String mese, String data, String anno) {
 		try {
-			
+
 			ResultSet rs;
 			PreparedStatement prep = connection
 					.prepareStatement("SELECT * FROM " + mese);
@@ -1646,16 +1648,17 @@ public class Database {
 
 				String numero = Numero_fattura.contaFattura();
 				Paragraph prefazione = new Paragraph();
-				Stampa_fatt.print_fatture(prefazione, data,numero, a, b, c, d, e, f,
-						g, h, l, m, n, o, p, q, r, s);
+				Stampa_fatt.print_fatture(prefazione, data, numero, a, b, c, d,
+						e, f, g, h, l, m, n, o, p, q, r, s);
 				document.add(prefazione);
 				document.newPage();
-				
-				if(r==0.0){
-					inserisci_fattura(numero,data,a,q);	
-				}
-				else{
-					inserisci_fattura(numero,data,a,s);
+
+				if (r == 0.0) {
+					inserisci_fattura(numero, data, a, q);
+					inserisci_el_paganti(data, a, q);
+				} else {
+					inserisci_fattura(numero, data, a, s);
+					inserisci_el_paganti(data, a, s);
 				}
 			}
 			document.close();
@@ -1670,7 +1673,27 @@ public class Database {
 		}
 	}
 
-	private void inserisci_fattura(String numero, String data, String cliente,double totale) {
+	private void inserisci_el_paganti(String data, String cliente, double totale) {
+
+		PreparedStatement pst = null;
+
+		try {
+
+			pst = connection
+					.prepareStatement("INSERT INTO elenco_paganti VALUES(?,?,?)");
+			pst.setString(1, cliente);
+			pst.setString(2, data);
+			pst.setDouble(3, totale);
+
+			pst.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+	}
+
+	private void inserisci_fattura(String numero, String data, String cliente,
+			double totale) {
 
 		PreparedStatement pst = null;
 
@@ -1682,24 +1705,23 @@ public class Database {
 			pst.setString(2, data);
 			pst.setString(3, cliente);
 			pst.setDouble(4, totale);
-		
+
 			pst.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
 
-			
+		}
+
 	}
 
-}
-	
-	public LinkedList<Fatture> restituisci_fattura(String nome_c){
+	public LinkedList<Fatture> restituisci_fattura(String nome_c) {
 		try {
 			LinkedList<Fatture> list_fat = new LinkedList<Fatture>();
 			ResultSet rs;
 			PreparedStatement prep = connection
 					.prepareStatement("SELECT numero_fattura,data_fattura,totale FROM fatture where cliente = ?");
 			prep.setString(1, nome_c);
-			
+
 			rs = prep.executeQuery();
 
 			while (rs.next()) {
@@ -1708,13 +1730,67 @@ public class Database {
 				double tot = rs.getDouble(3);
 				Fatture f = new Fatture(num, dat, tot);
 				list_fat.add(f);
-	}
+			}
 			return list_fat;
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
-			
+
+		}
 	}
-}
+
+	public LinkedList<String> elenco_paganti(String anno, String mese) {
+
+		try {
+
+			if (mese.equals("Gennaio")) {
+				mese = "01";
+			} else if (mese.equals("Febbraio")) {
+				mese = "02";
+			} else if (mese.equals("Marzo")) {
+				mese = "03";
+			} else if (mese.equals("Aprile")) {
+				mese = "04";
+			} else if (mese.equals("Maggio")) {
+				mese = "05";
+			} else if (mese.equals("Giugno")) {
+				mese = "06";
+			} else if (mese.equals("Luglio")) {
+				mese = "07";
+			} else if (mese.equals("Agosto")) {
+				mese = "08";
+			} else if (mese.equals("Settembre")) {
+				mese = "09";
+			} else if (mese.equals("Ottobre")) {
+				mese = "10";
+			} else if (mese.equals("Novembre")) {
+				mese = "11";
+			} else if (mese.equals("Dicembre")) {
+				mese = "12";
+			}
+			LinkedList<String> lin = new LinkedList<String>();
+			ResultSet rs;
+			PreparedStatement prep = connection
+					.prepareStatement("SELECT * FROM elenco_paganti where data_pag like '%"
+							+ mese + "/" + anno + "'");
+
+			rs = prep.executeQuery();
+
+			while (rs.next()) {
+				String cliente = rs.getString(1);
+				String dat = rs.getString(2);
+				double tot = rs.getDouble(3);
+
+				String s = cliente + "--" + dat + "--" + tot;
+				lin.add(s);
+			}
+			return lin;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+
+		}
+	}
 }

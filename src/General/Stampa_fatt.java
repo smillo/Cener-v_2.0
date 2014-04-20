@@ -47,10 +47,11 @@ public class Stampa_fatt {
 
 	}
 
-	public static void print_fatture(Paragraph pref, String data,String numero, String a,
-			String b, String c, String d, String e, String f, String g,
-			double h, String l, double m, double n, double o, double p,
-			double q, double r, double s) throws DocumentException, IOException {
+	public static void print_fatture(Paragraph pref, String data,
+			String numero, String a, String b, String c, String d, String e,
+			String f, String g, double h, String l, double m, double n,
+			double o, double p, double q, double r, double s)
+			throws DocumentException, IOException {
 
 		Paragraph prefazione = pref;
 
@@ -128,8 +129,8 @@ public class Stampa_fatt {
 		PdfPTable table = new PdfPTable(2);
 		table.setWidths(columnWidths);
 
-		PdfPCell cell3 = new PdfPCell(new Paragraph(
-				"Numero Fattura           "+numero, dati));
+		PdfPCell cell3 = new PdfPCell(new Paragraph("Numero Fattura           "
+				+ numero, dati));
 		cell3.setBorderWidth(0);
 
 		PdfPCell cell4 = new PdfPCell(new Paragraph(

@@ -15,18 +15,18 @@ import General.Database;
 public class Modifica_Cliente extends JFrame {
 
 	private JTextField text_Cliente, text_indirizzo, text_cap,
-	text_descrizione, text_descrizione_2, text_imponibile,
-	text_imposta;
+			text_descrizione, text_descrizione_2, text_imponibile,
+			text_imposta;
 	private boolean gennaio, febbraio, marzo, aprile, maggio, giugno, luglio,
-	agosto, settembre, ottobre, novembre, dicembre;
+			agosto, settembre, ottobre, novembre, dicembre;
 	private LinkedList mesi_vecchi;
 	private LinkedList mesi_nuovi;
 	private JTextField text_cliente_2, text_città, text_piva, text_importo,
-	text_importo_2, text_iva, text_tot_fattura, text_tot_dovuto,
-	text_ritenuta;
+			text_importo_2, text_iva, text_tot_fattura, text_tot_dovuto,
+			text_ritenuta;
 	private JComboBox combo_ritenuta, combo_gen, combo_feb, combo_mar,
-	combo_apr, combo_mag, combo_giu, combo_lug, combo_ago, combo_set,
-	combo_ott, combo_nov, combo_dic;
+			combo_apr, combo_mag, combo_giu, combo_lug, combo_ago, combo_set,
+			combo_ott, combo_nov, combo_dic;
 	private JButton btnIndietro, btnSalva;
 	private JScrollPane scrollPane;
 	private JList list;
@@ -503,7 +503,7 @@ public class Modifica_Cliente extends JFrame {
 			Cliente client = database.seleziona(nome_cliente);
 			mesi_vecchi = new LinkedList();
 			mesi_vecchi.add(nome_cliente);
-			
+
 			text_Cliente.setText(client.getNome());
 			String test = client.getNome2();
 			if (test.equals("null")) {
@@ -547,7 +547,7 @@ public class Modifica_Cliente extends JFrame {
 			} else {
 				text_tot_dovuto.setText(test5);
 			}
-			
+
 			boolean a = client.isGennaio();
 			boolean b = client.isFebbraio();
 			boolean c = client.isMarzo();
@@ -560,81 +560,93 @@ public class Modifica_Cliente extends JFrame {
 			boolean l = client.isOttobre();
 			boolean m = client.isNovembre();
 			boolean n = client.isDicembre();
-			
-			if(a){ combo_gen.setSelectedItem("Si");
-			mesi_vecchi.add(true);}
-			
-			else{  combo_gen.setSelectedItem("No");
-			mesi_vecchi.add(false);
+
+			if (a) {
+				combo_gen.setSelectedItem("Si");
+				mesi_vecchi.add(true);
 			}
-			if(b){ combo_feb.setSelectedItem("Si");
-			mesi_vecchi.add(true);
+
+			else {
+				combo_gen.setSelectedItem("No");
+				mesi_vecchi.add(false);
 			}
-			else{  combo_feb.setSelectedItem("No");
-			mesi_vecchi.add(false);
+			if (b) {
+				combo_feb.setSelectedItem("Si");
+				mesi_vecchi.add(true);
+			} else {
+				combo_feb.setSelectedItem("No");
+				mesi_vecchi.add(false);
 			}
-			if(c){ combo_mar.setSelectedItem("Si");
-			mesi_vecchi.add(true);
+			if (c) {
+				combo_mar.setSelectedItem("Si");
+				mesi_vecchi.add(true);
+			} else {
+				combo_mar.setSelectedItem("No");
+				mesi_vecchi.add(false);
 			}
-			else{  combo_mar.setSelectedItem("No");
-			mesi_vecchi.add(false);
+			if (d) {
+				combo_apr.setSelectedItem("Si");
+				mesi_vecchi.add(true);
+			} else {
+				combo_apr.setSelectedItem("No");
+				mesi_vecchi.add(false);
 			}
-			if(d){ combo_apr.setSelectedItem("Si");
-			mesi_vecchi.add(true);
+			if (e2) {
+				combo_mag.setSelectedItem("Si");
+				mesi_vecchi.add(true);
+			} else {
+				combo_mag.setSelectedItem("No");
+				mesi_vecchi.add(false);
 			}
-			else{  combo_apr.setSelectedItem("No");
-			mesi_vecchi.add(false);
+			if (f) {
+				combo_giu.setSelectedItem("Si");
+				mesi_vecchi.add(true);
+			} else {
+				combo_giu.setSelectedItem("No");
+				mesi_vecchi.add(false);
 			}
-			if(e2){combo_mag.setSelectedItem("Si");
-			mesi_vecchi.add(true);
+			if (g) {
+				combo_lug.setSelectedItem("Si");
+				mesi_vecchi.add(true);
+			} else {
+				combo_lug.setSelectedItem("No");
+				mesi_vecchi.add(false);
 			}
-			else { combo_mag.setSelectedItem("No");
-			mesi_vecchi.add(false);
+			if (h) {
+				combo_ago.setSelectedItem("Si");
+				mesi_vecchi.add(true);
+			} else {
+				combo_ago.setSelectedItem("No");
+				mesi_vecchi.add(false);
 			}
-			if(f){combo_giu.setSelectedItem("Si");
-			mesi_vecchi.add(true);
+			if (i) {
+				combo_set.setSelectedItem("Si");
+				mesi_vecchi.add(true);
+			} else {
+				combo_set.setSelectedItem("No");
+				mesi_vecchi.add(false);
 			}
-			else { combo_giu.setSelectedItem("No");
-			mesi_vecchi.add(false);
+			if (l) {
+				combo_ott.setSelectedItem("Si");
+				mesi_vecchi.add(true);
+			} else {
+				combo_ott.setSelectedItem("No");
+				mesi_vecchi.add(false);
 			}
-			if(g){combo_lug.setSelectedItem("Si");
-			mesi_vecchi.add(true);
+			if (m) {
+				combo_nov.setSelectedItem("Si");
+				mesi_vecchi.add(true);
+			} else {
+				combo_nov.setSelectedItem("No");
+				mesi_vecchi.add(false);
 			}
-			else { combo_lug.setSelectedItem("No");
-			mesi_vecchi.add(false);
+			if (n) {
+				combo_dic.setSelectedItem("Si");
+				mesi_vecchi.add(true);
+			} else {
+				combo_dic.setSelectedItem("No");
+				mesi_vecchi.add(false);
 			}
-			if(h){combo_ago.setSelectedItem("Si");
-			mesi_vecchi.add(true);
-			}
-			else { combo_ago.setSelectedItem("No");
-			mesi_vecchi.add(false);
-			}
-			if(i){combo_set.setSelectedItem("Si");
-			mesi_vecchi.add(true);
-			}
-			else { combo_set.setSelectedItem("No");
-			mesi_vecchi.add(false);
-			}
-			if(l){combo_ott.setSelectedItem("Si");
-			mesi_vecchi.add(true);
-			}
-			else { combo_ott.setSelectedItem("No");
-			mesi_vecchi.add(false);
-			}
-			if(m){combo_nov.setSelectedItem("Si");
-			mesi_vecchi.add(true);
-			}
-			else { combo_nov.setSelectedItem("No");
-			mesi_vecchi.add(false);
-			}
-			if(n){combo_dic.setSelectedItem("Si");
-			mesi_vecchi.add(true);
-			}
-			else { combo_dic.setSelectedItem("No");
-			mesi_vecchi.add(false);
-			}
-			
-			
 
 		}
 	}

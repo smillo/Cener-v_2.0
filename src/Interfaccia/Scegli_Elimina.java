@@ -61,12 +61,12 @@ public class Scegli_Elimina extends JFrame {
 			}
 
 			if (e.getSource() == btnMensile) {
-				
+
 				String mese = (String) combo_mese.getSelectedItem();
-				
+
 				Elimina_Cliente_Mese el = new Elimina_Cliente_Mese(database,
 						mese);
-				
+
 				dispose();
 
 			}

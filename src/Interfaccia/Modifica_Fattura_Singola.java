@@ -16,11 +16,11 @@ import General.Fatture;
 public class Modifica_Fattura_Singola extends JFrame {
 
 	private JTextField text_Cliente, text_indirizzo, text_cap,
-	text_descrizione, text_descrizione_2, text_imponibile,
-	text_imposta;
+			text_descrizione, text_descrizione_2, text_imponibile,
+			text_imposta;
 	private JTextField text_cliente_2, text_città, text_piva, text_importo,
-	text_importo_2, text_iva, text_tot_fattura, text_tot_dovuto,
-	text_ritenuta;
+			text_importo_2, text_iva, text_tot_fattura, text_tot_dovuto,
+			text_ritenuta;
 	private JComboBox combo_ritenuta;
 	private JButton btnIndietro, btnSalva;
 	private JScrollPane scrollPane, scrollPane_fatt;
@@ -248,7 +248,7 @@ public class Modifica_Fattura_Singola extends JFrame {
 		}
 
 	}
-	
+
 	public class ListSelection implements ListSelectionListener {
 
 		@Override
@@ -286,8 +286,7 @@ public class Modifica_Fattura_Singola extends JFrame {
 			text_imponibile.setText(String.valueOf(client.getImponibile()));
 			text_iva.setText(String.valueOf(client.getIva()));
 			text_imposta.setText(String.valueOf(client.getImposta()));
-			text_tot_fattura
-					.setText(String.valueOf(client.getTot_fattura()));
+			text_tot_fattura.setText(String.valueOf(client.getTot_fattura()));
 			String test4 = String.valueOf(client.getRitenuta());
 			if (test4.equals("0.0")) {
 				text_ritenuta.setText("");
@@ -303,27 +302,31 @@ public class Modifica_Fattura_Singola extends JFrame {
 				text_tot_dovuto.setText(test5);
 			}
 
-			LinkedList<Fatture> lll = database.restituisci_fattura(nome_cliente);
-			String [] lista = new String[lll.size()];
-			for (int ia = 0;ia<lll.size();ia++) {
-			 lista[ia] = lll.get(ia).getNumero()+"--"+lll.get(ia).getData()+"--"+ lll.get(ia).getTotale();
+			LinkedList<Fatture> lll = database
+					.restituisci_fattura(nome_cliente);
+			String[] lista = new String[lll.size()];
+			for (int ia = 0; ia < lll.size(); ia++) {
+				lista[ia] = lll.get(ia).getNumero() + "--"
+						+ lll.get(ia).getData() + "--"
+						+ lll.get(ia).getTotale();
 			}
 			list_fatt.setListData(lista);
-	
+
 		}
-}
-	
-	public class ListSelection1 implements ListSelectionListener{
+	}
+
+	public class ListSelection1 implements ListSelectionListener {
 
 		@Override
 		public void valueChanged(ListSelectionEvent e) {
-			StringTokenizer stk = new StringTokenizer((String) list_fatt.getSelectedValue(),"--");
+			StringTokenizer stk = new StringTokenizer(
+					(String) list_fatt.getSelectedValue(), "--");
 			String numero = stk.nextToken();
 			String data = stk.nextToken();
-			
+
 			text_num_fat.setText(numero);
 			textField.setText(data);
 		}
-		
+
 	}
 }

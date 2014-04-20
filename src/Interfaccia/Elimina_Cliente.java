@@ -57,15 +57,15 @@ public class Elimina_Cliente extends JFrame {
 		}
 
 	}
-	
+
 	private class ListSelection implements ListSelectionListener {
 
 		public void valueChanged(ListSelectionEvent e) {
-			
-			 nome_cliente = (String) list.getSelectedValue();
-			 System.out.println(nome_cliente);
-			
+
+			nome_cliente = (String) list.getSelectedValue();
+			System.out.println(nome_cliente);
+
 		}
-	
-		}
+
+	}
 }

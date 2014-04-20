@@ -14,18 +14,18 @@ import General.Database;
 public class Aggiungi_Cliente extends JFrame {
 
 	private JTextField text_Cliente, text_indirizzo, text_cap,
-	text_descrizione, text_descrizione_2, text_imponibile,
-	text_imposta;
+			text_descrizione, text_descrizione_2, text_imponibile,
+			text_imposta;
 	private JTextField text_cliente_2, text_città, text_piva, text_importo,
-	text_importo_2, text_iva, text_tot_fattura, text_tot_dovuto,
-	text_ritenuta;
+			text_importo_2, text_iva, text_tot_fattura, text_tot_dovuto,
+			text_ritenuta;
 	private JComboBox combo_ritenuta, combo_gen, combo_feb, combo_mar,
-	combo_apr, combo_mag, combo_giu, combo_lug, combo_ago, combo_set,
-	combo_ott, combo_nov, combo_dic;
+			combo_apr, combo_mag, combo_giu, combo_lug, combo_ago, combo_set,
+			combo_ott, combo_nov, combo_dic;
 	private JButton btnIndietro, btnSalva;
 	private Database database;
 	private boolean gennaio, febbraio, marzo, aprile, maggio, giugno, luglio,
-	agosto, settembre, ottobre, novembre, dicembre;
+			agosto, settembre, ottobre, novembre, dicembre;
 
 	public Aggiungi_Cliente(Database database) {
 		this.database = database;
