@@ -1793,4 +1793,145 @@ public class Database {
 
 		}
 	}
+
+	public void elimina_elenco_paganti(String nome,String data) {
+
+		try {
+			
+			PreparedStatement prep = null;
+			
+
+				prep = connection.prepareStatement("DELETE from elenco_paganti where cliente = ? and data_pag = ?");
+
+				prep.setString(1, nome);
+				prep.setString(2, data);
+
+				prep.executeUpdate();
+			} catch (Exception e) {
+				e.printStackTrace();
+
+			}
+
+		
+	}
+
+	public void aggiungi_uscita(String causa,String data, String importo) {
+
+		PreparedStatement pst = null;
+
+		try {
+
+			pst = connection
+					.prepareStatement("INSERT INTO entrate_uscite VALUES(?,?,?)");
+			pst.setString(1, causa);
+			pst.setString(2, data);
+			pst.setString(3, importo);
+		
+			pst.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+		
+	}
+
+	public LinkedList<String> uscite(String causa, int anno) {
+		try{
+		LinkedList<String> lin = new LinkedList<String>();
+		ResultSet rs;
+		PreparedStatement prep = connection
+				.prepareStatement("SELECT data_uscita,importo FROM entrate_uscite where data_uscita like '%"+ anno + "' and causa = ?");
+prep.setString(1, causa);
+		rs = prep.executeQuery();
+
+		while (rs.next()) {
+			
+			String dat = rs.getString(1);
+			double tot = rs.getDouble(2);
+
+			String s = dat + "   € " + tot;
+			lin.add(s);
+		}
+		return lin;
+
+	} catch (Exception e) {
+		e.printStackTrace();
+		return null;
+
+	}
 }
+
+	public String uscite_anno(int anno) {
+		try{
+			String tot = null;
+			ResultSet rs;
+			PreparedStatement prep = connection
+					.prepareStatement("SELECT sum(importo) FROM entrate_uscite where data_uscita like '%"+ anno + "'");
+	
+			rs = prep.executeQuery();
+while(rs.next()){
+	 tot = rs.getString(1);
+}
+			return tot;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+
+		}
+	}
+
+	public String entrate_anno(int anno) {
+
+		try{
+			String tot = null;
+			ResultSet rs;
+			PreparedStatement prep = connection
+					.prepareStatement("SELECT sum(totale) FROM fatture where data_fattura like '%"+ anno + "'");
+	
+			rs = prep.executeQuery();
+while(rs.next()){
+	 tot = rs.getString(1);
+}
+
+			return tot;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+
+		}
+	}
+	public String[] dettagli(int anno) {
+		try{
+			String tot = null;
+			LinkedList<String> a = new LinkedList<String>();
+			String causa = null,data = null;
+			ResultSet rs;
+			PreparedStatement prep = connection
+					.prepareStatement("SELECT * FROM entrate_uscite where data_uscita like '%"+ anno + "'");
+	
+			rs = prep.executeQuery();
+while(rs.next()){
+	causa = rs.getString(1);
+	data = rs.getString(2);
+	 tot = rs.getString(3);
+	 String sss = causa+" -- "+data +" -- "+tot;
+	 a.add(sss);
+}
+
+String[] lista = new String[a.size()];
+for (int ia = 0; ia < a.size(); ia++) {
+	lista[ia] = a.get(ia);
+}
+			return lista;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+
+		}
+	}
+}
+
+

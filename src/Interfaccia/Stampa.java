@@ -97,15 +97,32 @@ public class Stampa extends JFrame {
 			}
 
 			if (e.getSource() == btnStampa) {
+				
+				
+				
 				if (text_giorno.getText().length() == 2
 						&& text_mese.getText().length() == 2
 						&& text_anno.getText().length() == 4) {
 					String data = text_giorno.getText() + "/"
 							+ text_mese.getText() + "/" + text_anno.getText();
-					database.stampafattura(
-							(String) combo_mese.getSelectedItem(), data,
-							text_anno.getText());
-					dispose();
+					
+					int confirm = JOptionPane
+							.showOptionDialog(
+									null,
+									"Stampare fatture di "+combo_mese.getSelectedItem()+" in data "+data+"?",
+									"Stampa", JOptionPane.YES_NO_OPTION,
+									JOptionPane.QUESTION_MESSAGE, null, null, null);
+
+					if (confirm == 0) {
+						database.stampafattura(
+								(String) combo_mese.getSelectedItem(), data,
+								text_anno.getText());
+						dispose();
+					}
+					else {
+						
+					}
+					
 				} else
 					JOptionPane.showMessageDialog(null,
 							"ERRORE: inserire la data nel formato gg/mm/aaaa");

@@ -5,6 +5,8 @@ import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.LinkedList;
 import java.util.StringTokenizer;
 
@@ -32,11 +34,14 @@ import com.sun.corba.se.pept.transport.Selector;
 import General.Cliente;
 import General.Database;
 import General.Fatture;
+
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
+import javax.swing.ListSelectionModel;
 
 public class Partenza extends JFrame {
 
+	GregorianCalendar gc = new GregorianCalendar();
 	private String[] cause = { "costo operai", "stipendio nostro", "tornado",
 			"inps", "automezzi", "carburante", "varie", "artser", "tasse" };
 	private JTabbedPane tabbedPane;
@@ -63,16 +68,15 @@ public class Partenza extends JFrame {
 			panel_mag, panel_giu, panel_lug, panel_ago, panel_set, panel_ott,
 			panel_fatt, panel_nov, panel_dic, panel_el_pag, panel_ent_usc,
 			panel_list;
-	private JTextField text_entrate, text_uscite, text_entrate_prec,
-			text_uscite_prec;
+	private JTextField text_entrate, text_uscite;
 	private JScrollPane scrollPane, scrollPane_gen, scrollPane_1, scrollPane_2,
 			scrollPane_feb, scrollPane_mar, scrollPane_apr, scrollPane_mag,
 			scrollPane_giu, scrollPane_lug, scrollPane_ago, scrollPane_set,
 			scrollPane_ott, scrollPane_nov, scrollPane_dic, scrollPane_pag;
-	private JButton btnAggiungiUscita, btnEliminaUscita, btnNuovo_cliente,
+	private JButton btnAggiungiUscita, btnNuovo_cliente,
 			btnModifica_cliente, btnElimina_cliente, btnStampa, btnSeleziona,
 			btnFattura_singola, btnModifica_fattura, btnNuovo_anno, btnDropbox,
-			btnRimuoviDallelenco, btnAggiungiAllelenco, btnRiepilogo_pag;
+			btnRimuoviDallelenco, btnRiepilogo_pag;
 	private JButton btnRiepilogo;
 	private JList list_clienti, list_clienti_fatt, list_fatt,
 			list_cause_uscite, list_dettagli_uscite, list_clienti_gen,
@@ -189,21 +193,21 @@ public class Partenza extends JFrame {
 		scrollPane = new JScrollPane(list_cause_uscite);
 		scrollPane.setBounds(10, 11, 161, 339);
 		panel_ent_usc.add(scrollPane);
+		list_cause_uscite.addListSelectionListener(new ListSelection());
 
 		list_dettagli_uscite = new JList();
+
+		
 		scrollPane_1 = new JScrollPane(list_dettagli_uscite);
 		scrollPane_1.setBounds(179, 11, 161, 339);
 		panel_ent_usc.add(scrollPane_1);
+		list_dettagli_uscite.addListSelectionListener(new ListSelection());
 
 		btnAggiungiUscita = new JButton("Aggiungi Uscita");
 		btnAggiungiUscita.setBounds(395, 28, 174, 30);
 		panel_ent_usc.add(btnAggiungiUscita);
 		btnAggiungiUscita.addActionListener(new ButtonListener());
 
-		btnEliminaUscita = new JButton("Elimina Uscita");
-		btnEliminaUscita.setBounds(395, 68, 174, 30);
-		panel_ent_usc.add(btnEliminaUscita);
-		btnEliminaUscita.addActionListener(new ButtonListener());
 
 		JLabel lblEntrate = new JLabel("Entrate");
 		lblEntrate.setBounds(395, 201, 75, 14);
@@ -213,11 +217,7 @@ public class Partenza extends JFrame {
 		lblUscite.setBounds(539, 201, 75, 14);
 		panel_ent_usc.add(lblUscite);
 
-		JLabel lblAnnoPrecedente = new JLabel("Anno precedente");
-		lblAnnoPrecedente.setBounds(439, 270, 117, 14);
-		panel_ent_usc.add(lblAnnoPrecedente);
-
-		text_entrate = new JTextField();
+		text_entrate = new JTextField(database.entrate_anno(gc.get(Calendar.YEAR)));
 		text_entrate.setEditable(false);
 		text_entrate.setBounds(350, 226, 122, 20);
 		panel_ent_usc.add(text_entrate);
@@ -228,18 +228,6 @@ public class Partenza extends JFrame {
 		text_uscite.setBounds(492, 226, 122, 20);
 		panel_ent_usc.add(text_uscite);
 		text_uscite.setColumns(10);
-
-		text_entrate_prec = new JTextField();
-		text_entrate_prec.setEditable(false);
-		text_entrate_prec.setBounds(350, 302, 117, 20);
-		panel_ent_usc.add(text_entrate_prec);
-		text_entrate_prec.setColumns(10);
-
-		text_uscite_prec = new JTextField();
-		text_uscite_prec.setEditable(false);
-		text_uscite_prec.setBounds(492, 302, 122, 20);
-		panel_ent_usc.add(text_uscite_prec);
-		text_uscite_prec.setColumns(10);
 
 		btnRiepilogo = new JButton("Riepilogo");
 		btnRiepilogo.setBounds(395, 108, 174, 30);
@@ -2412,11 +2400,6 @@ public class Partenza extends JFrame {
 		scrollPane_pag.setBounds(342, 11, 401, 415);
 		panel_el_pag.add(scrollPane_pag);
 
-		btnAggiungiAllelenco = new JButton("Aggiungi all'elenco");
-		btnAggiungiAllelenco.setBounds(40, 329, 199, 25);
-		btnAggiungiAllelenco.addActionListener(new ButtonListener());
-		panel_el_pag.add(btnAggiungiAllelenco);
-
 		btnRimuoviDallelenco = new JButton("Rimuovi dall'elenco");
 		btnRimuoviDallelenco.setBounds(40, 365, 199, 25);
 		btnRimuoviDallelenco.addActionListener(new ButtonListener());
@@ -2655,11 +2638,9 @@ public class Partenza extends JFrame {
 		public void actionPerformed(ActionEvent e) {
 
 			if (e.getSource() == btnAggiungiUscita) {
-
-			}
-
-			if (e.getSource() == btnAggiungiAllelenco) {
-
+				
+				Aggiungi_Uscita au = new Aggiungi_Uscita(database);
+				
 			}
 
 			if (e.getSource() == btnRiepilogo_pag) {
@@ -2668,14 +2649,31 @@ public class Partenza extends JFrame {
 
 			if (e.getSource() == btnRimuoviDallelenco) {
 
+				String cliente = (String) list_el_paganti.getSelectedValue();
+				StringTokenizer stk = new StringTokenizer(cliente,"--");
+				String nome = stk.nextToken();
+				String data = stk.nextToken();
+				database.elimina_elenco_paganti(nome,data);
+				
+				System.out.println(nome);
+				System.out.println(data);
+				
+				StringTokenizer stk1 = new StringTokenizer(data,"/");
+				String giorno = stk1.nextToken();
+				String mese = stk1.nextToken();
+				String anno = stk1.nextToken();
+				
+				LinkedList<String> lll = database.elenco_paganti(anno, mese);
+				String[] lista = new String[lll.size()];
+				for (int ia = 0; ia < lll.size(); ia++) {
+					lista[ia] = lll.get(ia);
+				}
+				list_el_paganti.setListData(lista);
 			}
 
-			if (e.getSource() == btnEliminaUscita) {
-
-			}
 
 			if (e.getSource() == btnRiepilogo) {
-				Riepilogo anteprima = new Riepilogo();
+				Riepilogo anteprima = new Riepilogo(database);
 			}
 
 			if (e.getSource() == btnNuovo_cliente) {
@@ -3481,6 +3479,22 @@ public class Partenza extends JFrame {
 
 				break;
 
+			case "15":
+				
+				
+				int anno = gc.get(Calendar.YEAR);
+				String causa = (String) list_cause_uscite.getSelectedValue();
+		
+				LinkedList<String> lll = database.uscite(causa, anno);
+				
+				String[] lista = new String[lll.size()];
+				for (int ia = 0; ia < lll.size(); ia++) {
+					lista[ia] = lll.get(ia);
+				}
+				list_dettagli_uscite.setListData(lista);
+			
+				break;
+				
 			case "16":
 				nome_cliente = (String) list_clienti_fatt.getSelectedValue();
 				client = database.seleziona(nome_cliente);
@@ -3531,15 +3545,15 @@ public class Partenza extends JFrame {
 					text_tot_dovuto_fatt.setText(test5);
 				}
 
-				LinkedList<Fatture> lll = database
+				LinkedList<Fatture> ll = database
 						.restituisci_fattura(nome_cliente);
-				String[] lista = new String[lll.size()];
-				for (int ia = 0; ia < lll.size(); ia++) {
-					lista[ia] = lll.get(ia).getNumero() + "--"
-							+ lll.get(ia).getData() + "--"
-							+ lll.get(ia).getTotale();
+				String[] lis = new String[ll.size()];
+				for (int ia = 0; ia < ll.size(); ia++) {
+					lis[ia] = ll.get(ia).getNumero() + "--"
+							+ ll.get(ia).getData() + "--"
+							+ ll.get(ia).getTotale();
 				}
-				list_fatt.setListData(lista);
+				list_fatt.setListData(lis);
 				break;
 			}
 
@@ -3623,6 +3637,9 @@ public class Partenza extends JFrame {
 			}
 			if (pos == 15) {
 
+				text_uscite.setText(database.uscite_anno(gc.get(Calendar.YEAR)));
+				text_entrate.setText(database.entrate_anno(gc.get(Calendar.YEAR)));
+			
 			}
 
 		}
