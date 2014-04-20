@@ -31,17 +31,22 @@ import com.sun.corba.se.pept.transport.Selector;
 
 import General.Cliente;
 import General.Database;
+import General.Fatture;
 
 public class Partenza extends JFrame {
 
 	private JTabbedPane tabbedPane;
 	private JTextField text_Cliente, text_indirizzo, text_cap,
 			text_descrizione, text_descrizione_2, text_imponibile,
-			text_imposta;
+			text_imposta, text_indirizzo_fatt, text_cap_fatt,
+			text_descrizione_fatt, text_descrizione_2_fatt, text_imponibile_fatt,
+			text_imposta_fatt;
 	private JTextField text_cliente_2, text_città, text_piva, text_importo,
 			text_importo_2, text_iva, text_tot_fattura, text_tot_dovuto,
-			text_ritenuta;
-	private JComboBox combo_ritenuta, combo_gen, combo_feb, combo_mar,
+			text_ritenuta,text_cliente_2_fatt, text_città_fatt, text_piva_fatt, text_importo_fatt,
+			text_importo_2_fatt, text_iva_fatt, text_tot_fattura_fatt, text_tot_dovuto_fatt,
+			text_ritenuta_fatt;
+	private JComboBox combo_ritenuta,combo_ritenuta_fatt, combo_gen, combo_feb, combo_mar,
 			combo_apr, combo_mag, combo_giu, combo_lug, combo_ago, combo_set,
 			combo_ott, combo_nov, combo_dic, combo_ritenuta_gen,
 			combo_ritenuta_feb, combo_ritenuta_mar, combo_ritenuta_apr,
@@ -49,7 +54,7 @@ public class Partenza extends JFrame {
 			combo_ritenuta_ago, combo_ritenuta_set, combo_ritenuta_ott,
 			combo_ritenuta_nov, combo_ritenuta_dic,combo_mese_pag,combo_anno_pag;
 	private JPanel panel_home, panel_gen, panel_feb, panel_mar, panel_apr,
-			panel_mag, panel_giu, panel_lug, panel_ago, panel_set, panel_ott,
+			panel_mag, panel_giu, panel_lug, panel_ago, panel_set, panel_ott,panel_fatt,
 			panel_nov, panel_dic, panel_el_pag, panel_ent_usc, panel_list;
 	private JTextField text_entrate, text_uscite, text_entrate_prec,
 			text_uscite_prec;
@@ -61,7 +66,7 @@ public class Partenza extends JFrame {
 			btnModifica_cliente, btnElimina_cliente, btnStampa,
 			btnFattura_singola, btnModifica_fattura, btnNuovo_anno, btnDropbox,btnRimuoviDallelenco,btnAggiungiAllelenco,btnRiepilogo_pag;
 	private JButton btnRiepilogo;
-	private JList list_clienti, list_cause_uscite, list_dettagli_uscite,
+	private JList list_clienti,list_clienti_fatt,list_fatt, list_cause_uscite, list_dettagli_uscite,
 			list_clienti_gen, list_clienti_feb, list_clienti_mar,
 			list_clienti_apr, list_clienti_mag, list_clienti_giu,
 			list_clienti_lug, list_clienti_ago, list_clienti_set,
@@ -111,6 +116,12 @@ public class Partenza extends JFrame {
 			descrizione_dic, descrizione_2_dic, imponibile_dic, imposta_dic,
 			cliente_2_dic, città_dic, piva_dic, importo_dic, importo_2_dic,
 			iva_dic, tot_fattura_dic, tot_dovuto_dic, ritenuta_dic;
+	private JTextField text_Cliente_fatt;
+	private JScrollPane scrollPane_fatt;
+	private JScrollPane scrollPane_fatture;
+	private JLabel lblNumeroFattura_fatt;
+	private JTextField text_num_fatt, textField_fatt;
+	
 
 	public static void main(String[] args) throws ClassNotFoundException,
 			InstantiationException, IllegalAccessException,
@@ -124,7 +135,8 @@ public class Partenza extends JFrame {
 			IllegalAccessException, UnsupportedLookAndFeelException {
 
 		database = new Database();
-		setBounds(100, 100, 904, 504);
+		setBounds(150, 100, 929, 504);
+		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 
@@ -160,6 +172,8 @@ public class Partenza extends JFrame {
 		panel_el_pag.setLayout(null);
 		panel_ent_usc = new JPanel();
 		panel_ent_usc.setLayout(null);
+		panel_fatt = new JPanel();
+		panel_fatt.setLayout(null);
 
 		// TODO tasti entrate uscite
 
@@ -2405,6 +2419,177 @@ public class Partenza extends JFrame {
 			btnRiepilogo_pag.addActionListener(new ButtonListener());
 			panel_el_pag.add(btnRiepilogo_pag);
 
+			// TODO fatture
+			
+			JLabel lblCliente_fatt = new JLabel("Cliente");
+			lblCliente_fatt.setBounds(326, 25, 70, 14);
+			panel_fatt.add(lblCliente_fatt);
+
+			JLabel lblCliente_1_fatt = new JLabel("Cliente(2)");
+			lblCliente_1_fatt.setBounds(588, 25, 70, 14);
+			panel_fatt.add(lblCliente_1_fatt);
+
+			JLabel lblIndirizzo_fatt = new JLabel("Indirizzo");
+			lblIndirizzo_fatt.setBounds(326, 55, 70, 14);
+			panel_fatt.add(lblIndirizzo_fatt);
+
+			JLabel lblCitt_fatt = new JLabel("Citt\u00E0");
+			lblCitt_fatt.setBounds(588, 55, 70, 14);
+			panel_fatt.add(lblCitt_fatt);
+
+			JLabel lblCap_fatt = new JLabel("Cap");
+			lblCap_fatt.setBounds(326, 85, 46, 14);
+			panel_fatt.add(lblCap_fatt);
+
+			JLabel lblPiva_fatt = new JLabel("P.IVA");
+			lblPiva_fatt.setBounds(588, 85, 70, 14);
+			panel_fatt.add(lblPiva_fatt);
+
+			JLabel lblDescrizione_fatt = new JLabel("Descrizione");
+			lblDescrizione_fatt.setBounds(326, 115, 70, 14);
+			panel_fatt.add(lblDescrizione_fatt);
+
+			JLabel lblImporto_fatt = new JLabel("Importo");
+			lblImporto_fatt.setBounds(588, 115, 70, 14);
+			panel_fatt.add(lblImporto_fatt);
+
+			JLabel lblDescrizione_1_fatt = new JLabel("Descrizione (2)");
+			lblDescrizione_1_fatt.setBounds(326, 145, 84, 14);
+			panel_fatt.add(lblDescrizione_1_fatt);
+
+			JLabel lblImporto_1_fatt = new JLabel("Importo (2)");
+			lblImporto_1_fatt.setBounds(588, 145, 78, 14);
+			panel_fatt.add(lblImporto_1_fatt);
+
+			JLabel lblImponibile_fatt = new JLabel("Imponibile");
+			lblImponibile_fatt.setBounds(326, 175, 84, 14);
+			panel_fatt.add(lblImponibile_fatt);
+
+			JLabel lblIva_fatt= new JLabel("Iva");
+			lblIva_fatt.setBounds(588, 175, 84, 14);
+			panel_fatt.add(lblIva_fatt);
+
+			JLabel lblImposta_fatt = new JLabel("Imposta");
+			lblImposta_fatt.setBounds(326, 205, 92, 14);
+			panel_fatt.add(lblImposta_fatt);
+
+			JLabel lblTotFattura_fatt = new JLabel("Tot. Fattura");
+			lblTotFattura_fatt.setBounds(588, 205, 128, 14);
+			panel_fatt.add(lblTotFattura_fatt);
+
+			JLabel lblRitenuta_fatt = new JLabel("Ritenuta");
+			lblRitenuta_fatt.setBounds(326, 235, 78, 14);
+			panel_fatt.add(lblRitenuta_fatt);
+
+			JLabel lblTotDovuto_fatt = new JLabel("Tot. Dovuto");
+			lblTotDovuto_fatt.setBounds(588, 235, 84, 14);
+			panel_fatt.add(lblTotDovuto_fatt);
+
+			text_Cliente_fatt = new JTextField();
+			text_Cliente_fatt.setBounds(406, 22, 172, 20);
+			panel_fatt.add(text_Cliente_fatt);
+			text_Cliente_fatt.setColumns(10);
+
+			text_indirizzo_fatt = new JTextField();
+			text_indirizzo_fatt.setBounds(406, 52, 172, 20);
+			panel_fatt.add(text_indirizzo_fatt);
+			text_indirizzo_fatt.setColumns(10);
+
+			text_cap_fatt = new JTextField();
+			text_cap_fatt.setBounds(406, 82, 172, 20);
+			panel_fatt.add(text_cap_fatt);
+			text_cap_fatt.setColumns(10);
+
+			text_descrizione_fatt = new JTextField();
+			text_descrizione_fatt.setBounds(406, 112, 172, 20);
+			panel_fatt.add(text_descrizione_fatt);
+			text_descrizione_fatt.setColumns(10);
+
+			text_descrizione_2_fatt = new JTextField();
+			text_descrizione_2_fatt.setBounds(406, 142, 172, 20);
+			panel_fatt.add(text_descrizione_2_fatt);
+			text_descrizione_2_fatt.setColumns(10);
+
+			text_imponibile_fatt = new JTextField();
+			text_imponibile_fatt.setBounds(406, 172, 172, 20);
+			text_imponibile_fatt.setEditable(false);
+			panel_fatt.add(text_imponibile_fatt);
+			text_imponibile_fatt.setColumns(10);
+
+			text_imposta_fatt = new JTextField();
+			text_imposta_fatt.setEditable(false);
+			text_imposta_fatt.setBounds(406, 202, 172, 20);
+			panel_fatt.add(text_imposta_fatt);
+			text_imposta_fatt.setColumns(10);
+
+			text_cliente_2_fatt = new JTextField();
+			text_cliente_2_fatt.setBounds(674, 22, 172, 20);
+			panel_fatt.add(text_cliente_2_fatt);
+			text_cliente_2_fatt.setColumns(10);
+
+			text_città_fatt = new JTextField();
+			text_città_fatt.setBounds(674, 52, 172, 20);
+			panel_fatt.add(text_città_fatt);
+			text_città_fatt.setColumns(10);
+
+			text_piva_fatt = new JTextField();
+			text_piva_fatt.setBounds(674, 82, 172, 20);
+			panel_fatt.add(text_piva_fatt);
+			text_piva_fatt.setColumns(10);
+
+			text_importo_fatt = new JTextField();
+			text_importo_fatt.setBounds(674, 112, 172, 20);
+			panel_fatt.add(text_importo_fatt);
+			text_importo_fatt.setColumns(10);
+
+			text_importo_2_fatt = new JTextField();
+			text_importo_2_fatt.setBounds(674, 142, 172, 20);
+			panel_fatt.add(text_importo_2_fatt);
+			text_importo_2_fatt.setColumns(10);
+
+			text_iva_fatt = new JTextField();
+			text_iva_fatt.setBounds(674, 172, 172, 20);
+			panel_fatt.add(text_iva_fatt);
+			text_iva_fatt.setColumns(10);
+
+			text_tot_fattura_fatt = new JTextField();
+			text_tot_fattura_fatt.setEditable(false);
+			text_tot_fattura_fatt.setBounds(674, 202, 172, 20);
+			panel_fatt.add(text_tot_fattura_fatt);
+			text_tot_fattura_fatt.setColumns(10);
+
+			text_tot_dovuto_fatt = new JTextField();
+			text_tot_dovuto_fatt.setEditable(false);
+			text_tot_dovuto_fatt.setBounds(674, 232, 172, 20);
+			panel_fatt.add(text_tot_dovuto_fatt);
+			text_tot_dovuto_fatt.setColumns(10);
+
+			text_ritenuta_fatt = new JTextField();
+			text_ritenuta_fatt.setEditable(false);
+			text_ritenuta_fatt.setBounds(498, 232, 80, 20);
+			panel_fatt.add(text_ritenuta_fatt);
+			text_ritenuta_fatt.setColumns(10);
+
+			combo_ritenuta_fatt = new JComboBox();
+			combo_ritenuta_fatt.addItem("No");
+			combo_ritenuta_fatt.addItem("Si");
+			combo_ritenuta_fatt.setBounds(406, 232, 80, 20);
+			panel_fatt.add(combo_ritenuta_fatt);
+
+			list_clienti_fatt = new JList(database.elenco_clienti());
+			list_clienti_fatt.addListSelectionListener(new ListSelection());
+			list_fatt = new JList();
+			list_fatt.addListSelectionListener(new ListSelection());
+
+			scrollPane_fatt = new JScrollPane(list_clienti_fatt);
+			scrollPane_fatt.setBounds(10, 22, 150, 368);
+			panel_fatt.add(scrollPane_fatt);
+
+			scrollPane_fatture = new JScrollPane(list_fatt);
+			scrollPane_fatture.setBounds(170, 22, 130, 368);
+			panel_fatt.add(scrollPane_fatture);
+
+			
 		// TODO tabbed pane
 
 		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
@@ -2442,9 +2627,10 @@ public class Partenza extends JFrame {
 		tabbedPane.addTab("Dicembre", panel_dic);
 
 		tabbedPane.addTab("Elenco Paganti", panel_el_pag);
-		
 
 		tabbedPane.addTab("Entrate/Uscite", panel_ent_usc);
+		
+		tabbedPane.addTab("Fatture", panel_fatt);
 
 		getContentPane().add(tabbedPane);
 		this.setVisible(true);
@@ -3265,6 +3451,63 @@ public class Partenza extends JFrame {
 					tot_dovuto_dic.setText(test5);
 				}
 
+				break;
+				
+			case"16":
+				nome_cliente = (String) list_clienti_fatt.getSelectedValue();
+				client = database.seleziona(nome_cliente);
+
+				text_Cliente_fatt.setText(client.getNome());
+				test = client.getNome2();
+				if (test.equals("null")) {
+					text_cliente_2_fatt.setText("");
+				} else {
+					text_cliente_2_fatt.setText(test);
+				}
+				text_indirizzo_fatt.setText(client.getIndirizzo());
+				text_città_fatt.setText(client.getCittà());
+				text_cap_fatt.setText(client.getCap());
+				text_piva_fatt.setText(client.getPiva());
+				text_descrizione_fatt.setText(client.getDescrizione());
+				text_importo_fatt.setText(String.valueOf(client.getImporto()));
+				test2 = client.getDescrizione2();
+				if (test2.equals("null")) {
+					text_descrizione_2_fatt.setText("");
+				} else {
+					text_descrizione_2_fatt.setText(test2);
+				}
+				test3 = String.valueOf(client.getImporto2());
+				if (test3.equals("0.0")) {
+					text_importo_2_fatt.setText("");
+				} else {
+					text_importo_2_fatt.setText(test3);
+				}
+				text_imponibile_fatt.setText(String.valueOf(client.getImponibile()));
+				text_iva_fatt.setText(String.valueOf(client.getIva()));
+				text_imposta_fatt.setText(String.valueOf(client.getImposta()));
+				text_tot_fattura_fatt
+						.setText(String.valueOf(client.getTot_fattura()));
+				test4 = String.valueOf(client.getRitenuta());
+				if (test4.equals("0.0")) {
+					text_ritenuta_fatt.setText("");
+					combo_ritenuta_fatt.setSelectedItem("No");
+				} else {
+					text_ritenuta_fatt.setText(test4);
+					combo_ritenuta_fatt.setSelectedItem("Si");
+				}
+				test5 = String.valueOf(client.getTot_dovuto());
+				if (test5.equals("0.0")) {
+					text_tot_dovuto_fatt.setText("");
+				} else {
+					text_tot_dovuto_fatt.setText(test5);
+				}
+				
+				LinkedList<Fatture> lll = database.restituisci_fattura(nome_cliente);
+				String [] lista = new String[lll.size()];
+				for (int ia = 0;ia<lll.size();ia++) {
+				 lista[ia] = lll.get(ia).getNumero()+"--"+lll.get(ia).getData()+"--"+ lll.get(ia).getTotale();
+				}
+				list_fatt.setListData(lista);
 				break;
 			}
 

@@ -1650,7 +1650,13 @@ public class Database {
 						g, h, l, m, n, o, p, q, r, s);
 				document.add(prefazione);
 				document.newPage();
-
+				
+				if(r==0.0){
+					inserisci_fattura(numero,data,a,q);	
+				}
+				else{
+					inserisci_fattura(numero,data,a,s);
+				}
 			}
 			document.close();
 			JOptionPane.showMessageDialog(null, "stampato!");
@@ -1664,4 +1670,51 @@ public class Database {
 		}
 	}
 
+	private void inserisci_fattura(String numero, String data, String cliente,double totale) {
+
+		PreparedStatement pst = null;
+
+		try {
+
+			pst = connection
+					.prepareStatement("INSERT INTO fatture VALUES(?,?,?,?)");
+			pst.setString(1, numero);
+			pst.setString(2, data);
+			pst.setString(3, cliente);
+			pst.setDouble(4, totale);
+		
+			pst.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			
+	}
+
+}
+	
+	public LinkedList<Fatture> restituisci_fattura(String nome_c){
+		try {
+			LinkedList<Fatture> list_fat = new LinkedList<Fatture>();
+			ResultSet rs;
+			PreparedStatement prep = connection
+					.prepareStatement("SELECT numero_fattura,data_fattura,totale FROM fatture where cliente = ?");
+			prep.setString(1, nome_c);
+			
+			rs = prep.executeQuery();
+
+			while (rs.next()) {
+				String num = rs.getString(1);
+				String dat = rs.getString(2);
+				double tot = rs.getDouble(3);
+				Fatture f = new Fatture(num, dat, tot);
+				list_fat.add(f);
+	}
+			return list_fat;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+			
+	}
+}
 }

@@ -2,10 +2,16 @@ package Interfaccia;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.LinkedList;
+import java.util.StringTokenizer;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
+import General.Cliente;
 import General.Database;
+import General.Fatture;
 
 public class Modifica_Fattura_Singola extends JFrame {
 
@@ -195,7 +201,9 @@ public class Modifica_Fattura_Singola extends JFrame {
 		btnSalva.addActionListener(new ButtonListener());
 
 		list = new JList(database.elenco_clienti());
+		list.addListSelectionListener(new ListSelection());
 		list_fatt = new JList();
+		list_fatt.addListSelectionListener(new ListSelection1());
 
 		scrollPane = new JScrollPane(list);
 		scrollPane.setBounds(10, 22, 150, 368);
@@ -239,5 +247,83 @@ public class Modifica_Fattura_Singola extends JFrame {
 			}
 		}
 
+	}
+	
+	public class ListSelection implements ListSelectionListener {
+
+		@Override
+		public void valueChanged(ListSelectionEvent e) {
+			textField.setText("");
+			text_num_fat.setText("");
+			String nome_cliente = (String) list.getSelectedValue();
+			Cliente client = database.seleziona(nome_cliente);
+
+			text_Cliente.setText(client.getNome());
+			String test = client.getNome2();
+			if (test.equals("null")) {
+				text_cliente_2.setText("");
+			} else {
+				text_cliente_2.setText(test);
+			}
+			text_indirizzo.setText(client.getIndirizzo());
+			text_città.setText(client.getCittà());
+			text_cap.setText(client.getCap());
+			text_piva.setText(client.getPiva());
+			text_descrizione.setText(client.getDescrizione());
+			text_importo.setText(String.valueOf(client.getImporto()));
+			String test2 = client.getDescrizione2();
+			if (test2.equals("null")) {
+				text_descrizione_2.setText("");
+			} else {
+				text_descrizione_2.setText(test2);
+			}
+			String test3 = String.valueOf(client.getImporto2());
+			if (test3.equals("0.0")) {
+				text_importo_2.setText("");
+			} else {
+				text_importo_2.setText(test3);
+			}
+			text_imponibile.setText(String.valueOf(client.getImponibile()));
+			text_iva.setText(String.valueOf(client.getIva()));
+			text_imposta.setText(String.valueOf(client.getImposta()));
+			text_tot_fattura
+					.setText(String.valueOf(client.getTot_fattura()));
+			String test4 = String.valueOf(client.getRitenuta());
+			if (test4.equals("0.0")) {
+				text_ritenuta.setText("");
+				combo_ritenuta.setSelectedItem("No");
+			} else {
+				text_ritenuta.setText(test4);
+				combo_ritenuta.setSelectedItem("Si");
+			}
+			String test5 = String.valueOf(client.getTot_dovuto());
+			if (test5.equals("0.0")) {
+				text_tot_dovuto.setText("");
+			} else {
+				text_tot_dovuto.setText(test5);
+			}
+
+			LinkedList<Fatture> lll = database.restituisci_fattura(nome_cliente);
+			String [] lista = new String[lll.size()];
+			for (int ia = 0;ia<lll.size();ia++) {
+			 lista[ia] = lll.get(ia).getNumero()+"--"+lll.get(ia).getData()+"--"+ lll.get(ia).getTotale();
+			}
+			list_fatt.setListData(lista);
+	
+		}
+}
+	
+	public class ListSelection1 implements ListSelectionListener{
+
+		@Override
+		public void valueChanged(ListSelectionEvent e) {
+			StringTokenizer stk = new StringTokenizer((String) list_fatt.getSelectedValue(),"--");
+			String numero = stk.nextToken();
+			String data = stk.nextToken();
+			
+			text_num_fat.setText(numero);
+			textField.setText(data);
+		}
+		
 	}
 }
