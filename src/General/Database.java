@@ -8,10 +8,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
 import javax.swing.JOptionPane;
+import javax.swing.ListModel;
 
 import sun.awt.image.ImageWatched.Link;
 
@@ -21,9 +24,12 @@ import com.itextpdf.text.pdf.PdfWriter;
 
 public class Database {
 	private static Connection connection;
+	DecimalFormatSymbols symbols = new DecimalFormatSymbols();
+	String format = "#.##";
 
 	public Database() {
 		try {
+			symbols.setDecimalSeparator('.');
 			Class.forName("com.mysql.jdbc.Driver"); // connessione con db
 			connection = DriverManager.getConnection(
 					"jdbc:mysql://localhost:3306/fatturazione", "root", "root");
@@ -1782,7 +1788,7 @@ public class Database {
 				String dat = rs.getString(2);
 				double tot = rs.getDouble(3);
 
-				String s = cliente + "--" + dat + "--" + tot;
+				String s = cliente + "**" + dat + "**" + tot;
 				lin.add(s);
 			}
 			return lin;
@@ -1794,28 +1800,27 @@ public class Database {
 		}
 	}
 
-	public void elimina_elenco_paganti(String nome,String data) {
+	public void elimina_elenco_paganti(String nome, String data) {
 
 		try {
-			
+
 			PreparedStatement prep = null;
-			
 
-				prep = connection.prepareStatement("DELETE from elenco_paganti where cliente = ? and data_pag = ?");
+			prep = connection
+					.prepareStatement("DELETE from elenco_paganti where cliente = ? and data_pag = ?");
 
-				prep.setString(1, nome);
-				prep.setString(2, data);
+			prep.setString(1, nome);
+			prep.setString(2, data);
 
-				prep.executeUpdate();
-			} catch (Exception e) {
-				e.printStackTrace();
+			prep.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
 
-			}
+		}
 
-		
 	}
 
-	public void aggiungi_uscita(String causa,String data, String importo) {
+	public void aggiungi_uscita(String causa, String data, String importo) {
 
 		PreparedStatement pst = null;
 
@@ -1826,53 +1831,58 @@ public class Database {
 			pst.setString(1, causa);
 			pst.setString(2, data);
 			pst.setString(3, importo);
-		
+
 			pst.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
 
 		}
-		
+
 	}
 
 	public LinkedList<String> uscite(String causa, int anno) {
-		try{
-		LinkedList<String> lin = new LinkedList<String>();
-		ResultSet rs;
-		PreparedStatement prep = connection
-				.prepareStatement("SELECT data_uscita,importo FROM entrate_uscite where data_uscita like '%"+ anno + "' and causa = ?");
-prep.setString(1, causa);
-		rs = prep.executeQuery();
-
-		while (rs.next()) {
-			
-			String dat = rs.getString(1);
-			double tot = rs.getDouble(2);
-
-			String s = dat + "   € " + tot;
-			lin.add(s);
-		}
-		return lin;
-
-	} catch (Exception e) {
-		e.printStackTrace();
-		return null;
-
-	}
-}
-
-	public String uscite_anno(int anno) {
-		try{
-			String tot = null;
+		try {
+			LinkedList<String> lin = new LinkedList<String>();
 			ResultSet rs;
 			PreparedStatement prep = connection
-					.prepareStatement("SELECT sum(importo) FROM entrate_uscite where data_uscita like '%"+ anno + "'");
-	
+					.prepareStatement("SELECT data_uscita,importo FROM entrate_uscite where data_uscita like '%"
+							+ anno + "' and causa = ?");
+			prep.setString(1, causa);
 			rs = prep.executeQuery();
-while(rs.next()){
-	 tot = rs.getString(1);
-}
-			return tot;
+
+			while (rs.next()) {
+
+				String dat = rs.getString(1);
+				double tot = rs.getDouble(2);
+
+				String s = dat + "   € " + tot;
+				lin.add(s);
+			}
+			return lin;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+
+		}
+	}
+
+	public String uscite_anno(int anno) {
+		try {
+			double tot = 0;
+			ResultSet rs;
+			PreparedStatement prep = connection
+					.prepareStatement("SELECT sum(importo) FROM entrate_uscite where data_uscita like '%"
+							+ anno + "'");
+
+			rs = prep.executeQuery();
+			while (rs.next()) {
+				tot = rs.getDouble(1);
+			}
+			DecimalFormat formatter = new DecimalFormat(format, symbols);
+			formatter.setGroupingSize(2);
+			String numberString = formatter.format(tot);
+			return numberString;
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -1883,18 +1893,21 @@ while(rs.next()){
 
 	public String entrate_anno(int anno) {
 
-		try{
-			String tot = null;
+		try {
+			double tot = 0;
 			ResultSet rs;
 			PreparedStatement prep = connection
-					.prepareStatement("SELECT sum(totale) FROM fatture where data_fattura like '%"+ anno + "'");
-	
-			rs = prep.executeQuery();
-while(rs.next()){
-	 tot = rs.getString(1);
-}
+					.prepareStatement("SELECT sum(totale) FROM fatture where data_fattura like '%"
+							+ anno + "'");
 
-			return tot;
+			rs = prep.executeQuery();
+			while (rs.next()) {
+				tot = rs.getDouble(1);
+			}
+			DecimalFormat formatter = new DecimalFormat(format, symbols);
+			formatter.setGroupingSize(2);
+			String numberString = formatter.format(tot);
+			return numberString;
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -1902,28 +1915,135 @@ while(rs.next()){
 
 		}
 	}
+
 	public String[] dettagli(int anno) {
-		try{
+		try {
 			String tot = null;
 			LinkedList<String> a = new LinkedList<String>();
-			String causa = null,data = null;
+			String causa = null, data = null;
 			ResultSet rs;
 			PreparedStatement prep = connection
-					.prepareStatement("SELECT * FROM entrate_uscite where data_uscita like '%"+ anno + "'");
-	
-			rs = prep.executeQuery();
-while(rs.next()){
-	causa = rs.getString(1);
-	data = rs.getString(2);
-	 tot = rs.getString(3);
-	 String sss = causa+" -- "+data +" -- "+tot;
-	 a.add(sss);
-}
+					.prepareStatement("SELECT * FROM entrate_uscite where data_uscita like '%"
+							+ anno + "'");
 
-String[] lista = new String[a.size()];
-for (int ia = 0; ia < a.size(); ia++) {
-	lista[ia] = a.get(ia);
-}
+			rs = prep.executeQuery();
+			while (rs.next()) {
+				causa = rs.getString(1);
+				data = rs.getString(2);
+				tot = rs.getString(3);
+				String sss = causa + " ** " + data + " ** " + tot;
+				a.add(sss);
+			}
+
+			String[] lista = new String[a.size()];
+			for (int ia = 0; ia < a.size(); ia++) {
+				lista[ia] = a.get(ia);
+			}
+			return lista;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+
+		}
+	}
+
+	public String elenco_paganti_mese(String mese, String anno) {
+		try {
+
+			if (mese.equals("Gennaio")) {
+				mese = "01";
+			} else if (mese.equals("Febbraio")) {
+				mese = "02";
+			} else if (mese.equals("Marzo")) {
+				mese = "03";
+			} else if (mese.equals("Aprile")) {
+				mese = "04";
+			} else if (mese.equals("Maggio")) {
+				mese = "05";
+			} else if (mese.equals("Giugno")) {
+				mese = "06";
+			} else if (mese.equals("Luglio")) {
+				mese = "07";
+			} else if (mese.equals("Agosto")) {
+				mese = "08";
+			} else if (mese.equals("Settembre")) {
+				mese = "09";
+			} else if (mese.equals("Ottobre")) {
+				mese = "10";
+			} else if (mese.equals("Novembre")) {
+				mese = "11";
+			} else if (mese.equals("Dicembre")) {
+				mese = "12";
+			}
+			double tot = 0;
+			ResultSet rs;
+			PreparedStatement prep = connection
+					.prepareStatement("SELECT sum(importo) FROM elenco_paganti where data_pag like '%/"
+							+ mese + "/" + anno + "'");
+
+			rs = prep.executeQuery();
+			while (rs.next()) {
+				tot = rs.getDouble(1);
+			}
+			DecimalFormat formatter = new DecimalFormat(format, symbols);
+			formatter.setGroupingSize(2);
+			String numberString = formatter.format(tot);
+			return numberString;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+
+		}
+	}
+
+	public String elenco_paganti_anno(String anno) {
+		try {
+			double tot = 0;
+			ResultSet rs;
+			PreparedStatement prep = connection
+					.prepareStatement("SELECT sum(importo) FROM elenco_paganti where data_pag like '%"
+							+ anno + "'");
+
+			rs = prep.executeQuery();
+			while (rs.next()) {
+				tot = rs.getDouble(1);
+			}
+			DecimalFormat formatter = new DecimalFormat(format, symbols);
+			formatter.setGroupingSize(2);
+			String numberString = formatter.format(tot);
+			return numberString;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+
+		}
+	}
+
+	public String[] dettagli_elenco() {
+		try {
+			String tot = null;
+			LinkedList<String> a = new LinkedList<String>();
+			String cliente = null, data = null;
+			ResultSet rs;
+			PreparedStatement prep = connection
+					.prepareStatement("SELECT * FROM elenco_paganti order by cliente");
+
+			rs = prep.executeQuery();
+			while (rs.next()) {
+				cliente = rs.getString(1);
+				data = rs.getString(2);
+				tot = rs.getString(3);
+				String sss = cliente + " ** " + data + " ** " + tot;
+				a.add(sss);
+			}
+
+			String[] lista = new String[a.size()];
+			for (int ia = 0; ia < a.size(); ia++) {
+				lista[ia] = a.get(ia);
+			}
 			return lista;
 
 		} catch (Exception e) {
@@ -1933,5 +2053,3 @@ for (int ia = 0; ia < a.size(); ia++) {
 		}
 	}
 }
-
-

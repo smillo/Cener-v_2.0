@@ -33,7 +33,7 @@ public class Modifica_Fattura_Singola extends JFrame {
 	public Modifica_Fattura_Singola(Database database) {
 		this.database = database;
 		getContentPane().setLayout(null);
-		setBounds(10, 10, 872, 460);
+		setBounds(100, 100, 872, 460);
 
 		JLabel lblCliente = new JLabel("Cliente");
 		lblCliente.setBounds(326, 25, 70, 14);
@@ -306,8 +306,8 @@ public class Modifica_Fattura_Singola extends JFrame {
 					.restituisci_fattura(nome_cliente);
 			String[] lista = new String[lll.size()];
 			for (int ia = 0; ia < lll.size(); ia++) {
-				lista[ia] = lll.get(ia).getNumero() + "--"
-						+ lll.get(ia).getData() + "--"
+				lista[ia] = lll.get(ia).getNumero() + "**"
+						+ lll.get(ia).getData() + "**"
 						+ lll.get(ia).getTotale();
 			}
 			list_fatt.setListData(lista);
@@ -320,7 +320,7 @@ public class Modifica_Fattura_Singola extends JFrame {
 		@Override
 		public void valueChanged(ListSelectionEvent e) {
 			StringTokenizer stk = new StringTokenizer(
-					(String) list_fatt.getSelectedValue(), "--");
+					(String) list_fatt.getSelectedValue(), "**");
 			String numero = stk.nextToken();
 			String data = stk.nextToken();
 

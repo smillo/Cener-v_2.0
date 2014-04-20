@@ -35,7 +35,7 @@ public class Modifica_Cliente extends JFrame {
 	public Modifica_Cliente(Database database) {
 		this.database = database;
 		getContentPane().setLayout(null);
-		setBounds(10, 10, 872, 460);
+		setBounds(100, 100, 872, 460);
 
 		JLabel lblCliente = new JLabel("Cliente");
 		lblCliente.setBounds(10, 25, 70, 14);

@@ -37,11 +37,14 @@ import General.Fatture;
 
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
+
 import javax.swing.ListSelectionModel;
+import java.awt.SystemColor;
 
 public class Partenza extends JFrame {
 
 	GregorianCalendar gc = new GregorianCalendar();
+
 	private String[] cause = { "costo operai", "stipendio nostro", "tornado",
 			"inps", "automezzi", "carburante", "varie", "artser", "tasse" };
 	private JTabbedPane tabbedPane;
@@ -73,9 +76,9 @@ public class Partenza extends JFrame {
 			scrollPane_feb, scrollPane_mar, scrollPane_apr, scrollPane_mag,
 			scrollPane_giu, scrollPane_lug, scrollPane_ago, scrollPane_set,
 			scrollPane_ott, scrollPane_nov, scrollPane_dic, scrollPane_pag;
-	private JButton btnAggiungiUscita, btnNuovo_cliente,
-			btnModifica_cliente, btnElimina_cliente, btnStampa, btnSeleziona,
-			btnFattura_singola, btnModifica_fattura, btnNuovo_anno, btnDropbox,
+	private JButton btnAggiungiUscita, btnNuovo_cliente, btnModifica_cliente,
+			btnElimina_cliente, btnStampa, btnSeleziona, btnFattura_singola,
+			btnModifica_fattura, btnNuovo_anno, btnDropbox,
 			btnRimuoviDallelenco, btnRiepilogo_pag;
 	private JButton btnRiepilogo;
 	private JList list_clienti, list_clienti_fatt, list_fatt,
@@ -128,7 +131,8 @@ public class Partenza extends JFrame {
 			tot_dovuto_nov, ritenuta_nov, Cliente_dic, indirizzo_dic, cap_dic,
 			descrizione_dic, descrizione_2_dic, imponibile_dic, imposta_dic,
 			cliente_2_dic, città_dic, piva_dic, importo_dic, importo_2_dic,
-			iva_dic, tot_fattura_dic, tot_dovuto_dic, ritenuta_dic;
+			iva_dic, tot_fattura_dic, tot_dovuto_dic, ritenuta_dic, tot_mese,
+			tot;
 	private JTextField text_Cliente_fatt;
 	private JScrollPane scrollPane_fatt;
 	private JScrollPane scrollPane_fatture;
@@ -197,7 +201,6 @@ public class Partenza extends JFrame {
 
 		list_dettagli_uscite = new JList();
 
-		
 		scrollPane_1 = new JScrollPane(list_dettagli_uscite);
 		scrollPane_1.setBounds(179, 11, 161, 339);
 		panel_ent_usc.add(scrollPane_1);
@@ -208,7 +211,6 @@ public class Partenza extends JFrame {
 		panel_ent_usc.add(btnAggiungiUscita);
 		btnAggiungiUscita.addActionListener(new ButtonListener());
 
-
 		JLabel lblEntrate = new JLabel("Entrate");
 		lblEntrate.setBounds(395, 201, 75, 14);
 		panel_ent_usc.add(lblEntrate);
@@ -217,7 +219,8 @@ public class Partenza extends JFrame {
 		lblUscite.setBounds(539, 201, 75, 14);
 		panel_ent_usc.add(lblUscite);
 
-		text_entrate = new JTextField(database.entrate_anno(gc.get(Calendar.YEAR)));
+		text_entrate = new JTextField(database.entrate_anno(gc
+				.get(Calendar.YEAR)));
 		text_entrate.setEditable(false);
 		text_entrate.setBounds(350, 226, 122, 20);
 		panel_ent_usc.add(text_entrate);
@@ -2416,6 +2419,16 @@ public class Partenza extends JFrame {
 		panel_el_pag.add(btnSeleziona);
 		btnSeleziona.addActionListener(new ButtonListener());
 
+		tot_mese = new JLabel(database.elenco_paganti_mese(
+				(String) combo_mese_pag.getSelectedItem(),
+				(String) combo_anno_pag.getSelectedItem()));
+		tot_mese.setBounds(770, 349, 95, 16);
+		panel_el_pag.add(tot_mese);
+
+		tot = new JLabel(database.elenco_paganti_anno((String) combo_anno_pag
+				.getSelectedItem()));
+		tot.setBounds(770, 379, 95, 16);
+		panel_el_pag.add(tot);
 		// TODO fatture
 
 		JLabel lblCliente_fatt = new JLabel("Cliente");
@@ -2483,26 +2496,36 @@ public class Partenza extends JFrame {
 		panel_fatt.add(lblTotDovuto_fatt);
 
 		text_Cliente_fatt = new JTextField();
+		text_Cliente_fatt.setEditable(false);
+		text_Cliente_fatt.setBorder(null);
 		text_Cliente_fatt.setBounds(406, 22, 172, 20);
 		panel_fatt.add(text_Cliente_fatt);
 		text_Cliente_fatt.setColumns(10);
 
 		text_indirizzo_fatt = new JTextField();
+		text_indirizzo_fatt.setEditable(false);
+		text_indirizzo_fatt.setBorder(null);
 		text_indirizzo_fatt.setBounds(406, 52, 172, 20);
 		panel_fatt.add(text_indirizzo_fatt);
 		text_indirizzo_fatt.setColumns(10);
 
 		text_cap_fatt = new JTextField();
+		text_cap_fatt.setEditable(false);
+		text_cap_fatt.setBorder(null);
 		text_cap_fatt.setBounds(406, 82, 172, 20);
 		panel_fatt.add(text_cap_fatt);
 		text_cap_fatt.setColumns(10);
 
 		text_descrizione_fatt = new JTextField();
+		text_descrizione_fatt.setEditable(false);
+		text_descrizione_fatt.setBorder(null);
 		text_descrizione_fatt.setBounds(406, 112, 172, 20);
 		panel_fatt.add(text_descrizione_fatt);
 		text_descrizione_fatt.setColumns(10);
 
 		text_descrizione_2_fatt = new JTextField();
+		text_descrizione_2_fatt.setEditable(false);
+		text_descrizione_2_fatt.setBorder(null);
 		text_descrizione_2_fatt.setBounds(406, 142, 172, 20);
 		panel_fatt.add(text_descrizione_2_fatt);
 		text_descrizione_2_fatt.setColumns(10);
@@ -2510,59 +2533,76 @@ public class Partenza extends JFrame {
 		text_imponibile_fatt = new JTextField();
 		text_imponibile_fatt.setBounds(406, 172, 172, 20);
 		text_imponibile_fatt.setEditable(false);
+		text_imponibile_fatt.setBorder(null);
 		panel_fatt.add(text_imponibile_fatt);
 		text_imponibile_fatt.setColumns(10);
 
 		text_imposta_fatt = new JTextField();
 		text_imposta_fatt.setEditable(false);
+		text_imposta_fatt.setBorder(null);
 		text_imposta_fatt.setBounds(406, 202, 172, 20);
 		panel_fatt.add(text_imposta_fatt);
 		text_imposta_fatt.setColumns(10);
 
 		text_cliente_2_fatt = new JTextField();
+		text_cliente_2_fatt.setEditable(false);
+		text_cliente_2_fatt.setBorder(null);
 		text_cliente_2_fatt.setBounds(674, 22, 172, 20);
 		panel_fatt.add(text_cliente_2_fatt);
 		text_cliente_2_fatt.setColumns(10);
 
 		text_città_fatt = new JTextField();
+		text_città_fatt.setEditable(false);
+		text_città_fatt.setBorder(null);
 		text_città_fatt.setBounds(674, 52, 172, 20);
 		panel_fatt.add(text_città_fatt);
 		text_città_fatt.setColumns(10);
 
 		text_piva_fatt = new JTextField();
+		text_piva_fatt.setEditable(false);
+		text_piva_fatt.setBorder(null);
 		text_piva_fatt.setBounds(674, 82, 172, 20);
 		panel_fatt.add(text_piva_fatt);
 		text_piva_fatt.setColumns(10);
 
 		text_importo_fatt = new JTextField();
+		text_importo_fatt.setEditable(false);
+		text_importo_fatt.setBorder(null);
 		text_importo_fatt.setBounds(674, 112, 172, 20);
 		panel_fatt.add(text_importo_fatt);
 		text_importo_fatt.setColumns(10);
 
 		text_importo_2_fatt = new JTextField();
+		text_importo_2_fatt.setEditable(false);
+		text_importo_2_fatt.setBorder(null);
 		text_importo_2_fatt.setBounds(674, 142, 172, 20);
 		panel_fatt.add(text_importo_2_fatt);
 		text_importo_2_fatt.setColumns(10);
 
 		text_iva_fatt = new JTextField();
+		text_iva_fatt.setEditable(false);
+		text_iva_fatt.setBorder(null);
 		text_iva_fatt.setBounds(674, 172, 172, 20);
 		panel_fatt.add(text_iva_fatt);
 		text_iva_fatt.setColumns(10);
 
 		text_tot_fattura_fatt = new JTextField();
 		text_tot_fattura_fatt.setEditable(false);
+		text_tot_fattura_fatt.setBorder(null);
 		text_tot_fattura_fatt.setBounds(674, 202, 172, 20);
 		panel_fatt.add(text_tot_fattura_fatt);
 		text_tot_fattura_fatt.setColumns(10);
 
 		text_tot_dovuto_fatt = new JTextField();
 		text_tot_dovuto_fatt.setEditable(false);
+		text_tot_dovuto_fatt.setBorder(null);
 		text_tot_dovuto_fatt.setBounds(674, 232, 172, 20);
 		panel_fatt.add(text_tot_dovuto_fatt);
 		text_tot_dovuto_fatt.setColumns(10);
 
 		text_ritenuta_fatt = new JTextField();
 		text_ritenuta_fatt.setEditable(false);
+		text_ritenuta_fatt.setBorder(null);
 		text_ritenuta_fatt.setBounds(498, 232, 80, 20);
 		panel_fatt.add(text_ritenuta_fatt);
 		text_ritenuta_fatt.setColumns(10);
@@ -2577,6 +2617,8 @@ public class Partenza extends JFrame {
 		list_clienti_fatt = new JList(database.elenco_clienti());
 		list_clienti_fatt.addListSelectionListener(new ListSelection());
 		list_fatt = new JList();
+		list_fatt.setBorder(null);
+		list_fatt.setBackground(SystemColor.menu);
 		list_fatt.addListSelectionListener(new ListSelection());
 
 		scrollPane_fatt = new JScrollPane(list_clienti_fatt);
@@ -2584,6 +2626,7 @@ public class Partenza extends JFrame {
 		panel_fatt.add(scrollPane_fatt);
 
 		scrollPane_fatture = new JScrollPane(list_fatt);
+		scrollPane_fatture.setBorder(null);
 		scrollPane_fatture.setBounds(170, 22, 130, 368);
 		panel_fatt.add(scrollPane_fatture);
 
@@ -2638,42 +2681,51 @@ public class Partenza extends JFrame {
 		public void actionPerformed(ActionEvent e) {
 
 			if (e.getSource() == btnAggiungiUscita) {
-				
+
 				Aggiungi_Uscita au = new Aggiungi_Uscita(database);
-				
+
 			}
 
 			if (e.getSource() == btnRiepilogo_pag) {
-
+				Dettagli_elenco_pag dt = new Dettagli_elenco_pag(database);
 			}
 
 			if (e.getSource() == btnRimuoviDallelenco) {
 
-				String cliente = (String) list_el_paganti.getSelectedValue();
-				StringTokenizer stk = new StringTokenizer(cliente,"--");
-				String nome = stk.nextToken();
-				String data = stk.nextToken();
-				database.elimina_elenco_paganti(nome,data);
-				
-				System.out.println(nome);
-				System.out.println(data);
-				
-				StringTokenizer stk1 = new StringTokenizer(data,"/");
-				String giorno = stk1.nextToken();
-				String mese = stk1.nextToken();
-				String anno = stk1.nextToken();
-				
-				LinkedList<String> lll = database.elenco_paganti(anno, mese);
-				String[] lista = new String[lll.size()];
-				for (int ia = 0; ia < lll.size(); ia++) {
-					lista[ia] = lll.get(ia);
+				try {
+					String cliente = (String) list_el_paganti
+							.getSelectedValue();
+					StringTokenizer stk = new StringTokenizer(cliente, "**");
+					String nome = stk.nextToken();
+					String data = stk.nextToken();
+					database.elimina_elenco_paganti(nome, data);
+
+					StringTokenizer stk1 = new StringTokenizer(data, "/");
+					String giorno = stk1.nextToken();
+					String mese = stk1.nextToken();
+					String anno = stk1.nextToken();
+
+					LinkedList<String> lll = database
+							.elenco_paganti(anno, mese);
+					String[] lista = new String[lll.size()];
+					for (int ia = 0; ia < lll.size(); ia++) {
+						lista[ia] = lll.get(ia);
+					}
+					list_el_paganti.setListData(lista);
+					tot_mese.setText(database.elenco_paganti_mese(
+							(String) combo_mese_pag.getSelectedItem(),
+							(String) combo_anno_pag.getSelectedItem()));
+					tot.setText(database
+							.elenco_paganti_anno((String) combo_anno_pag
+									.getSelectedItem()));
+				} catch (Exception r) {
+					JOptionPane.showMessageDialog(null,
+							"selezionare il cliente da rimuovere");
 				}
-				list_el_paganti.setListData(lista);
 			}
 
-
 			if (e.getSource() == btnRiepilogo) {
-				Riepilogo anteprima = new Riepilogo(database);
+				Riepilogo_Uscite anteprima = new Riepilogo_Uscite(database);
 			}
 
 			if (e.getSource() == btnNuovo_cliente) {
@@ -2704,6 +2756,12 @@ public class Partenza extends JFrame {
 					lista[ia] = lll.get(ia);
 				}
 				list_el_paganti.setListData(lista);
+				tot_mese.setText(database.elenco_paganti_mese(
+						(String) combo_mese_pag.getSelectedItem(),
+						(String) combo_anno_pag.getSelectedItem()));
+				tot.setText(database
+						.elenco_paganti_anno((String) combo_anno_pag
+								.getSelectedItem()));
 			}
 
 			if (e.getSource() == btnFattura_singola) {
@@ -3480,21 +3538,20 @@ public class Partenza extends JFrame {
 				break;
 
 			case "15":
-				
-				
+
 				int anno = gc.get(Calendar.YEAR);
 				String causa = (String) list_cause_uscite.getSelectedValue();
-		
+
 				LinkedList<String> lll = database.uscite(causa, anno);
-				
+
 				String[] lista = new String[lll.size()];
 				for (int ia = 0; ia < lll.size(); ia++) {
 					lista[ia] = lll.get(ia);
 				}
 				list_dettagli_uscite.setListData(lista);
-			
+
 				break;
-				
+
 			case "16":
 				nome_cliente = (String) list_clienti_fatt.getSelectedValue();
 				client = database.seleziona(nome_cliente);
@@ -3549,8 +3606,8 @@ public class Partenza extends JFrame {
 						.restituisci_fattura(nome_cliente);
 				String[] lis = new String[ll.size()];
 				for (int ia = 0; ia < ll.size(); ia++) {
-					lis[ia] = ll.get(ia).getNumero() + "--"
-							+ ll.get(ia).getData() + "--"
+					lis[ia] = ll.get(ia).getNumero() + "**"
+							+ ll.get(ia).getData() + "**"
 							+ ll.get(ia).getTotale();
 				}
 				list_fatt.setListData(lis);
@@ -3637,9 +3694,11 @@ public class Partenza extends JFrame {
 			}
 			if (pos == 15) {
 
-				text_uscite.setText(database.uscite_anno(gc.get(Calendar.YEAR)));
-				text_entrate.setText(database.entrate_anno(gc.get(Calendar.YEAR)));
-			
+				text_uscite
+						.setText(database.uscite_anno(gc.get(Calendar.YEAR)));
+				text_entrate.setText(database.entrate_anno(gc
+						.get(Calendar.YEAR)));
+
 			}
 
 		}

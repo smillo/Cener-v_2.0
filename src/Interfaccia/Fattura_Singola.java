@@ -22,7 +22,7 @@ public class Fattura_Singola extends JFrame {
 	public Fattura_Singola(Database database) {
 		this.database = database;
 		getContentPane().setLayout(null);
-		setBounds(10, 10, 555, 454);
+		setBounds(100, 100, 555, 454);
 
 		JLabel lblCliente = new JLabel("Cliente");
 		lblCliente.setBounds(10, 25, 70, 14);

@@ -19,7 +19,7 @@ public class Elimina_Cliente extends JFrame {
 	public Elimina_Cliente(Database database) {
 		this.database = database;
 		getContentPane().setLayout(null);
-		setBounds(10, 10, 475, 460);
+		setBounds(100, 100, 475, 460);
 
 		btnIndietro = new JButton("Indietro");
 		btnIndietro.setBounds(332, 245, 89, 23);

@@ -30,7 +30,7 @@ public class Aggiungi_Cliente extends JFrame {
 	public Aggiungi_Cliente(Database database) {
 		this.database = database;
 		getContentPane().setLayout(null);
-		setBounds(10, 10, 560, 460);
+		setBounds(100, 100, 560, 460);
 
 		JLabel lblCliente = new JLabel("Cliente");
 		lblCliente.setBounds(10, 25, 70, 14);

@@ -10,26 +10,32 @@ import javax.swing.JLabel;
 
 import General.Database;
 
-public class Riepilogo extends JFrame {
+public class Riepilogo_Uscite extends JFrame {
 
 	private JButton dett_13, dett_14, dett_15, dett_16, dett_17, dett_18,
 			dett_19, dett_20, dett_21, dett_22, dett_23, dett_24, dett_25,
 			dett_26, dett_27, dett_28, dett_29, dett_30, dett_31, dett_32,
 			dett_33, dett_34, dett_35, dett_36, dett_37, dett_38, dett_39,
 			dett_40;
-	private JLabel label_28,label_36,label_37,label_38,label_39,label_40,label_41,label_42,label_43,label_44;
-	private JLabel label_29,label_45,label_46,label_47,label_48,label_49,label_50,label_51,label_52;
-	private JLabel label_30,label_53,label_54,label_55,label_56,label_57,label_58,label_59,label_60;
-	private JLabel label_31,label_61,label_62,label_63,label_64,label_65,label_66,label_67,label_68;
-	private JLabel label_32,label_69,label_70,label_71,label_72,label_73,label_74,label_75,label_76;
-	private JLabel label_33,label_77,label_78,label_79,label_80,label_81,label_82,label_83;
-	private JLabel label_34,label_35;
+	private JLabel label_28, label_36, label_37, label_38, label_39, label_40,
+			label_41, label_42, label_43, label_44;
+	private JLabel label_29, label_45, label_46, label_47, label_48, label_49,
+			label_50, label_51, label_52;
+	private JLabel label_30, label_53, label_54, label_55, label_56, label_57,
+			label_58, label_59, label_60;
+	private JLabel label_31, label_61, label_62, label_63, label_64, label_65,
+			label_66, label_67, label_68;
+	private JLabel label_32, label_69, label_70, label_71, label_72, label_73,
+			label_74, label_75, label_76;
+	private JLabel label_33, label_77, label_78, label_79, label_80, label_81,
+			label_82, label_83;
+	private JLabel label_34, label_35;
 	private Database database;
 
-	public Riepilogo(Database database) {
+	public Riepilogo_Uscite(Database database) {
 
 		this.database = database;
-		setBounds(10, 10, 487, 658);
+		setBounds(100, 100, 487, 658);
 		getContentPane().setLayout(null);
 
 		JLabel lblAnno = new JLabel("Anno");
@@ -165,93 +171,93 @@ public class Riepilogo extends JFrame {
 		getContentPane().add(dett_13);
 		dett_13.addActionListener(new ButtonListener());
 
-		 label_29 = new JLabel(database.uscite_anno(2013));
+		label_29 = new JLabel(database.uscite_anno(2013));
 		label_29.setBounds(261, 45, 105, 14);
 		getContentPane().add(label_29);
 		setBounds(10, 10, 551, 658);
 
-		 label_30 = new JLabel(database.entrate_anno(2014));
+		label_30 = new JLabel(database.entrate_anno(2014));
 		label_30.setBounds(126, 65, 105, 14);
 		getContentPane().add(label_30);
 
-		 label_31 = new JLabel(database.uscite_anno(2014));
+		label_31 = new JLabel(database.uscite_anno(2014));
 		label_31.setBounds(261, 65, 105, 14);
 		getContentPane().add(label_31);
 		setBounds(10, 10, 475, 658);
 
-		 label_32 = new JLabel(database.entrate_anno(2015));
+		label_32 = new JLabel(database.entrate_anno(2015));
 		label_32.setBounds(126, 85, 105, 14);
 		getContentPane().add(label_32);
-		
+
 		label_33 = new JLabel(database.uscite_anno(2015));
 		label_33.setBounds(261, 85, 105, 14);
 		getContentPane().add(label_33);
 		setBounds(10, 10, 475, 658);
 
-		 label_34 = new JLabel(database.entrate_anno(2016));
+		label_34 = new JLabel(database.entrate_anno(2016));
 		label_34.setBounds(126, 105, 105, 14);
 		getContentPane().add(label_34);
 
-		 label_35 = new JLabel(database.uscite_anno(2016));
+		label_35 = new JLabel(database.uscite_anno(2016));
 		label_35.setBounds(261, 105, 105, 14);
 		getContentPane().add(label_35);
 		setBounds(10, 10, 475, 658);
 
-		 label_36 = new JLabel(database.entrate_anno(2017));
+		label_36 = new JLabel(database.entrate_anno(2017));
 		label_36.setBounds(126, 125, 105, 14);
 		getContentPane().add(label_36);
 
-		 label_37 = new JLabel(database.uscite_anno(2017));
+		label_37 = new JLabel(database.uscite_anno(2017));
 		label_37.setBounds(261, 125, 105, 14);
 		getContentPane().add(label_37);
 		setBounds(10, 10, 475, 658);
 
-	 label_38 = new JLabel(database.entrate_anno(2018));
+		label_38 = new JLabel(database.entrate_anno(2018));
 		label_38.setBounds(126, 145, 105, 14);
 		getContentPane().add(label_38);
 
-		 label_39 = new JLabel(database.uscite_anno(2018));
+		label_39 = new JLabel(database.uscite_anno(2018));
 		label_39.setBounds(261, 145, 105, 14);
 		getContentPane().add(label_39);
 		setBounds(10, 10, 475, 658);
 
-		 label_40 = new JLabel(database.entrate_anno(2019));
+		label_40 = new JLabel(database.entrate_anno(2019));
 		label_40.setBounds(126, 165, 105, 14);
 		getContentPane().add(label_40);
 
-		 label_41 = new JLabel(database.uscite_anno(2019));
+		label_41 = new JLabel(database.uscite_anno(2019));
 		label_41.setBounds(261, 165, 105, 14);
 		getContentPane().add(label_41);
 		setBounds(10, 10, 475, 658);
 
-		 label_42 = new JLabel(database.entrate_anno(2020));
+		label_42 = new JLabel(database.entrate_anno(2020));
 		label_42.setBounds(126, 185, 105, 14);
 		getContentPane().add(label_42);
 
-		 label_43 = new JLabel(database.uscite_anno(2020));
+		label_43 = new JLabel(database.uscite_anno(2020));
 		label_43.setBounds(261, 185, 105, 14);
 		getContentPane().add(label_43);
 		setBounds(10, 10, 475, 658);
 
-		 label_44 = new JLabel(database.entrate_anno(2021));
+		label_44 = new JLabel(database.entrate_anno(2021));
 		label_44.setBounds(126, 205, 105, 14);
 		getContentPane().add(label_44);
 
-		 label_45 = new JLabel(database.uscite_anno(2021));
+		label_45 = new JLabel(database.uscite_anno(2021));
 		label_45.setBounds(261, 205, 105, 14);
 		getContentPane().add(label_45);
 		setBounds(10, 10, 475, 658);
 
-		 label_46 = new JLabel(database.entrate_anno(2022));
+		label_46 = new JLabel(database.entrate_anno(2022));
 		label_46.setBounds(126, 225, 105, 14);
 		getContentPane().add(label_46);
 
-		 label_47 = new JLabel(database.uscite_anno(2022));
+		label_47 = new JLabel(database.uscite_anno(2022));
 		label_47.setBounds(261, 225, 105, 14);
 		getContentPane().add(label_47);
 		setBounds(10, 10, 475, 658);
 
-		 label_48 = new JLabel(database.entrate_anno(2023));
+		label_48 = new JLabel(database.entrate_anno(2023));
 		label_48.setBounds(126, 245, 105, 14);
 		getContentPane().add(label_48);
 
@@ -557,88 +563,88 @@ public class Riepilogo extends JFrame {
 
 			if (e.getSource() == dett_13) {
 
-				Dettagli fe = new Dettagli(database,2013);
+				Dettagli_uscite fe = new Dettagli_uscite(database, 2013);
 			}
 			if (e.getSource() == dett_14) {
-				Dettagli fe = new Dettagli(database,2014);
+				Dettagli_uscite fe = new Dettagli_uscite(database, 2014);
 			}
 			if (e.getSource() == dett_15) {
-				Dettagli fe = new Dettagli(database,2015);
+				Dettagli_uscite fe = new Dettagli_uscite(database, 2015);
 			}
 			if (e.getSource() == dett_16) {
-				Dettagli fe = new Dettagli(database,2016);
+				Dettagli_uscite fe = new Dettagli_uscite(database, 2016);
 			}
 			if (e.getSource() == dett_17) {
-				Dettagli fe = new Dettagli(database,2017);
+				Dettagli_uscite fe = new Dettagli_uscite(database, 2017);
 			}
 			if (e.getSource() == dett_18) {
-				Dettagli fe = new Dettagli(database,2018);
+				Dettagli_uscite fe = new Dettagli_uscite(database, 2018);
 			}
 			if (e.getSource() == dett_19) {
-				Dettagli fe = new Dettagli(database,2019);
+				Dettagli_uscite fe = new Dettagli_uscite(database, 2019);
 			}
 			if (e.getSource() == dett_20) {
-				Dettagli fe = new Dettagli(database,2020);
+				Dettagli_uscite fe = new Dettagli_uscite(database, 2020);
 			}
 			if (e.getSource() == dett_21) {
-				Dettagli fe = new Dettagli(database,2021);
+				Dettagli_uscite fe = new Dettagli_uscite(database, 2021);
 			}
 			if (e.getSource() == dett_22) {
-				Dettagli fe = new Dettagli(database,2022);
+				Dettagli_uscite fe = new Dettagli_uscite(database, 2022);
 			}
 			if (e.getSource() == dett_23) {
-				Dettagli fe = new Dettagli(database,2023);
+				Dettagli_uscite fe = new Dettagli_uscite(database, 2023);
 			}
 			if (e.getSource() == dett_24) {
-				Dettagli fe = new Dettagli(database,2024);
+				Dettagli_uscite fe = new Dettagli_uscite(database, 2024);
 			}
 			if (e.getSource() == dett_25) {
-				Dettagli fe = new Dettagli(database,2025);
+				Dettagli_uscite fe = new Dettagli_uscite(database, 2025);
 			}
 			if (e.getSource() == dett_26) {
-				Dettagli fe = new Dettagli(database,2026);
+				Dettagli_uscite fe = new Dettagli_uscite(database, 2026);
 			}
 			if (e.getSource() == dett_27) {
-				Dettagli fe = new Dettagli(database,2027);
+				Dettagli_uscite fe = new Dettagli_uscite(database, 2027);
 			}
 			if (e.getSource() == dett_28) {
-				Dettagli fe = new Dettagli(database,2028);
+				Dettagli_uscite fe = new Dettagli_uscite(database, 2028);
 			}
 			if (e.getSource() == dett_29) {
-				Dettagli fe = new Dettagli(database,2029);
+				Dettagli_uscite fe = new Dettagli_uscite(database, 2029);
 			}
 			if (e.getSource() == dett_30) {
-				Dettagli fe = new Dettagli(database,2030);
+				Dettagli_uscite fe = new Dettagli_uscite(database, 2030);
 			}
 			if (e.getSource() == dett_31) {
-				Dettagli fe = new Dettagli(database,2031);
+				Dettagli_uscite fe = new Dettagli_uscite(database, 2031);
 			}
 			if (e.getSource() == dett_32) {
-				Dettagli fe = new Dettagli(database,2032);
+				Dettagli_uscite fe = new Dettagli_uscite(database, 2032);
 			}
 			if (e.getSource() == dett_33) {
-				Dettagli fe = new Dettagli(database,2033);
+				Dettagli_uscite fe = new Dettagli_uscite(database, 2033);
 			}
 			if (e.getSource() == dett_34) {
-				Dettagli fe = new Dettagli(database,2034);
+				Dettagli_uscite fe = new Dettagli_uscite(database, 2034);
 			}
 			if (e.getSource() == dett_35) {
-				Dettagli fe = new Dettagli(database,2035);
+				Dettagli_uscite fe = new Dettagli_uscite(database, 2035);
 			}
 			if (e.getSource() == dett_36) {
-				Dettagli fe = new Dettagli(database,2036);
+				Dettagli_uscite fe = new Dettagli_uscite(database, 2036);
 			}
 			if (e.getSource() == dett_37) {
-				Dettagli fe = new Dettagli(database,2037);
+				Dettagli_uscite fe = new Dettagli_uscite(database, 2037);
 			}
 			if (e.getSource() == dett_38) {
-				Dettagli fe = new Dettagli(database,2038);
+				Dettagli_uscite fe = new Dettagli_uscite(database, 2038);
 			}
 			if (e.getSource() == dett_39) {
-				Dettagli fe = new Dettagli(database,2039);
+				Dettagli_uscite fe = new Dettagli_uscite(database, 2039);
 			}
 			if (e.getSource() == dett_40) {
-				Dettagli fe = new Dettagli(database,2040);
+				Dettagli_uscite fe = new Dettagli_uscite(database, 2040);
 			}
 
 		}

@@ -25,7 +25,7 @@ public class Stampa extends JFrame {
 	public Stampa(Database database) {
 		this.database = database;
 		getContentPane().setLayout(null);
-		setBounds(10, 10, 360, 290);
+		setBounds(100, 100, 360, 290);
 
 		JLabel lblData = new JLabel("Data");
 		lblData.setBounds(10, 64, 46, 14);
@@ -97,32 +97,30 @@ public class Stampa extends JFrame {
 			}
 
 			if (e.getSource() == btnStampa) {
-				
-				
-				
+
 				if (text_giorno.getText().length() == 2
 						&& text_mese.getText().length() == 2
 						&& text_anno.getText().length() == 4) {
 					String data = text_giorno.getText() + "/"
 							+ text_mese.getText() + "/" + text_anno.getText();
-					
-					int confirm = JOptionPane
-							.showOptionDialog(
-									null,
-									"Stampare fatture di "+combo_mese.getSelectedItem()+" in data "+data+"?",
-									"Stampa", JOptionPane.YES_NO_OPTION,
-									JOptionPane.QUESTION_MESSAGE, null, null, null);
+
+					int confirm = JOptionPane.showOptionDialog(
+							null,
+							"Stampare fatture di "
+									+ combo_mese.getSelectedItem()
+									+ " in data " + data + "?", "Stampa",
+							JOptionPane.YES_NO_OPTION,
+							JOptionPane.QUESTION_MESSAGE, null, null, null);
 
 					if (confirm == 0) {
 						database.stampafattura(
 								(String) combo_mese.getSelectedItem(), data,
 								text_anno.getText());
 						dispose();
+					} else {
+
 					}
-					else {
-						
-					}
-					
+
 				} else
 					JOptionPane.showMessageDialog(null,
 							"ERRORE: inserire la data nel formato gg/mm/aaaa");

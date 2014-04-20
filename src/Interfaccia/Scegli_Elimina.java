@@ -19,7 +19,7 @@ public class Scegli_Elimina extends JFrame {
 	public Scegli_Elimina(Database database) {
 		this.database = database;
 		getContentPane().setLayout(null);
-		setBounds(10, 10, 360, 290);
+		setBounds(100, 100, 360, 290);
 
 		combo_mese = new JComboBox();
 		combo_mese.addItem("Gennaio");

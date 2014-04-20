@@ -20,7 +20,7 @@ public class Elimina_Cliente_Mese extends JFrame {
 		this.mese = mese;
 		this.database = database;
 		getContentPane().setLayout(null);
-		setBounds(10, 10, 475, 460);
+		setBounds(100, 100, 475, 460);
 
 		list = new JList();
 		list.addListSelectionListener(new ListSelection());

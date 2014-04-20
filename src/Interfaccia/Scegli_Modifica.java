@@ -19,7 +19,7 @@ public class Scegli_Modifica extends JFrame {
 	public Scegli_Modifica(Database database) {
 		this.database = database;
 		getContentPane().setLayout(null);
-		setBounds(10, 10, 360, 290);
+		setBounds(100, 100, 360, 290);
 
 		combo_mese = new JComboBox();
 		combo_mese.addItem("Gennaio");
