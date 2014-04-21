@@ -113,10 +113,11 @@ public class Stampa extends JFrame {
 							JOptionPane.QUESTION_MESSAGE, null, null, null);
 
 					if (confirm == 0) {
+						dispose();
 						database.stampafattura(
 								(String) combo_mese.getSelectedItem(), data,
 								text_anno.getText());
-						dispose();
+						
 					} else {
 
 					}

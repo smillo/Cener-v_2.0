@@ -113,7 +113,7 @@ public class Elimina_Cliente_Mese extends JFrame {
 		public void valueChanged(ListSelectionEvent e) {
 
 			nome_cliente = (String) list.getSelectedValue();
-			System.out.println(nome_cliente);
+			
 
 		}
 

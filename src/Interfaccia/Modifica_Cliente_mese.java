@@ -198,7 +198,7 @@ public class Modifica_Cliente_mese extends JFrame {
 		getContentPane().add(btnSalva);
 		btnSalva.addActionListener(new ButtonListener());
 
-		list = new JList(database.elenco_clienti());
+		list = new JList(database.elenco_clienti_mese(mese));
 		list.addListSelectionListener(new ListSelection());
 
 		scrollPane = new JScrollPane(list);
@@ -270,8 +270,8 @@ public class Modifica_Cliente_mese extends JFrame {
 							nome_cliente);
 					JOptionPane.showMessageDialog(null,
 							"cliente modificato in " + mese);
-					dispose();
-
+					
+					
 				} catch (Exception ee) {
 					JOptionPane.showMessageDialog(null,
 							"ERRORE cliente non modificato!");

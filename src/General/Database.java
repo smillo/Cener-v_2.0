@@ -1618,6 +1618,43 @@ public class Database {
 		}
 	}
 
+	public Cliente seleziona_mese(String nome_cliente,String mese) {
+		try {
+			Cliente client = null;
+			ResultSet rs;
+			PreparedStatement prep = connection
+					.prepareStatement("SELECT * FROM "+mese+" where cliente = ?");
+			prep.setString(1, nome_cliente);
+			rs = prep.executeQuery();
+
+			while (rs.next()) {
+				String a = rs.getString(1);
+				String b = rs.getString(2);
+				String c = rs.getString(3);
+				String d = rs.getString(4);
+				String e = rs.getString(5);
+				String f = rs.getString(6);
+				String g = rs.getString(7);
+				double h = rs.getDouble(8);
+				String l = rs.getString(9);
+				double m = rs.getDouble(10);
+				double n = rs.getDouble(11);
+				double o = rs.getDouble(12);
+				double p = rs.getDouble(13);
+				double q = rs.getDouble(14);
+				double r = rs.getDouble(15);
+				double s = rs.getDouble(16);
+			
+				client = new Cliente(a, b, c, d, e, f, g, h, l, m, n, o, p, q,
+						r, s, false, false, false, false, false, false, false, false, false, false,
+						false, false);
+			}
+			return client;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 	public void stampafattura(String mese, String data, String anno) {
 		try {
 
@@ -1668,7 +1705,7 @@ public class Database {
 				}
 			}
 			document.close();
-			JOptionPane.showMessageDialog(null, "stampato!");
+			
 			File f = new File("C:\\Users\\massimiliano\\Documents\\" + mese
 					+ "_" + anno + ".pdf");
 			java.awt.Desktop.getDesktop().open(f);
@@ -1720,12 +1757,38 @@ public class Database {
 
 	}
 
+	public LinkedList<Fatture> restituisci_fattura(String nome_c,int anno_f) {
+		try {
+			LinkedList<Fatture> list_fat = new LinkedList<Fatture>();
+			ResultSet rs;
+			PreparedStatement prep = connection
+					.prepareStatement("SELECT numero_fattura,data_fattura,totale FROM fatture where cliente = ? and data_fattura like '%"+anno_f+"'");
+			prep.setString(1, nome_c);
+
+			rs = prep.executeQuery();
+
+			while (rs.next()) {
+				String num = rs.getString(1);
+				String dat = rs.getString(2);
+				double tot = rs.getDouble(3);
+				Fatture f = new Fatture(num, dat, tot);
+				list_fat.add(f);
+			}
+			return list_fat;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+
+		}
+	}
+
 	public LinkedList<Fatture> restituisci_fattura(String nome_c) {
 		try {
 			LinkedList<Fatture> list_fat = new LinkedList<Fatture>();
 			ResultSet rs;
 			PreparedStatement prep = connection
-					.prepareStatement("SELECT numero_fattura,data_fattura,totale FROM fatture where cliente = ?");
+					.prepareStatement("SELECT numero_fattura,data_fattura,totale FROM fatture where cliente = ? ");
 			prep.setString(1, nome_c);
 
 			rs = prep.executeQuery();
@@ -1924,7 +1987,7 @@ public class Database {
 			ResultSet rs;
 			PreparedStatement prep = connection
 					.prepareStatement("SELECT * FROM entrate_uscite where data_uscita like '%"
-							+ anno + "'");
+							+ anno + "' order by causa");
 
 			rs = prep.executeQuery();
 			while (rs.next()) {

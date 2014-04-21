@@ -2,6 +2,8 @@ package Interfaccia;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.LinkedList;
 import java.util.StringTokenizer;
 
@@ -301,7 +303,7 @@ public class Modifica_Fattura_Singola extends JFrame {
 			} else {
 				text_tot_dovuto.setText(test5);
 			}
-
+			
 			LinkedList<Fatture> lll = database
 					.restituisci_fattura(nome_cliente);
 			String[] lista = new String[lll.size()];

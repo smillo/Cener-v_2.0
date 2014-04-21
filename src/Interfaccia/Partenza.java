@@ -39,12 +39,13 @@ import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
 
 import javax.swing.ListSelectionModel;
+
 import java.awt.SystemColor;
 
 public class Partenza extends JFrame {
 
 	GregorianCalendar gc = new GregorianCalendar();
-
+	private JButton btnStorico;
 	private String[] cause = { "costo operai", "stipendio nostro", "tornado",
 			"inps", "automezzi", "carburante", "varie", "artser", "tasse" };
 	private JTabbedPane tabbedPane;
@@ -2502,6 +2503,11 @@ public class Partenza extends JFrame {
 		panel_fatt.add(text_Cliente_fatt);
 		text_Cliente_fatt.setColumns(10);
 
+		btnStorico = new JButton("Storico");
+		btnStorico.setBounds(110,401,100,20);
+		btnStorico.addActionListener(new ButtonListener());
+		panel_fatt.add(btnStorico);
+		
 		text_indirizzo_fatt = new JTextField();
 		text_indirizzo_fatt.setEditable(false);
 		text_indirizzo_fatt.setBorder(null);
@@ -2611,6 +2617,7 @@ public class Partenza extends JFrame {
 		combo_ritenuta_fatt.addItem("No");
 		combo_ritenuta_fatt.addItem("Si");
 		combo_ritenuta_fatt.setEditable(false);
+		combo_ritenuta_fatt.setEnabled(false);
 		combo_ritenuta_fatt.setBounds(406, 232, 80, 20);
 		panel_fatt.add(combo_ritenuta_fatt);
 
@@ -2678,12 +2685,18 @@ public class Partenza extends JFrame {
 
 	private class ButtonListener implements ActionListener {
 
+		
+
 		public void actionPerformed(ActionEvent e) {
 
 			if (e.getSource() == btnAggiungiUscita) {
 
 				Aggiungi_Uscita au = new Aggiungi_Uscita(database);
 
+			}
+			
+			if(e.getSource() == btnStorico){
+				Storico st = new Storico(database);
 			}
 
 			if (e.getSource() == btnRiepilogo_pag) {
@@ -2927,7 +2940,7 @@ public class Partenza extends JFrame {
 
 			case "2":
 				nome_cliente = (String) list_clienti_gen.getSelectedValue();
-				client = database.seleziona(nome_cliente);
+				client = database.seleziona_mese(nome_cliente,"gennaio");
 
 				Cliente_gen.setText(client.getNome());
 				test = client.getNome2();
@@ -2978,7 +2991,7 @@ public class Partenza extends JFrame {
 
 			case "3":
 				nome_cliente = (String) list_clienti_feb.getSelectedValue();
-				client = database.seleziona(nome_cliente);
+				client = database.seleziona_mese(nome_cliente,"febbraio");
 
 				Cliente_feb.setText(client.getNome());
 				test = client.getNome2();
@@ -3029,7 +3042,7 @@ public class Partenza extends JFrame {
 
 			case "4":
 				nome_cliente = (String) list_clienti_mar.getSelectedValue();
-				client = database.seleziona(nome_cliente);
+				client = database.seleziona_mese(nome_cliente,"marzo");
 
 				Cliente_mar.setText(client.getNome());
 				test = client.getNome2();
@@ -3080,7 +3093,7 @@ public class Partenza extends JFrame {
 
 			case "5":
 				nome_cliente = (String) list_clienti_apr.getSelectedValue();
-				client = database.seleziona(nome_cliente);
+				client = database.seleziona_mese(nome_cliente,"aprile");
 
 				Cliente_apr.setText(client.getNome());
 				test = client.getNome2();
@@ -3131,7 +3144,7 @@ public class Partenza extends JFrame {
 
 			case "6":
 				nome_cliente = (String) list_clienti_mag.getSelectedValue();
-				client = database.seleziona(nome_cliente);
+				client = database.seleziona_mese(nome_cliente,"maggio");
 
 				Cliente_mag.setText(client.getNome());
 				test = client.getNome2();
@@ -3182,7 +3195,7 @@ public class Partenza extends JFrame {
 
 			case "7":
 				nome_cliente = (String) list_clienti_giu.getSelectedValue();
-				client = database.seleziona(nome_cliente);
+				client = database.seleziona_mese(nome_cliente,"giugno");
 
 				Cliente_giu.setText(client.getNome());
 				test = client.getNome2();
@@ -3233,7 +3246,7 @@ public class Partenza extends JFrame {
 
 			case "8":
 				nome_cliente = (String) list_clienti_lug.getSelectedValue();
-				client = database.seleziona(nome_cliente);
+				client = database.seleziona_mese(nome_cliente,"luglio");
 
 				Cliente_lug.setText(client.getNome());
 				test = client.getNome2();
@@ -3284,7 +3297,7 @@ public class Partenza extends JFrame {
 
 			case "9":
 				nome_cliente = (String) list_clienti_ago.getSelectedValue();
-				client = database.seleziona(nome_cliente);
+				client = database.seleziona_mese(nome_cliente,"agosto");
 
 				Cliente_ago.setText(client.getNome());
 				test = client.getNome2();
@@ -3335,7 +3348,7 @@ public class Partenza extends JFrame {
 
 			case "10":
 				nome_cliente = (String) list_clienti_set.getSelectedValue();
-				client = database.seleziona(nome_cliente);
+				client = database.seleziona_mese(nome_cliente,"settembre");
 
 				Cliente_set.setText(client.getNome());
 				test = client.getNome2();
@@ -3386,7 +3399,7 @@ public class Partenza extends JFrame {
 
 			case "11":
 				nome_cliente = (String) list_clienti_ott.getSelectedValue();
-				client = database.seleziona(nome_cliente);
+				client = database.seleziona_mese(nome_cliente,"ottobre");
 
 				Cliente_ott.setText(client.getNome());
 				test = client.getNome2();
@@ -3437,7 +3450,7 @@ public class Partenza extends JFrame {
 
 			case "12":
 				nome_cliente = (String) list_clienti_nov.getSelectedValue();
-				client = database.seleziona(nome_cliente);
+				client = database.seleziona_mese(nome_cliente,"novembre");
 
 				Cliente_nov.setText(client.getNome());
 				test = client.getNome2();
@@ -3488,7 +3501,7 @@ public class Partenza extends JFrame {
 
 			case "13":
 				nome_cliente = (String) list_clienti_dic.getSelectedValue();
-				client = database.seleziona(nome_cliente);
+				client = database.seleziona_mese(nome_cliente,"dicembre");
 
 				Cliente_dic.setText(client.getNome());
 				test = client.getNome2();
@@ -3601,9 +3614,9 @@ public class Partenza extends JFrame {
 				} else {
 					text_tot_dovuto_fatt.setText(test5);
 				}
-
+				int anno_f = gc.get(Calendar.YEAR);
 				LinkedList<Fatture> ll = database
-						.restituisci_fattura(nome_cliente);
+						.restituisci_fattura(nome_cliente,anno_f);
 				String[] lis = new String[ll.size()];
 				for (int ia = 0; ia < ll.size(); ia++) {
 					lis[ia] = ll.get(ia).getNumero() + "**"
@@ -3691,6 +3704,13 @@ public class Partenza extends JFrame {
 			}
 			if (pos == 14) {
 
+				tot_mese.setText(database.elenco_paganti_mese(
+						(String) combo_mese_pag.getSelectedItem(),
+						(String) combo_anno_pag.getSelectedItem()));
+				tot.setText(database
+						.elenco_paganti_anno((String) combo_anno_pag
+								.getSelectedItem()));
+				
 			}
 			if (pos == 15) {
 
