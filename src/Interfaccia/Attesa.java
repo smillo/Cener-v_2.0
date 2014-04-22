@@ -1,8 +1,6 @@
 package Interfaccia;
 
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import java.awt.BorderLayout;
 
 public class Attesa extends JFrame {
 	public Attesa() {

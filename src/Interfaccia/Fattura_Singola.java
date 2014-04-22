@@ -2,9 +2,7 @@ package Interfaccia;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.*;
-
 import General.Database;
 
 public class Fattura_Singola extends JFrame {
@@ -290,8 +288,91 @@ public class Fattura_Singola extends JFrame {
 
 			if (e.getSource() == btnStampa) {
 
+				String nome = text_Cliente.getText();
+				double totale = 0, importo2 = 0, ritenuta = 0, tot_dovuto = 0;
+				String nome2, descrizione2;
+				calcola();
+
+				if (!text_cliente_2.getText().isEmpty()) {
+					nome2 = text_cliente_2.getText();
+				} else {
+					nome2 = "";
+				}
+
+				if (!text_descrizione_2.getText().isEmpty()) {
+					descrizione2 = text_descrizione_2.getText();
+				} else {
+					descrizione2 = "";
+				}
+				if (!text_importo_2.getText().isEmpty()) {
+					importo2 = Double.parseDouble(text_importo_2.getText());
+				} else {
+					importo2 = 0.00;
+				}
+
+				if (!text_ritenuta.getText().isEmpty()) {
+					ritenuta = Double.parseDouble(text_ritenuta.getText());
+				} else {
+					ritenuta = 0.00;
+				}
+				if (!text_tot_dovuto.getText().isEmpty()) {
+					tot_dovuto = Double.parseDouble(text_tot_dovuto.getText());
+				} else {
+					tot_dovuto = 0.00;
+				}
+
+				database.print(text_Cliente.getText(), nome2,
+						text_indirizzo.getText(), text_città.getText(),
+						text_cap.getText(), text_piva.getText(),
+						text_descrizione.getText(),
+						Double.parseDouble(text_importo.getText()),
+						descrizione2, importo2,
+						Double.parseDouble(text_imponibile.getText()),
+						Double.parseDouble(text_iva.getText()),
+						Double.parseDouble(text_imposta.getText()),
+						Double.parseDouble(text_tot_fattura.getText()),
+						ritenuta, tot_dovuto,
+						(String) combo_giorno.getSelectedItem(),
+						(String) combo_mese.getSelectedItem(),
+						(String) combo_anno.getSelectedItem());
+
 			}
 		}
 
 	}
+
+	private void calcola() {
+
+		double importo2;
+		double importo = Double.parseDouble(text_importo.getText());
+		if (!text_importo_2.getText().isEmpty()) {
+			importo2 = Double.parseDouble(text_importo_2.getText());
+		} else {
+			importo2 = 0;
+		}
+		double imponibile = importo + importo2;
+		double iva = Double.parseDouble(text_iva.getText());
+		double imposta = imponibile * (iva / 100);
+		double totale_fattura = imponibile + imposta;
+
+		if (combo_ritenuta.getSelectedItem() == "Si") {
+			double ritenuta = imponibile * 0.04;
+			double totale_dovuto = totale_fattura - ritenuta;
+			ritenuta = Math.rint(ritenuta * 100) / 100;
+			totale_dovuto = Math.rint(totale_dovuto * 100) / 100;
+			text_ritenuta.setText(String.valueOf(ritenuta));
+			text_tot_dovuto.setText(String.valueOf(totale_dovuto));
+		} else {
+			text_ritenuta.setText("0.00");
+			text_tot_dovuto.setText("0.00");
+		}
+
+		imponibile = Math.rint(imponibile * 100) / 100;
+		imposta = Math.rint(imposta * 100) / 100;
+		totale_fattura = Math.rint(totale_fattura * 100) / 100;
+		text_imponibile.setText(String.valueOf(imponibile));
+		text_imposta.setText(String.valueOf(imposta));
+		text_tot_fattura.setText(String.valueOf(totale_fattura));
+	}
+
 }

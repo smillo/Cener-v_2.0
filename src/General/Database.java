@@ -7,18 +7,12 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.StringTokenizer;
-
 import javax.swing.JOptionPane;
-import javax.swing.ListModel;
-
-import sun.awt.image.ImageWatched.Link;
-
 import com.itextpdf.text.Document;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
@@ -1619,12 +1613,13 @@ public class Database {
 		}
 	}
 
-	public Cliente seleziona_mese(String nome_cliente,String mese) {
+	public Cliente seleziona_mese(String nome_cliente, String mese) {
 		try {
 			Cliente client = null;
 			ResultSet rs;
 			PreparedStatement prep = connection
-					.prepareStatement("SELECT * FROM "+mese+" where cliente = ?");
+					.prepareStatement("SELECT * FROM " + mese
+							+ " where cliente = ?");
 			prep.setString(1, nome_cliente);
 			rs = prep.executeQuery();
 
@@ -1645,10 +1640,10 @@ public class Database {
 				double q = rs.getDouble(14);
 				double r = rs.getDouble(15);
 				double s = rs.getDouble(16);
-			
+
 				client = new Cliente(a, b, c, d, e, f, g, h, l, m, n, o, p, q,
-						r, s, false, false, false, false, false, false, false, false, false, false,
-						false, false);
+						r, s, false, false, false, false, false, false, false,
+						false, false, false, false, false);
 			}
 			return client;
 		} catch (Exception e) {
@@ -1656,6 +1651,7 @@ public class Database {
 			return null;
 		}
 	}
+
 	public void stampafattura(String mese, String data, String anno) {
 		try {
 
@@ -1706,7 +1702,7 @@ public class Database {
 				}
 			}
 			document.close();
-			
+
 			File f = new File("C:\\Users\\massimiliano\\Documents\\" + mese
 					+ "_" + anno + ".pdf");
 			java.awt.Desktop.getDesktop().open(f);
@@ -1758,12 +1754,13 @@ public class Database {
 
 	}
 
-	public LinkedList<Fatture> restituisci_fattura(String nome_c,int anno_f) {
+	public LinkedList<Fatture> restituisci_fattura(String nome_c, int anno_f) {
 		try {
 			LinkedList<Fatture> list_fat = new LinkedList<Fatture>();
 			ResultSet rs;
 			PreparedStatement prep = connection
-					.prepareStatement("SELECT numero_fattura,data_fattura,totale FROM fatture where cliente = ? and data_fattura like '%"+anno_f+"'");
+					.prepareStatement("SELECT numero_fattura,data_fattura,totale FROM fatture where cliente = ? and data_fattura like '%"
+							+ anno_f + "'");
 			prep.setString(1, nome_c);
 
 			rs = prep.executeQuery();
@@ -2130,98 +2127,242 @@ public class Database {
 			pst.setDouble(2, totale);
 			pst.setString(3, nome);
 			pst.setString(4, data);
-			
+
 			pst.executeUpdate();
-			
-			aggiorna_mese(nome,data,totale);
-			aggiorna_elenco_paganti(nome,data,totale);
+
+			aggiorna_mese(nome, data, totale);
+			aggiorna_elenco_paganti(nome, data, totale);
 		} catch (Exception e) {
 			e.printStackTrace();
 
 		}
 
-		
 	}
 
 	private void aggiorna_elenco_paganti(String nome, String data, double totale) {
 
 		try {
 			PreparedStatement pst;
-				pst = connection
-						.prepareStatement("UPDATE elenco_paganti SET importo = ? where cliente = ? and data_pag = ?");
+			pst = connection
+					.prepareStatement("UPDATE elenco_paganti SET importo = ? where cliente = ? and data_pag = ?");
 
-				pst.setDouble(1, totale);
-				pst.setString(2, nome);
-				pst.setString(3, data);
-				
-				pst.executeUpdate();
-				
-			} catch (Exception e) {
-				e.printStackTrace();
+			pst.setDouble(1, totale);
+			pst.setString(2, nome);
+			pst.setString(3, data);
 
-			}
-		
+			pst.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+
 	}
 
 	private void aggiorna_mese(String nome, String data, double totale) {
 
-StringTokenizer stk = new StringTokenizer(data,"/");
-String gg = stk.nextToken();
-String mese = stk.nextToken();
+		StringTokenizer stk = new StringTokenizer(data, "/");
+		String gg = stk.nextToken();
+		String mese = stk.nextToken();
 
-if(mese.equals("01")){
-	mese = "gennaio";
-}
-else if(mese.equals("02")){
-	mese = "febbraio";
-}
-else if(mese.equals("03")){
-	mese = "marzo";
-}
-else if(mese.equals("04")){
-	mese = "aprile";
-}
-else if(mese.equals("05")){
-	mese = "maggio";
-}
-else if(mese.equals("06")){
-	mese = "giugno";
-}
-else if(mese.equals("07")){
-	mese = "luglio";
-}
-else if(mese.equals("08")){
-	mese = "agosto";
-}
-else if(mese.equals("09")){
-	mese = "settembre";
-}
-else if(mese.equals("10")){
-	mese = "ottobre";
-}
-else if(mese.equals("11")){
-	mese = "novembre";
-}
-else if(mese.equals("12")){
-	mese = "dicembre";
-}
+		if (mese.equals("01")) {
+			mese = "gennaio";
+		} else if (mese.equals("02")) {
+			mese = "febbraio";
+		} else if (mese.equals("03")) {
+			mese = "marzo";
+		} else if (mese.equals("04")) {
+			mese = "aprile";
+		} else if (mese.equals("05")) {
+			mese = "maggio";
+		} else if (mese.equals("06")) {
+			mese = "giugno";
+		} else if (mese.equals("07")) {
+			mese = "luglio";
+		} else if (mese.equals("08")) {
+			mese = "agosto";
+		} else if (mese.equals("09")) {
+			mese = "settembre";
+		} else if (mese.equals("10")) {
+			mese = "ottobre";
+		} else if (mese.equals("11")) {
+			mese = "novembre";
+		} else if (mese.equals("12")) {
+			mese = "dicembre";
+		}
 
-try {
-PreparedStatement pst;
-	pst = connection
-			.prepareStatement("UPDATE "+mese+" SET totale_dovuto = ? where cliente = ? ");
+		try {
+			PreparedStatement pst;
+			pst = connection.prepareStatement("UPDATE " + mese
+					+ " SET totale_dovuto = ? where cliente = ? ");
 
-	pst.setDouble(1, totale);
-	pst.setString(2, nome);
-	
-	
-	pst.executeUpdate();
-	
-} catch (Exception e) {
-	e.printStackTrace();
+			pst.setDouble(1, totale);
+			pst.setString(2, nome);
 
-}
+			pst.executeUpdate();
 
-		
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+
+	}
+
+	public void print(String cliente, String cliente2, String ind, String cit,
+			String cap, String piva, String desc, double imp1, String desc2,
+			double imp2, double imponib, double iva, double imposta,
+			double t_fat, double rit, double t_dov, String giorno, String mese,
+			String anno) {
+
+		try {
+			String mesef = null;
+			if (mese.equals("Gennaio")) {
+				mesef = "01";
+			} else if (mese.equals("Febbraio")) {
+				mesef = "02";
+			} else if (mese.equals("Marzo")) {
+				mesef = "03";
+			} else if (mese.equals("Aprile")) {
+				mesef = "04";
+			} else if (mese.equals("Maggio")) {
+				mesef = "05";
+			} else if (mese.equals("Giugno")) {
+				mesef = "06";
+			} else if (mese.equals("Luglio")) {
+				mesef = "07";
+			} else if (mese.equals("Agosto")) {
+				mesef = "08";
+			} else if (mese.equals("Settembre")) {
+				mesef = "09";
+			} else if (mese.equals("Ottobre")) {
+				mesef = "10";
+			} else if (mese.equals("Novembre")) {
+				mesef = "11";
+			} else if (mese.equals("Dicembre")) {
+				mesef = "12";
+			}
+
+			String FILE = "C:\\Users\\massimiliano\\Documents\\" + cliente
+					+ "_" + mese + ".pdf";
+
+			Document document = new Document();
+			PdfWriter.getInstance(document, new FileOutputStream(FILE));
+			document.open();
+			String data = giorno + "/" + mesef + "/" + anno;
+			String numero = Numero_fattura.contaFattura();
+			Paragraph prefazione = new Paragraph();
+			Stampa_fatt.print_fatture(prefazione, data, numero, cliente,
+					cliente2, ind, cit, cap, piva, desc, imp1, desc2, imp2,
+					imponib, iva, imposta, t_fat, rit, t_dov);
+
+			document.add(prefazione);
+
+			if (rit == 0.0) {
+				inserisci_fattura(numero, data, cliente, t_fat);
+				inserisci_el_paganti(data, cliente, t_fat);
+			} else {
+				inserisci_fattura(numero, data, cliente, t_dov);
+				inserisci_el_paganti(data, cliente, t_dov);
+			}
+
+			document.close();
+
+			File f = new File("C:\\Users\\massimiliano\\Documents\\" + cliente
+					+ "_" + mese + ".pdf");
+			java.awt.Desktop.getDesktop().open(f);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+
+	}
+
+	public void print_correttivo(String cliente, String cliente2, String ind,
+			String cit, String cap, String piva, String desc, double imp1,
+			String desc2, double imp2, double imponib, double iva,
+			double imposta, double t_fat, double rit, double t_dov,
+			String data, String numero) {
+
+		StringTokenizer sth = new StringTokenizer(data, "/");
+		String giorno = sth.nextToken();
+		String mesef = sth.nextToken();
+		try {
+			String mese = null;
+
+			if (mesef.equals("01")) {
+				mese = "Gennaio";
+			} else if (mesef.equals("02")) {
+				mese = "Febbraio";
+			} else if (mesef.equals("03")) {
+				mese = "Marzo";
+			} else if (mesef.equals("04")) {
+				mese = "Aprile";
+			} else if (mesef.equals("05")) {
+				mese = "Maggio";
+			} else if (mesef.equals("06")) {
+				mese = "Giugno";
+			} else if (mesef.equals("07")) {
+				mese = "Luglio";
+			} else if (mesef.equals("08")) {
+				mese = "Agosto";
+			} else if (mesef.equals("09")) {
+				mese = "Settembre";
+			} else if (mesef.equals("10")) {
+				mese = "Ottobre";
+			} else if (mesef.equals("11")) {
+				mese = "Novembre";
+			} else if (mesef.equals("12")) {
+				mese = "Dicembre";
+			}
+
+			String FILE = "C:\\Users\\massimiliano\\Documents\\CORREZIONE_"
+					+ cliente + "_" + mese + ".pdf";
+
+			Document document = new Document();
+			PdfWriter.getInstance(document, new FileOutputStream(FILE));
+			document.open();
+
+			Paragraph prefazione = new Paragraph();
+			Stampa_fatt.print_fatture(prefazione, data, numero, cliente,
+					cliente2, ind, cit, cap, piva, desc, imp1, desc2, imp2,
+					imponib, iva, imposta, t_fat, rit, t_dov);
+
+			document.add(prefazione);
+			document.close();
+
+			File f = new File("C:\\Users\\massimiliano\\Documents\\CORREZIONE_"
+					+ cliente + "_" + mese + ".pdf");
+			java.awt.Desktop.getDesktop().open(f);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+
+	}
+
+	public String[] seleziona_fatture() {
+
+		ResultSet rs;
+		PreparedStatement pst = null;
+		try {
+			ArrayList<String> list = new ArrayList<String>();
+			pst = connection
+					.prepareStatement("select distinct(cliente) from fatture order by cliente");
+
+			rs = pst.executeQuery();
+
+			while (rs.next()) {
+				list.add(rs.getString("cliente"));
+			}
+			String[] result = new String[list.size()];
+			result = list.toArray(result);
+			return result;
+		} catch (Exception e) {
+
+			return null;
+		}
+
 	}
 }

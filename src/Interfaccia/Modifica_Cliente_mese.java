@@ -2,13 +2,9 @@ package Interfaccia;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.LinkedList;
-import java.util.StringTokenizer;
-
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-
 import General.Cliente;
 import General.Database;
 
@@ -270,8 +266,7 @@ public class Modifica_Cliente_mese extends JFrame {
 							nome_cliente);
 					JOptionPane.showMessageDialog(null,
 							"cliente modificato in " + mese);
-					
-					
+
 				} catch (Exception ee) {
 					JOptionPane.showMessageDialog(null,
 							"ERRORE cliente non modificato!");

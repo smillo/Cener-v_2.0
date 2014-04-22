@@ -1,11 +1,9 @@
 package Interfaccia;
 
 import java.awt.event.*;
-
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-
 import General.Database;
 
 public class Elimina_Cliente_Mese extends JFrame {
@@ -113,7 +111,6 @@ public class Elimina_Cliente_Mese extends JFrame {
 		public void valueChanged(ListSelectionEvent e) {
 
 			nome_cliente = (String) list.getSelectedValue();
-			
 
 		}
 

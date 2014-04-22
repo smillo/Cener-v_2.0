@@ -2,15 +2,11 @@ package Interfaccia;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.LinkedList;
 import java.util.StringTokenizer;
-
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-
 import General.Cliente;
 import General.Database;
 import General.Fatture;
@@ -255,25 +251,64 @@ public class Modifica_Fattura_Singola extends JFrame {
 			}
 
 			if (e.getSource() == btnSalva) {
-				
+
 				String nome = text_Cliente.getText();
 				double totale = 0;
-			
+				String nome2, descrizione2;
+				double importo2, tot_dovuto, ritenuta;
+
 				calcola();
-				
-				if (!text_tot_dovuto.getText().equals("0.00")) {
-					 totale = Double.parseDouble(text_tot_dovuto.getText());
+
+				if (!text_cliente_2.getText().isEmpty()) {
+					nome2 = text_cliente_2.getText();
 				} else {
-					 totale = Double.parseDouble(text_tot_fattura.getText());
+					nome2 = "";
 				}
-				
+
+				if (!text_descrizione_2.getText().isEmpty()) {
+					descrizione2 = text_descrizione_2.getText();
+				} else {
+					descrizione2 = "";
+				}
+				if (!text_importo_2.getText().isEmpty()) {
+					importo2 = Double.parseDouble(text_importo_2.getText());
+				} else {
+					importo2 = 0.00;
+				}
+
+				if (!text_ritenuta.getText().isEmpty()) {
+					ritenuta = Double.parseDouble(text_ritenuta.getText());
+				} else {
+					ritenuta = 0.00;
+				}
+				if (!text_tot_dovuto.getText().isEmpty()) {
+					tot_dovuto = Double.parseDouble(text_tot_dovuto.getText());
+				} else {
+					tot_dovuto = 0.00;
+				}
+
+				if (!text_tot_dovuto.getText().equals("0.00")) {
+					totale = Double.parseDouble(text_tot_dovuto.getText());
+				} else {
+					totale = Double.parseDouble(text_tot_fattura.getText());
+				}
+
 				String numero_fat = text_num_fat.getText();
 				String data = textField.getText();
-				System.out.println(text_tot_dovuto.getText());
-				database.modifica_fattura(nome,totale,numero_fat,data);
-				JOptionPane.showMessageDialog(null, "fattura modificata!");
-				
-				
+
+				database.modifica_fattura(nome, totale, numero_fat, data);
+				database.print_correttivo(text_Cliente.getText(), nome2,
+						text_indirizzo.getText(), text_città.getText(),
+						text_cap.getText(), text_piva.getText(),
+						text_descrizione.getText(),
+						Double.parseDouble(text_importo.getText()),
+						descrizione2, importo2,
+						Double.parseDouble(text_imponibile.getText()),
+						Double.parseDouble(text_iva.getText()),
+						Double.parseDouble(text_imposta.getText()),
+						Double.parseDouble(text_tot_fattura.getText()),
+						ritenuta, tot_dovuto, data, numero_fat);
+
 			}
 		}
 
@@ -311,10 +346,7 @@ public class Modifica_Fattura_Singola extends JFrame {
 			text_tot_fattura.setText(String.valueOf(totale_fattura));
 		}
 
-			
-		}
-
-	
+	}
 
 	public class ListSelection implements ListSelectionListener {
 
@@ -322,7 +354,7 @@ public class Modifica_Fattura_Singola extends JFrame {
 		public void valueChanged(ListSelectionEvent e) {
 			textField.setText("");
 			text_num_fat.setText("");
-			 nome_cliente = (String) list.getSelectedValue();
+			nome_cliente = (String) list.getSelectedValue();
 			Cliente client = database.seleziona(nome_cliente);
 
 			text_Cliente.setText(client.getNome());
@@ -368,7 +400,7 @@ public class Modifica_Fattura_Singola extends JFrame {
 			} else {
 				text_tot_dovuto.setText(test5);
 			}
-			
+
 			LinkedList<Fatture> lll = database
 					.restituisci_fattura(nome_cliente);
 			String[] lista = new String[lll.size()];
@@ -386,7 +418,7 @@ public class Modifica_Fattura_Singola extends JFrame {
 
 		@Override
 		public void valueChanged(ListSelectionEvent e) {
-			
+
 			StringTokenizer stk = new StringTokenizer(
 					(String) list_fatt.getSelectedValue(), "**");
 			String numero = stk.nextToken();

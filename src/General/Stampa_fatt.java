@@ -1,30 +1,12 @@
 package General;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.event.*;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-
-import javax.swing.border.LineBorder;
-import javax.swing.event.*;
-
 import java.io.*;
-import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.Locale;
-
-import javax.swing.*;
-
 import com.itextpdf.text.*;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.pdf.*;
-
-import java.awt.*;
-import java.awt.event.ActionListener;
 
 //2 PERCORSI
 

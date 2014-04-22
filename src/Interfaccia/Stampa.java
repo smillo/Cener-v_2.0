@@ -2,19 +2,13 @@ package Interfaccia;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
-
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
-
-import com.itextpdf.text.DocumentException;
-
 import General.Database;
-import General.Stampa_fatt;
 
 public class Stampa extends JFrame {
 	private JTextField text_giorno, text_mese, text_anno;
@@ -117,7 +111,7 @@ public class Stampa extends JFrame {
 						database.stampafattura(
 								(String) combo_mese.getSelectedItem(), data,
 								text_anno.getText());
-						
+
 					} else {
 
 					}

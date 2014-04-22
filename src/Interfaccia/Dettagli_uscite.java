@@ -3,7 +3,6 @@ package Interfaccia;
 import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
-
 import General.Database;
 
 public class Dettagli_uscite extends JFrame {
