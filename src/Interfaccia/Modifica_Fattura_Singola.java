@@ -20,6 +20,7 @@ public class Modifica_Fattura_Singola extends JFrame {
 	private JTextField text_Cliente, text_indirizzo, text_cap,
 			text_descrizione, text_descrizione_2, text_imponibile,
 			text_imposta;
+	private String nome_cliente;
 	private JTextField text_cliente_2, text_città, text_piva, text_importo,
 			text_importo_2, text_iva, text_tot_fattura, text_tot_dovuto,
 			text_ritenuta;
@@ -102,26 +103,31 @@ public class Modifica_Fattura_Singola extends JFrame {
 		getContentPane().add(lblTotDovuto);
 
 		text_Cliente = new JTextField();
+		text_Cliente.setEditable(false);
 		text_Cliente.setBounds(406, 22, 172, 20);
 		getContentPane().add(text_Cliente);
 		text_Cliente.setColumns(10);
 
 		text_indirizzo = new JTextField();
+		text_indirizzo.setEditable(false);
 		text_indirizzo.setBounds(406, 52, 172, 20);
 		getContentPane().add(text_indirizzo);
 		text_indirizzo.setColumns(10);
 
 		text_cap = new JTextField();
+		text_cap.setEditable(false);
 		text_cap.setBounds(406, 82, 172, 20);
 		getContentPane().add(text_cap);
 		text_cap.setColumns(10);
 
 		text_descrizione = new JTextField();
+		text_descrizione.setEditable(false);
 		text_descrizione.setBounds(406, 112, 172, 20);
 		getContentPane().add(text_descrizione);
 		text_descrizione.setColumns(10);
 
 		text_descrizione_2 = new JTextField();
+		text_descrizione_2.setEditable(false);
 		text_descrizione_2.setBounds(406, 142, 172, 20);
 		getContentPane().add(text_descrizione_2);
 		text_descrizione_2.setColumns(10);
@@ -139,16 +145,19 @@ public class Modifica_Fattura_Singola extends JFrame {
 		text_imposta.setColumns(10);
 
 		text_cliente_2 = new JTextField();
+		text_cliente_2.setEditable(false);
 		text_cliente_2.setBounds(674, 22, 172, 20);
 		getContentPane().add(text_cliente_2);
 		text_cliente_2.setColumns(10);
 
 		text_città = new JTextField();
+		text_città.setEditable(false);
 		text_città.setBounds(674, 52, 172, 20);
 		getContentPane().add(text_città);
 		text_città.setColumns(10);
 
 		text_piva = new JTextField();
+		text_piva.setEditable(false);
 		text_piva.setBounds(674, 82, 172, 20);
 		getContentPane().add(text_piva);
 		text_piva.setColumns(10);
@@ -229,6 +238,7 @@ public class Modifica_Fattura_Singola extends JFrame {
 		getContentPane().add(lblData);
 
 		textField = new JTextField();
+		textField.setEditable(false);
 		textField.setBounds(674, 262, 172, 20);
 		getContentPane().add(textField);
 		textField.setColumns(10);
@@ -245,11 +255,66 @@ public class Modifica_Fattura_Singola extends JFrame {
 			}
 
 			if (e.getSource() == btnSalva) {
-
+				
+				String nome = text_Cliente.getText();
+				double totale = 0;
+			
+				calcola();
+				
+				if (!text_tot_dovuto.getText().equals("0.00")) {
+					 totale = Double.parseDouble(text_tot_dovuto.getText());
+				} else {
+					 totale = Double.parseDouble(text_tot_fattura.getText());
+				}
+				
+				String numero_fat = text_num_fat.getText();
+				String data = textField.getText();
+				System.out.println(text_tot_dovuto.getText());
+				database.modifica_fattura(nome,totale,numero_fat,data);
+				JOptionPane.showMessageDialog(null, "fattura modificata!");
+				
+				
 			}
 		}
 
-	}
+		private void calcola() {
+
+			double importo2;
+			double importo = Double.parseDouble(text_importo.getText());
+			if (!text_importo_2.getText().isEmpty()) {
+				importo2 = Double.parseDouble(text_importo_2.getText());
+			} else {
+				importo2 = 0;
+			}
+			double imponibile = importo + importo2;
+			double iva = Double.parseDouble(text_iva.getText());
+			double imposta = imponibile * (iva / 100);
+			double totale_fattura = imponibile + imposta;
+
+			if (combo_ritenuta.getSelectedItem() == "Si") {
+				double ritenuta = imponibile * 0.04;
+				double totale_dovuto = totale_fattura - ritenuta;
+				ritenuta = Math.rint(ritenuta * 100) / 100;
+				totale_dovuto = Math.rint(totale_dovuto * 100) / 100;
+				text_ritenuta.setText(String.valueOf(ritenuta));
+				text_tot_dovuto.setText(String.valueOf(totale_dovuto));
+			} else {
+				text_ritenuta.setText("0.00");
+				text_tot_dovuto.setText("0.00");
+			}
+
+			imponibile = Math.rint(imponibile * 100) / 100;
+			imposta = Math.rint(imposta * 100) / 100;
+			totale_fattura = Math.rint(totale_fattura * 100) / 100;
+			text_imponibile.setText(String.valueOf(imponibile));
+			text_imposta.setText(String.valueOf(imposta));
+			text_tot_fattura.setText(String.valueOf(totale_fattura));
+		}
+
+			
+		}
+
+	
 
 	public class ListSelection implements ListSelectionListener {
 
@@ -257,7 +322,7 @@ public class Modifica_Fattura_Singola extends JFrame {
 		public void valueChanged(ListSelectionEvent e) {
 			textField.setText("");
 			text_num_fat.setText("");
-			String nome_cliente = (String) list.getSelectedValue();
+			 nome_cliente = (String) list.getSelectedValue();
 			Cliente client = database.seleziona(nome_cliente);
 
 			text_Cliente.setText(client.getNome());
@@ -321,6 +386,7 @@ public class Modifica_Fattura_Singola extends JFrame {
 
 		@Override
 		public void valueChanged(ListSelectionEvent e) {
+			
 			StringTokenizer stk = new StringTokenizer(
 					(String) list_fatt.getSelectedValue(), "**");
 			String numero = stk.nextToken();

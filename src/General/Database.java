@@ -12,6 +12,7 @@ import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.StringTokenizer;
 
 import javax.swing.JOptionPane;
 import javax.swing.ListModel;
@@ -2114,5 +2115,113 @@ public class Database {
 			return null;
 
 		}
+	}
+
+	public void modifica_fattura(String nome, double totale, String numero_fat,
+			String data) {
+
+		PreparedStatement pst = null;
+
+		try {
+
+			pst = connection
+					.prepareStatement("UPDATE fatture SET numero_fattura = ?, totale = ? where cliente = ? and data_fattura = ?");
+			pst.setString(1, numero_fat);
+			pst.setDouble(2, totale);
+			pst.setString(3, nome);
+			pst.setString(4, data);
+			
+			pst.executeUpdate();
+			
+			aggiorna_mese(nome,data,totale);
+			aggiorna_elenco_paganti(nome,data,totale);
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+
+		
+	}
+
+	private void aggiorna_elenco_paganti(String nome, String data, double totale) {
+
+		try {
+			PreparedStatement pst;
+				pst = connection
+						.prepareStatement("UPDATE elenco_paganti SET importo = ? where cliente = ? and data_pag = ?");
+
+				pst.setDouble(1, totale);
+				pst.setString(2, nome);
+				pst.setString(3, data);
+				
+				pst.executeUpdate();
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+
+			}
+		
+	}
+
+	private void aggiorna_mese(String nome, String data, double totale) {
+
+StringTokenizer stk = new StringTokenizer(data,"/");
+String gg = stk.nextToken();
+String mese = stk.nextToken();
+
+if(mese.equals("01")){
+	mese = "gennaio";
+}
+else if(mese.equals("02")){
+	mese = "febbraio";
+}
+else if(mese.equals("03")){
+	mese = "marzo";
+}
+else if(mese.equals("04")){
+	mese = "aprile";
+}
+else if(mese.equals("05")){
+	mese = "maggio";
+}
+else if(mese.equals("06")){
+	mese = "giugno";
+}
+else if(mese.equals("07")){
+	mese = "luglio";
+}
+else if(mese.equals("08")){
+	mese = "agosto";
+}
+else if(mese.equals("09")){
+	mese = "settembre";
+}
+else if(mese.equals("10")){
+	mese = "ottobre";
+}
+else if(mese.equals("11")){
+	mese = "novembre";
+}
+else if(mese.equals("12")){
+	mese = "dicembre";
+}
+
+try {
+PreparedStatement pst;
+	pst = connection
+			.prepareStatement("UPDATE "+mese+" SET totale_dovuto = ? where cliente = ? ");
+
+	pst.setDouble(1, totale);
+	pst.setString(2, nome);
+	
+	
+	pst.executeUpdate();
+	
+} catch (Exception e) {
+	e.printStackTrace();
+
+}
+
+		
 	}
 }
