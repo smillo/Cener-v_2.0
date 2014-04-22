@@ -1,6 +1,7 @@
 package Interfaccia;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -8,6 +9,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.LinkedList;
 import java.util.StringTokenizer;
+
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -24,122 +26,125 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+
 import General.Cliente;
 import General.Database;
 import General.Fatture;
+
 import java.awt.SystemColor;
 
 public class Partenza extends JFrame {
-
+	private String nome_mail,data_mail;
 	GregorianCalendar gc = new GregorianCalendar();
 	private JButton btnStorico;
 	private String[] cause = { "costo operai", "stipendio nostro", "tornado",
 			"inps", "automezzi", "carburante", "varie", "artser", "tasse" };
 	private JTabbedPane tabbedPane;
 	private JTextField text_Cliente, text_indirizzo, text_cap,
-			text_descrizione, text_descrizione_2, text_imponibile,
-			text_imposta;
+	text_descrizione, text_descrizione_2, text_imponibile,
+	text_imposta;
 	private JTextField text_cliente_2, text_città, text_piva, text_importo,
-			text_importo_2, text_iva, text_tot_fattura, text_tot_dovuto,
-			text_ritenuta;
+	text_importo_2, text_iva, text_tot_fattura, text_tot_dovuto,
+	text_ritenuta;
 	private JComboBox combo_ritenuta, combo_gen,
-			combo_feb, combo_mar, combo_apr, combo_mag, combo_giu, combo_lug,
-			combo_ago, combo_set, combo_ott, combo_nov, combo_dic,
-			combo_ritenuta_gen, combo_ritenuta_feb, combo_ritenuta_mar,
-			combo_ritenuta_apr, combo_ritenuta_mag, combo_ritenuta_giu,
-			combo_ritenuta_lug, combo_ritenuta_ago, combo_ritenuta_set,
-			combo_ritenuta_ott, combo_ritenuta_nov, combo_ritenuta_dic,
-			combo_mese_pag, combo_anno_pag;
+	combo_feb, combo_mar, combo_apr, combo_mag, combo_giu, combo_lug,
+	combo_ago, combo_set, combo_ott, combo_nov, combo_dic,
+	combo_ritenuta_gen, combo_ritenuta_feb, combo_ritenuta_mar,
+	combo_ritenuta_apr, combo_ritenuta_mag, combo_ritenuta_giu,
+	combo_ritenuta_lug, combo_ritenuta_ago, combo_ritenuta_set,
+	combo_ritenuta_ott, combo_ritenuta_nov, combo_ritenuta_dic,
+	combo_mese_pag, combo_anno_pag;
 	private JPanel panel_home, panel_gen, panel_feb, panel_mar, panel_apr,
-			panel_mag, panel_giu, panel_lug, panel_ago, panel_set, panel_ott,
-			panel_fatt, panel_nov, panel_dic, panel_el_pag, panel_ent_usc,
-			panel_list;
+	panel_mag, panel_giu, panel_lug, panel_ago, panel_set, panel_ott,
+	panel_fatt, panel_nov, panel_dic, panel_el_pag, panel_ent_usc,
+	panel_list;
 	private JTextField text_entrate, text_uscite;
 	private JScrollPane scrollPane, scrollPane_gen, scrollPane_1, scrollPane_2,
-			scrollPane_feb, scrollPane_mar, scrollPane_apr, scrollPane_mag,
-			scrollPane_giu, scrollPane_lug, scrollPane_ago, scrollPane_set,
-			scrollPane_ott, scrollPane_nov, scrollPane_dic, scrollPane_pag;
+	scrollPane_feb, scrollPane_mar, scrollPane_apr, scrollPane_mag,
+	scrollPane_giu, scrollPane_lug, scrollPane_ago, scrollPane_set,
+	scrollPane_ott, scrollPane_nov, scrollPane_dic, scrollPane_pag;
 	private JButton btnAggiungiUscita, btnNuovo_cliente, btnModifica_cliente,
-			btnElimina_cliente, btnStampa, btnSeleziona, btnFattura_singola,
-			btnModifica_fattura, btnNuovo_anno, btnDropbox,
-			btnRimuoviDallelenco, btnRiepilogo_pag;
-	private JButton btnRiepilogo;
-	private JList list_clienti, list_clienti_fatt, list_fatt,
-			list_cause_uscite, list_dettagli_uscite, list_clienti_gen,
-			list_clienti_feb, list_clienti_mar, list_clienti_apr,
-			list_clienti_mag, list_clienti_giu, list_clienti_lug,
-			list_clienti_ago, list_clienti_set, list_clienti_ott,
-			list_clienti_nov, list_clienti_dic, list_el_paganti;
+	btnElimina_cliente, btnStampa, btnSeleziona, btnFattura_singola,
+	btnModifica_fattura, btnNuovo_anno, btnMail,
+	btnRimuoviDallelenco, btnRiepilogo_pag;
+	private JButton btnRiepilogo,btnInvia;
+	private JList list_clienti,list_clienti_mail, list_clienti_fatt, list_fatt,
+	list_cause_uscite, list_dettagli_uscite, list_clienti_gen,
+	list_clienti_feb, list_clienti_mar, list_clienti_apr,
+	list_clienti_mag, list_clienti_giu, list_clienti_lug,
+	list_clienti_ago, list_clienti_set, list_clienti_ott,
+	list_clienti_nov, list_clienti_dic, list_el_paganti,list_elenco_mail;
 	private Database database;
 	private JLabel Cliente_gen, indirizzo_gen, cap_gen, descrizione_gen,
-			descrizione_2_gen, imponibile_gen, imposta_gen, cliente_2_gen,
-			città_gen, piva_gen, importo_gen, importo_2_gen, iva_gen,
-			tot_fattura_gen, tot_dovuto_gen, ritenuta_gen, Cliente_feb,
-			indirizzo_feb, cap_feb, descrizione_feb, descrizione_2_feb,
-			imponibile_feb, imposta_feb, cliente_2_feb, città_feb, piva_feb,
-			importo_feb, importo_2_feb, iva_feb, tot_fattura_feb,
-			tot_dovuto_feb, ritenuta_feb, Cliente_mar, indirizzo_mar, cap_mar,
-			descrizione_mar, descrizione_2_mar, imponibile_mar, imposta_mar,
-			cliente_2_mar, città_mar, piva_mar, importo_mar, importo_2_mar,
-			iva_mar, tot_fattura_mar, tot_dovuto_mar, ritenuta_mar,
-			Cliente_apr, indirizzo_apr, cap_apr, descrizione_apr,
-			descrizione_2_apr, imponibile_apr, imposta_apr, cliente_2_apr,
-			città_apr, piva_apr, importo_apr, importo_2_apr, iva_apr,
-			tot_fattura_apr, tot_dovuto_apr, ritenuta_apr, Cliente_mag,
-			indirizzo_mag, cap_mag, descrizione_mag, descrizione_2_mag,
-			imponibile_mag, imposta_mag, cliente_2_mag, città_mag, piva_mag,
-			importo_mag, importo_2_mag, iva_mag, tot_fattura_mag,
-			tot_dovuto_mag, ritenuta_mag, Cliente_giu, indirizzo_giu, cap_giu,
-			descrizione_giu, descrizione_2_giu, imponibile_giu, imposta_giu,
-			cliente_2_giu, città_giu, piva_giu, importo_giu, importo_2_giu,
-			iva_giu, tot_fattura_giu, tot_dovuto_giu, ritenuta_giu,
-			Cliente_lug, indirizzo_lug, cap_lug, descrizione_lug,
-			descrizione_2_lug, imponibile_lug, imposta_lug, cliente_2_lug,
-			città_lug, piva_lug, importo_lug, importo_2_lug, iva_lug,
-			tot_fattura_lug, tot_dovuto_lug, ritenuta_lug, Cliente_ago,
-			indirizzo_ago, cap_ago, descrizione_ago, descrizione_2_ago,
-			imponibile_ago, imposta_ago, cliente_2_ago, città_ago, piva_ago,
-			importo_ago, importo_2_ago, iva_ago, tot_fattura_ago,
-			tot_dovuto_ago, ritenuta_ago, Cliente_set, indirizzo_set, cap_set,
-			descrizione_set, descrizione_2_set, imponibile_set, imposta_set,
-			cliente_2_set, città_set, piva_set, importo_set, importo_2_set,
-			iva_set, tot_fattura_set, tot_dovuto_set, ritenuta_set,
-			Cliente_ott, indirizzo_ott, cap_ott, descrizione_ott,
-			descrizione_2_ott, imponibile_ott, imposta_ott, cliente_2_ott,
-			città_ott, piva_ott, importo_ott, importo_2_ott, iva_ott,
-			tot_fattura_ott, tot_dovuto_ott, ritenuta_ott, Cliente_nov,
-			indirizzo_nov, cap_nov, descrizione_nov, descrizione_2_nov,
-			imponibile_nov, imposta_nov, cliente_2_nov, città_nov, piva_nov,
-			importo_nov, importo_2_nov, iva_nov, tot_fattura_nov,
-			tot_dovuto_nov, ritenuta_nov, Cliente_dic, indirizzo_dic, cap_dic,
-			descrizione_dic, descrizione_2_dic, imponibile_dic, imposta_dic,
-			cliente_2_dic, città_dic, piva_dic, importo_dic, importo_2_dic,
-			iva_dic, tot_fattura_dic, tot_dovuto_dic, ritenuta_dic, tot_mese,
-			tot;
-	private JScrollPane scrollPane_fatt;
+	descrizione_2_gen, imponibile_gen, imposta_gen, cliente_2_gen,
+	città_gen, piva_gen, importo_gen, importo_2_gen, iva_gen,
+	tot_fattura_gen, tot_dovuto_gen, ritenuta_gen, Cliente_feb,
+	indirizzo_feb, cap_feb, descrizione_feb, descrizione_2_feb,
+	imponibile_feb, imposta_feb, cliente_2_feb, città_feb, piva_feb,
+	importo_feb, importo_2_feb, iva_feb, tot_fattura_feb,
+	tot_dovuto_feb, ritenuta_feb, Cliente_mar, indirizzo_mar, cap_mar,
+	descrizione_mar, descrizione_2_mar, imponibile_mar, imposta_mar,
+	cliente_2_mar, città_mar, piva_mar, importo_mar, importo_2_mar,
+	iva_mar, tot_fattura_mar, tot_dovuto_mar, ritenuta_mar,
+	Cliente_apr, indirizzo_apr, cap_apr, descrizione_apr,
+	descrizione_2_apr, imponibile_apr, imposta_apr, cliente_2_apr,
+	città_apr, piva_apr, importo_apr, importo_2_apr, iva_apr,
+	tot_fattura_apr, tot_dovuto_apr, ritenuta_apr, Cliente_mag,
+	indirizzo_mag, cap_mag, descrizione_mag, descrizione_2_mag,
+	imponibile_mag, imposta_mag, cliente_2_mag, città_mag, piva_mag,
+	importo_mag, importo_2_mag, iva_mag, tot_fattura_mag,
+	tot_dovuto_mag, ritenuta_mag, Cliente_giu, indirizzo_giu, cap_giu,
+	descrizione_giu, descrizione_2_giu, imponibile_giu, imposta_giu,
+	cliente_2_giu, città_giu, piva_giu, importo_giu, importo_2_giu,
+	iva_giu, tot_fattura_giu, tot_dovuto_giu, ritenuta_giu,
+	Cliente_lug, indirizzo_lug, cap_lug, descrizione_lug,
+	descrizione_2_lug, imponibile_lug, imposta_lug, cliente_2_lug,
+	città_lug, piva_lug, importo_lug, importo_2_lug, iva_lug,
+	tot_fattura_lug, tot_dovuto_lug, ritenuta_lug, Cliente_ago,
+	indirizzo_ago, cap_ago, descrizione_ago, descrizione_2_ago,
+	imponibile_ago, imposta_ago, cliente_2_ago, città_ago, piva_ago,
+	importo_ago, importo_2_ago, iva_ago, tot_fattura_ago,
+	tot_dovuto_ago, ritenuta_ago, Cliente_set, indirizzo_set, cap_set,
+	descrizione_set, descrizione_2_set, imponibile_set, imposta_set,
+	cliente_2_set, città_set, piva_set, importo_set, importo_2_set,
+	iva_set, tot_fattura_set, tot_dovuto_set, ritenuta_set,
+	Cliente_ott, indirizzo_ott, cap_ott, descrizione_ott,
+	descrizione_2_ott, imponibile_ott, imposta_ott, cliente_2_ott,
+	città_ott, piva_ott, importo_ott, importo_2_ott, iva_ott,
+	tot_fattura_ott, tot_dovuto_ott, ritenuta_ott, Cliente_nov,
+	indirizzo_nov, cap_nov, descrizione_nov, descrizione_2_nov,
+	imponibile_nov, imposta_nov, cliente_2_nov, città_nov, piva_nov,
+	importo_nov, importo_2_nov, iva_nov, tot_fattura_nov,
+	tot_dovuto_nov, ritenuta_nov, Cliente_dic, indirizzo_dic, cap_dic,
+	descrizione_dic, descrizione_2_dic, imponibile_dic, imposta_dic,
+	cliente_2_dic, città_dic, piva_dic, importo_dic, importo_2_dic,
+	iva_dic, tot_fattura_dic, tot_dovuto_dic, ritenuta_dic, tot_mese,
+	tot;
+	private JScrollPane scrollPane_fatt,scrollPane_c_mail,scrollPane_mail;
 	private JScrollPane scrollPane_fatture;
-
+	private JPanel panel_mail;
+	
 	public static void main(String[] args) throws ClassNotFoundException,
-			InstantiationException, IllegalAccessException,
-			UnsupportedLookAndFeelException {
+	InstantiationException, IllegalAccessException,
+	UnsupportedLookAndFeelException {
 
 		Partenza window = new Partenza();
 
 	}
 
 	public Partenza() throws ClassNotFoundException, InstantiationException,
-			IllegalAccessException, UnsupportedLookAndFeelException {
+	IllegalAccessException, UnsupportedLookAndFeelException {
 
 		database = new Database();
-		setBounds(150, 100, 929, 504);
+		setBounds(150, 100, 954, 504);
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 
-		panel_list = new JPanel();
-		panel_list.setLayout(null);
 		panel_home = new JPanel();
 		panel_home.setLayout(null);
+		panel_list = new JPanel();
+		panel_list.setLayout(null);
 		panel_gen = new JPanel();
 		panel_gen.setLayout(null);
 		panel_feb = new JPanel();
@@ -182,97 +187,40 @@ public class Partenza extends JFrame {
 		list_dettagli_uscite = new JList();
 
 		scrollPane_1 = new JScrollPane(list_dettagli_uscite);
-		scrollPane_1.setBounds(179, 11, 161, 339);
+		scrollPane_1.setBounds(179, 11, 403, 339);
 		panel_ent_usc.add(scrollPane_1);
 		list_dettagli_uscite.addListSelectionListener(new ListSelection());
 
 		btnAggiungiUscita = new JButton("Aggiungi Uscita");
-		btnAggiungiUscita.setBounds(395, 28, 174, 30);
+		btnAggiungiUscita.setBounds(677, 22, 174, 30);
 		panel_ent_usc.add(btnAggiungiUscita);
 		btnAggiungiUscita.addActionListener(new ButtonListener());
 
 		JLabel lblEntrate = new JLabel("Entrate");
-		lblEntrate.setBounds(395, 201, 75, 14);
+		lblEntrate.setBounds(622, 201, 75, 14);
 		panel_ent_usc.add(lblEntrate);
 
 		JLabel lblUscite = new JLabel("Uscite");
-		lblUscite.setBounds(539, 201, 75, 14);
+		lblUscite.setBounds(833, 201, 75, 14);
 		panel_ent_usc.add(lblUscite);
 
 		text_entrate = new JTextField(database.entrate_anno(gc
 				.get(Calendar.YEAR)));
 		text_entrate.setEditable(false);
-		text_entrate.setBounds(350, 226, 122, 20);
+		text_entrate.setBounds(592, 226, 122, 20);
 		panel_ent_usc.add(text_entrate);
 		text_entrate.setColumns(10);
 
 		text_uscite = new JTextField();
 		text_uscite.setEditable(false);
-		text_uscite.setBounds(492, 226, 122, 20);
+		text_uscite.setBounds(786, 226, 122, 20);
 		panel_ent_usc.add(text_uscite);
 		text_uscite.setColumns(10);
 
 		btnRiepilogo = new JButton("Riepilogo");
-		btnRiepilogo.setBounds(395, 108, 174, 30);
+		btnRiepilogo.setBounds(677, 108, 174, 30);
 		panel_ent_usc.add(btnRiepilogo);
 		btnRiepilogo.addActionListener(new ButtonListener());
-
-		// TODO Generale
-
-		btnNuovo_cliente = new JButton("Nuovo Cliente");
-		btnNuovo_cliente.setBounds(23, 39, 194, 113);
-		panel_home.add(btnNuovo_cliente);
-		btnNuovo_cliente
-				.setToolTipText("clicca qui per aggiungere un nuovo cliente al tuo elenco dei clienti");
-		btnNuovo_cliente.addActionListener(new ButtonListener());
-
-		btnModifica_cliente = new JButton("Modifica Cliente");
-		btnModifica_cliente.setBounds(227, 39, 194, 113);
-		panel_home.add(btnModifica_cliente);
-		btnModifica_cliente
-				.setToolTipText("clicca qui per modificare un cliente del tuo elenco dei clienti");
-		btnModifica_cliente.addActionListener(new ButtonListener());
-
-		btnElimina_cliente = new JButton("Elimina Cliente");
-		btnElimina_cliente.setBounds(431, 39, 194, 113);
-		panel_home.add(btnElimina_cliente);
-		btnElimina_cliente
-				.setToolTipText("clicca qui per eliminare un cliente dal tuo elenco dei clienti");
-		btnElimina_cliente.addActionListener(new ButtonListener());
-
-		btnStampa = new JButton("Stampa");
-		btnStampa.setBounds(635, 39, 194, 113);
-		panel_home.add(btnStampa);
-		btnStampa
-				.setToolTipText("clicca qui per creare il file di fatture del mese");
-		btnStampa.addActionListener(new ButtonListener());
-
-		btnFattura_singola = new JButton("Crea Fattura singola");
-		btnFattura_singola.setBounds(23, 251, 194, 113);
-		panel_home.add(btnFattura_singola);
-		btnFattura_singola
-				.setToolTipText("clicca qui per creare una fattura singola (cioè una fattura che non hai fatto nel mese)");
-		btnFattura_singola.addActionListener(new ButtonListener());
-
-		btnModifica_fattura = new JButton("Modifica Fattura singola");
-		btnModifica_fattura.setBounds(227, 251, 194, 113);
-		panel_home.add(btnModifica_fattura);
-		btnModifica_fattura
-				.setToolTipText("clicca qui per modificare una fattura errata");
-		btnModifica_fattura.addActionListener(new ButtonListener());
-
-		btnNuovo_anno = new JButton("Nuovo Anno");
-		btnNuovo_anno.setBounds(431, 251, 194, 113);
-		panel_home.add(btnNuovo_anno);
-		btnNuovo_anno
-				.setToolTipText("clicca qui per iniziare un nuovo anno (numero fatture a 0 e modifiche mensili eliminate)");
-		btnNuovo_anno.addActionListener(new ButtonListener());
-
-		btnDropbox = new JButton("Dropbox");
-		btnDropbox.setBounds(635, 251, 194, 113);
-		panel_home.add(btnDropbox);
-		btnDropbox.setToolTipText("clicca qui per mettere tutto su dropbox");
-		btnDropbox.addActionListener(new ButtonListener());
 
 		// TODO lista clienti
 
@@ -2412,26 +2360,89 @@ public class Partenza extends JFrame {
 		// TODO fatture
 
 		btnStorico = new JButton("Storico");
-		btnStorico.setBounds(110, 401, 100, 20);
+		btnStorico.setBounds(768, 211, 100, 20);
 		btnStorico.addActionListener(new ButtonListener());
 		panel_fatt.add(btnStorico);
 
 		list_clienti_fatt = new JList(database.seleziona_fatture());
 		list_clienti_fatt.addListSelectionListener(new ListSelection());
+		
 		list_fatt = new JList();
-		list_fatt.setBorder(null);
-		list_fatt.setBackground(SystemColor.menu);
 		list_fatt.addListSelectionListener(new ListSelection());
+		
 
 		scrollPane_fatt = new JScrollPane(list_clienti_fatt);
-		scrollPane_fatt.setBounds(10, 22, 150, 368);
+		scrollPane_fatt.setBounds(10, 22, 251, 368);
 		panel_fatt.add(scrollPane_fatt);
 
 		scrollPane_fatture = new JScrollPane(list_fatt);
 		scrollPane_fatture.setBorder(null);
-		scrollPane_fatture.setBounds(170, 22, 130, 368);
+		scrollPane_fatture.setBounds(340, 23, 313, 368);
 		panel_fatt.add(scrollPane_fatture);
 
+		// TODO Generale
+
+		btnNuovo_cliente = new JButton("Nuovo Cliente");
+		btnNuovo_cliente.setBounds(23, 39, 194, 113);
+		panel_home.add(btnNuovo_cliente);
+		btnNuovo_cliente
+		.setToolTipText("clicca qui per aggiungere un nuovo cliente al tuo elenco dei clienti");
+		btnNuovo_cliente.addActionListener(new ButtonListener());
+
+		btnModifica_cliente = new JButton("Modifica Cliente");
+		btnModifica_cliente.setBounds(227, 39, 194, 113);
+		panel_home.add(btnModifica_cliente);
+		btnModifica_cliente
+		.setToolTipText("clicca qui per modificare un cliente del tuo elenco dei clienti");
+		btnModifica_cliente.addActionListener(new ButtonListener());
+
+		btnElimina_cliente = new JButton("Elimina Cliente");
+		btnElimina_cliente.setBounds(431, 39, 194, 113);
+		panel_home.add(btnElimina_cliente);
+		btnElimina_cliente
+		.setToolTipText("clicca qui per eliminare un cliente dal tuo elenco dei clienti");
+		btnElimina_cliente.addActionListener(new ButtonListener());
+
+		btnStampa = new JButton("Stampa");
+		btnStampa.setBounds(635, 39, 194, 113);
+		panel_home.add(btnStampa);
+		btnStampa
+		.setToolTipText("clicca qui per creare il file di fatture del mese");
+		btnStampa.addActionListener(new ButtonListener());
+
+		btnFattura_singola = new JButton("Crea Fattura singola");
+		btnFattura_singola.setBounds(23, 251, 194, 113);
+		panel_home.add(btnFattura_singola);
+		btnFattura_singola
+		.setToolTipText("clicca qui per creare una fattura singola (cioè una fattura che non hai fatto nel mese)");
+		btnFattura_singola.addActionListener(new ButtonListener());
+
+		btnModifica_fattura = new JButton("Modifica Fattura singola");
+		btnModifica_fattura.setBounds(227, 251, 194, 113);
+		panel_home.add(btnModifica_fattura);
+		btnModifica_fattura
+		.setToolTipText("clicca qui per modificare una fattura errata");
+		btnModifica_fattura.addActionListener(new ButtonListener());
+
+		btnNuovo_anno = new JButton("Nuovo Anno");
+		btnNuovo_anno.setBounds(431, 251, 194, 113);
+		panel_home.add(btnNuovo_anno);
+		btnNuovo_anno
+		.setToolTipText("clicca qui per iniziare un nuovo anno (numero fatture a 0 e modifiche mensili eliminate)");
+		btnNuovo_anno.addActionListener(new ButtonListener());
+
+		btnMail = new JButton("Mail");
+		btnMail.setBounds(635, 251, 194, 113);
+		panel_home.add(btnMail);
+		btnMail.setToolTipText("clicca qui per mettere tutto su dropbox");
+		btnMail.addActionListener(new ButtonListener());
+
+
+	
+	
+		
+		
+		
 		// TODO tabbed pane
 
 		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
@@ -2439,6 +2450,7 @@ public class Partenza extends JFrame {
 		tabbedPane.setBackground(new Color(255, 255, 0));
 		tabbedPane.setBounds(59, 83, 607, 358);
 		tabbedPane.addChangeListener(new TabListener());
+
 
 		tabbedPane.addTab("Generale", panel_home);
 
@@ -2474,6 +2486,8 @@ public class Partenza extends JFrame {
 
 		tabbedPane.addTab("Fatture", panel_fatt);
 
+	
+	
 		getContentPane().add(tabbedPane);
 		this.setVisible(true);
 	}
@@ -2491,6 +2505,12 @@ public class Partenza extends JFrame {
 			if (e.getSource() == btnStorico) {
 				Storico st = new Storico(database);
 			}
+			
+			if(e.getSource() == btnMail){
+				Mail m = new Mail(database);
+			}
+			
+			
 
 			if (e.getSource() == btnRiepilogo_pag) {
 				Dettagli_elenco_pag dt = new Dettagli_elenco_pag(database);
@@ -2603,13 +2623,11 @@ public class Partenza extends JFrame {
 				}
 
 			}
-			if (e.getSource() == btnDropbox) {
-
-			}
+			
 		}
 
 	}
-
+	
 	public class ListSelection implements ListSelectionListener {
 
 		@Override
@@ -2652,7 +2670,7 @@ public class Partenza extends JFrame {
 				text_iva.setText(String.valueOf(client.getIva()));
 				text_imposta.setText(String.valueOf(client.getImposta()));
 				text_tot_fattura
-						.setText(String.valueOf(client.getTot_fattura()));
+				.setText(String.valueOf(client.getTot_fattura()));
 				test4 = String.valueOf(client.getRitenuta());
 				if (test4.equals("0.0")) {
 					text_ritenuta.setText("");
@@ -2764,7 +2782,7 @@ public class Partenza extends JFrame {
 				iva_gen.setText(String.valueOf(client.getIva()));
 				imposta_gen.setText(String.valueOf(client.getImposta()));
 				tot_fattura_gen
-						.setText(String.valueOf(client.getTot_fattura()));
+				.setText(String.valueOf(client.getTot_fattura()));
 				test4 = String.valueOf(client.getRitenuta());
 				if (test4.equals("0.0")) {
 					ritenuta_gen.setText("");
@@ -2815,7 +2833,7 @@ public class Partenza extends JFrame {
 				iva_feb.setText(String.valueOf(client.getIva()));
 				imposta_feb.setText(String.valueOf(client.getImposta()));
 				tot_fattura_feb
-						.setText(String.valueOf(client.getTot_fattura()));
+				.setText(String.valueOf(client.getTot_fattura()));
 				test4 = String.valueOf(client.getRitenuta());
 				if (test4.equals("0.0")) {
 					ritenuta_feb.setText("");
@@ -2866,7 +2884,7 @@ public class Partenza extends JFrame {
 				iva_mar.setText(String.valueOf(client.getIva()));
 				imposta_mar.setText(String.valueOf(client.getImposta()));
 				tot_fattura_mar
-						.setText(String.valueOf(client.getTot_fattura()));
+				.setText(String.valueOf(client.getTot_fattura()));
 				test4 = String.valueOf(client.getRitenuta());
 				if (test4.equals("0.0")) {
 					ritenuta_mar.setText("");
@@ -2917,7 +2935,7 @@ public class Partenza extends JFrame {
 				iva_apr.setText(String.valueOf(client.getIva()));
 				imposta_apr.setText(String.valueOf(client.getImposta()));
 				tot_fattura_apr
-						.setText(String.valueOf(client.getTot_fattura()));
+				.setText(String.valueOf(client.getTot_fattura()));
 				test4 = String.valueOf(client.getRitenuta());
 				if (test4.equals("0.0")) {
 					ritenuta_apr.setText("");
@@ -2968,7 +2986,7 @@ public class Partenza extends JFrame {
 				iva_mag.setText(String.valueOf(client.getIva()));
 				imposta_mag.setText(String.valueOf(client.getImposta()));
 				tot_fattura_mag
-						.setText(String.valueOf(client.getTot_fattura()));
+				.setText(String.valueOf(client.getTot_fattura()));
 				test4 = String.valueOf(client.getRitenuta());
 				if (test4.equals("0.0")) {
 					ritenuta_mag.setText("");
@@ -3019,7 +3037,7 @@ public class Partenza extends JFrame {
 				iva_giu.setText(String.valueOf(client.getIva()));
 				imposta_giu.setText(String.valueOf(client.getImposta()));
 				tot_fattura_giu
-						.setText(String.valueOf(client.getTot_fattura()));
+				.setText(String.valueOf(client.getTot_fattura()));
 				test4 = String.valueOf(client.getRitenuta());
 				if (test4.equals("0.0")) {
 					ritenuta_giu.setText("");
@@ -3070,7 +3088,7 @@ public class Partenza extends JFrame {
 				iva_lug.setText(String.valueOf(client.getIva()));
 				imposta_lug.setText(String.valueOf(client.getImposta()));
 				tot_fattura_lug
-						.setText(String.valueOf(client.getTot_fattura()));
+				.setText(String.valueOf(client.getTot_fattura()));
 				test4 = String.valueOf(client.getRitenuta());
 				if (test4.equals("0.0")) {
 					ritenuta_lug.setText("");
@@ -3121,7 +3139,7 @@ public class Partenza extends JFrame {
 				iva_ago.setText(String.valueOf(client.getIva()));
 				imposta_ago.setText(String.valueOf(client.getImposta()));
 				tot_fattura_ago
-						.setText(String.valueOf(client.getTot_fattura()));
+				.setText(String.valueOf(client.getTot_fattura()));
 				test4 = String.valueOf(client.getRitenuta());
 				if (test4.equals("0.0")) {
 					ritenuta_ago.setText("");
@@ -3172,7 +3190,7 @@ public class Partenza extends JFrame {
 				iva_set.setText(String.valueOf(client.getIva()));
 				imposta_set.setText(String.valueOf(client.getImposta()));
 				tot_fattura_set
-						.setText(String.valueOf(client.getTot_fattura()));
+				.setText(String.valueOf(client.getTot_fattura()));
 				test4 = String.valueOf(client.getRitenuta());
 				if (test4.equals("0.0")) {
 					ritenuta_set.setText("");
@@ -3223,7 +3241,7 @@ public class Partenza extends JFrame {
 				iva_ott.setText(String.valueOf(client.getIva()));
 				imposta_ott.setText(String.valueOf(client.getImposta()));
 				tot_fattura_ott
-						.setText(String.valueOf(client.getTot_fattura()));
+				.setText(String.valueOf(client.getTot_fattura()));
 				test4 = String.valueOf(client.getRitenuta());
 				if (test4.equals("0.0")) {
 					ritenuta_ott.setText("");
@@ -3274,7 +3292,7 @@ public class Partenza extends JFrame {
 				iva_nov.setText(String.valueOf(client.getIva()));
 				imposta_nov.setText(String.valueOf(client.getImposta()));
 				tot_fattura_nov
-						.setText(String.valueOf(client.getTot_fattura()));
+				.setText(String.valueOf(client.getTot_fattura()));
 				test4 = String.valueOf(client.getRitenuta());
 				if (test4.equals("0.0")) {
 					ritenuta_nov.setText("");
@@ -3325,7 +3343,7 @@ public class Partenza extends JFrame {
 				iva_dic.setText(String.valueOf(client.getIva()));
 				imposta_dic.setText(String.valueOf(client.getImposta()));
 				tot_fattura_dic
-						.setText(String.valueOf(client.getTot_fattura()));
+				.setText(String.valueOf(client.getTot_fattura()));
 				test4 = String.valueOf(client.getRitenuta());
 				if (test4.equals("0.0")) {
 					ritenuta_dic.setText("");
@@ -3372,6 +3390,7 @@ public class Partenza extends JFrame {
 				}
 				list_fatt.setListData(lis);
 				break;
+			
 			}
 
 		}
@@ -3462,11 +3481,16 @@ public class Partenza extends JFrame {
 			if (pos == 15) {
 
 				text_uscite
-						.setText(database.uscite_anno(gc.get(Calendar.YEAR)));
+				.setText(database.uscite_anno(gc.get(Calendar.YEAR)));
 				text_entrate.setText(database.entrate_anno(gc
 						.get(Calendar.YEAR)));
 
 			}
+
+			if(pos == 16){
+				list_clienti_fatt.setListData(database.seleziona_fatture());
+			}
+			
 
 		}
 	}

@@ -25,6 +25,7 @@ public class Aggiungi_Uscita extends JFrame {
 	private JTextField text_anno;
 	private JLabel label;
 	private JLabel label_1;
+	private JTextField textField_dett;
 
 	public Aggiungi_Uscita(Database database) {
 		this.database = database;
@@ -50,7 +51,7 @@ public class Aggiungi_Uscita extends JFrame {
 		getContentPane().add(btnAdd);
 
 		JLabel lblImporto = new JLabel("Importo");
-		lblImporto.setBounds(10, 130, 60, 14);
+		lblImporto.setBounds(10, 171, 60, 14);
 		getContentPane().add(lblImporto);
 
 		JLabel lblCausa = new JLabel("Causa");
@@ -58,7 +59,7 @@ public class Aggiungi_Uscita extends JFrame {
 		getContentPane().add(lblCausa);
 
 		textField = new JTextField();
-		textField.setBounds(121, 127, 213, 20);
+		textField.setBounds(121, 168, 213, 20);
 		getContentPane().add(textField);
 		textField.setColumns(10);
 
@@ -88,6 +89,15 @@ public class Aggiungi_Uscita extends JFrame {
 		label_1 = new JLabel("/");
 		label_1.setBounds(241, 80, 15, 14);
 		getContentPane().add(label_1);
+		
+		JLabel lblDettagli = new JLabel("Dettagli");
+		lblDettagli.setBounds(10, 125, 46, 14);
+		getContentPane().add(lblDettagli);
+		
+		textField_dett = new JTextField();
+		textField_dett.setBounds(121, 122, 213, 23);
+		getContentPane().add(textField_dett);
+		textField_dett.setColumns(10);
 		btnAdd.addActionListener(new ButtonListener());
 
 		this.setVisible(true);
@@ -101,6 +111,7 @@ public class Aggiungi_Uscita extends JFrame {
 			if (e.getSource() == btnAdd) {
 				try {
 					String causa = (String) combo_causa.getSelectedItem();
+					
 					double im = Double.parseDouble(textField.getText());
 
 					formatter.setMaximumFractionDigits(2);
@@ -114,7 +125,7 @@ public class Aggiungi_Uscita extends JFrame {
 								+ text_mese.getText() + "/"
 								+ text_anno.getText();
 
-						database.aggiungi_uscita(causa, data, importo);
+						database.aggiungi_uscita(causa,textField_dett.getText(), data, importo);
 
 						dispose();
 

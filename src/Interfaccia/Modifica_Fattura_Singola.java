@@ -207,7 +207,7 @@ public class Modifica_Fattura_Singola extends JFrame {
 		getContentPane().add(btnSalva);
 		btnSalva.addActionListener(new ButtonListener());
 
-		list = new JList(database.elenco_clienti());
+		list = new JList(database.seleziona_fatture());
 		list.addListSelectionListener(new ListSelection());
 		list_fatt = new JList();
 		list_fatt.addListSelectionListener(new ListSelection1());

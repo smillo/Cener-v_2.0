@@ -2,18 +2,21 @@ package Interfaccia;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.*;
+
+import General.Cliente;
 import General.Database;
 
 public class Fattura_Singola extends JFrame {
 
-	private JTextField text_Cliente, text_indirizzo, text_cap,
+	private JTextField text_indirizzo, text_cap,
 			text_descrizione, text_descrizione_2, text_imponibile,
 			text_imposta;
 	private JTextField text_cliente_2, text_città, text_piva, text_importo,
 			text_importo_2, text_iva, text_tot_fattura, text_tot_dovuto,
 			text_ritenuta;
-	private JComboBox combo_ritenuta, combo_giorno, combo_mese, combo_anno;
+	private JComboBox combo_ritenuta,comboBox, combo_giorno, combo_mese, combo_anno;
 	private JButton btnIndietro, btnStampa;
 	private Database database;
 
@@ -85,11 +88,6 @@ public class Fattura_Singola extends JFrame {
 		JLabel lblTotDovuto = new JLabel("Tot. Dovuto");
 		lblTotDovuto.setBounds(270, 235, 84, 14);
 		getContentPane().add(lblTotDovuto);
-
-		text_Cliente = new JTextField();
-		text_Cliente.setBounds(88, 22, 172, 20);
-		getContentPane().add(text_Cliente);
-		text_Cliente.setColumns(10);
 
 		text_indirizzo = new JTextField();
 		text_indirizzo.setBounds(88, 52, 172, 20);
@@ -191,15 +189,15 @@ public class Fattura_Singola extends JFrame {
 		getContentPane().add(lblData);
 
 		combo_giorno = new JComboBox();
-		combo_giorno.addItem("1");
-		combo_giorno.addItem("2");
-		combo_giorno.addItem("3");
-		combo_giorno.addItem("4");
-		combo_giorno.addItem("5");
-		combo_giorno.addItem("6");
-		combo_giorno.addItem("7");
-		combo_giorno.addItem("8");
-		combo_giorno.addItem("9");
+		combo_giorno.addItem("01");
+		combo_giorno.addItem("02");
+		combo_giorno.addItem("03");
+		combo_giorno.addItem("04");
+		combo_giorno.addItem("05");
+		combo_giorno.addItem("06");
+		combo_giorno.addItem("07");
+		combo_giorno.addItem("08");
+		combo_giorno.addItem("09");
 		combo_giorno.addItem("10");
 		combo_giorno.addItem("11");
 		combo_giorno.addItem("12");
@@ -273,6 +271,11 @@ public class Fattura_Singola extends JFrame {
 
 		combo_anno.setBounds(302, 289, 52, 20);
 		getContentPane().add(combo_anno);
+		
+		comboBox = new JComboBox(database.elenco_clienti());
+		comboBox.setBounds(90, 22, 172, 19);
+		getContentPane().add(comboBox);
+		comboBox.addActionListener(new Selezione());
 		btnStampa.addActionListener(new ButtonListener());
 
 		this.setVisible(true);
@@ -287,10 +290,10 @@ public class Fattura_Singola extends JFrame {
 			}
 
 			if (e.getSource() == btnStampa) {
-
-				String nome = text_Cliente.getText();
+				boolean missing = true;			
 				double totale = 0, importo2 = 0, ritenuta = 0, tot_dovuto = 0;
 				String nome2, descrizione2;
+				String nome = (String) comboBox.getSelectedItem();
 				calcola();
 
 				if (!text_cliente_2.getText().isEmpty()) {
@@ -321,7 +324,7 @@ public class Fattura_Singola extends JFrame {
 					tot_dovuto = 0.00;
 				}
 
-				database.print(text_Cliente.getText(), nome2,
+				database.print(nome, nome2,
 						text_indirizzo.getText(), text_città.getText(),
 						text_cap.getText(), text_piva.getText(),
 						text_descrizione.getText(),
@@ -341,6 +344,7 @@ public class Fattura_Singola extends JFrame {
 
 	}
 
+	
 	private void calcola() {
 
 		double importo2;
@@ -374,5 +378,46 @@ public class Fattura_Singola extends JFrame {
 		text_imposta.setText(String.valueOf(imposta));
 		text_tot_fattura.setText(String.valueOf(totale_fattura));
 	}
+	
+	private class Selezione implements ActionListener{
 
+		@Override
+		public void actionPerformed(ActionEvent e) {
+
+			String nome = (String) comboBox.getSelectedItem();
+			Cliente cli = database.seleziona(nome);
+			
+			text_cliente_2.setText(cli.getNome2());
+			text_indirizzo.setText(cli.getIndirizzo());
+			text_città.setText(cli.getCittà());
+			text_cap.setText(cli.getCap());
+			text_piva.setText(cli.getPiva());
+			text_descrizione.setText(cli.getDescrizione());
+			text_importo.setText(String.valueOf(cli.getImporto()));
+			text_descrizione_2.setText(cli.getDescrizione2());
+			text_importo_2.setText(String.valueOf(cli.getImporto2()));
+			text_imponibile.setText(String.valueOf(cli.getImponibile()));
+			text_iva.setText(String.valueOf(cli.getIva()));
+			text_imposta.setText(String.valueOf(cli.getImposta()));
+			text_tot_fattura.setText(String.valueOf(cli.getTot_fattura()));
+			text_ritenuta.setText(String.valueOf(cli.getRitenuta()));
+			text_tot_dovuto.setText(String.valueOf(cli.getTot_dovuto()));
+			
+			if(cli.getRitenuta() == 0.0){
+				combo_ritenuta.setSelectedItem("No");
+				text_ritenuta.setText("");
+				text_tot_dovuto.setText("");
+			}
+			else {combo_ritenuta.setSelectedItem("Si");}
+			
+			if(cli.getImporto2() == 0.0){
+				text_importo_2.setText("");
+			}
+			
+			
+		}
+		
+	}
 }
+
+

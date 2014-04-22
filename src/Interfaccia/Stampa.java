@@ -112,6 +112,7 @@ public class Stampa extends JFrame {
 								(String) combo_mese.getSelectedItem(), data,
 								text_anno.getText());
 
+						
 					} else {
 
 					}

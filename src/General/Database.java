@@ -12,7 +12,10 @@ import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.StringTokenizer;
+
 import javax.swing.JOptionPane;
+import javax.swing.ListModel;
+
 import com.itextpdf.text.Document;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
@@ -21,6 +24,7 @@ public class Database {
 	private static Connection connection;
 	DecimalFormatSymbols symbols = new DecimalFormatSymbols();
 	String format = "#.##";
+	
 
 	public Database() {
 		try {
@@ -28,6 +32,8 @@ public class Database {
 			Class.forName("com.mysql.jdbc.Driver"); // connessione con db
 			connection = DriverManager.getConnection(
 					"jdbc:mysql://localhost:3306/fatturazione", "root", "root");
+			
+			
 		} catch (ClassNotFoundException e) {
 			JOptionPane.showMessageDialog(null, "Database non connesso!");
 		} catch (SQLException e) {
@@ -1713,6 +1719,105 @@ public class Database {
 		}
 	}
 
+	public void print_mail(String nome, String data) {
+		try {
+			
+			if(nome!=null&&data!=null){
+				
+StringTokenizer stk = new StringTokenizer(data,"/");
+String gg = stk.nextToken();
+String mese = stk.nextToken();
+
+if (mese.equals("01")) {
+	mese = "gennaio";
+} else if (mese.equals("02")) {
+	mese = "febbraio";
+} else if (mese.equals("03")) {
+	mese = "marzo";
+} else if (mese.equals("04")) {
+	mese = "aprile";
+} else if (mese.equals("05")) {
+	mese = "maggio";
+} else if (mese.equals("06")) {
+	mese = "giugno";
+} else if (mese.equals("07")) {
+	mese = "luglio";
+} else if (mese.equals("08")) {
+	mese = "agosto";
+} else if (mese.equals("09")) {
+	mese = "settembre";
+} else if (mese.equals("10")) {
+	mese = "ottobre";
+} else if (mese.equals("11")) {
+	mese = "novembre";
+} else if (mese.equals("12")) {
+	mese = "dicembre";
+}
+
+
+String data_fatt = null;
+			ResultSet rs;
+			PreparedStatement prep = connection
+					.prepareStatement("SELECT * from "+mese+" natural join fatture where data_fattura = ? and cliente = ?");
+			prep.setString(1, data);
+			prep.setString(2, nome);
+			
+			String FILE = "C:\\Users\\massimiliano\\Documents\\mail\\" + nome + "_"
+					+ mese + ".pdf";
+
+			Document document = new Document();
+			PdfWriter.getInstance(document, new FileOutputStream(FILE));
+			document.open();
+
+			rs = prep.executeQuery();
+
+			while (rs.next()) {
+				String cliente = rs.getString(1);
+				String cliente2 = rs.getString(2);
+				String ind = rs.getString(3);
+				String cit = rs.getString(4);
+				String cap = rs.getString(5);
+				String piva = rs.getString(6);
+				String desc = rs.getString(7);
+				double importo = rs.getDouble(8);
+				String desc2 = rs.getString(9);
+				double importo2 = rs.getDouble(10);
+				double imponibile = rs.getDouble(11);
+				double iva = rs.getDouble(12);
+				double imposta = rs.getDouble(13);
+				double tot_fat = rs.getDouble(14);
+				double rit = rs.getDouble(15);
+				double tot_dov = rs.getDouble(16);
+				String numero_fat = rs.getString(17);
+				data_fatt = rs.getString(18);
+				
+				
+				Paragraph prefazione = new Paragraph();
+				Stampa_fatt.print_fatture(prefazione, data_fatt, numero_fat, cliente, cliente2, ind, cit,
+						cap, piva, desc, importo, desc2, importo2, imponibile, iva, imposta, tot_fat, rit, tot_dov);
+				document.add(prefazione);
+			
+			}
+			document.close();
+
+			File f = new File("C:\\Users\\massimiliano\\Documents\\mail" + nome + "_"
+					+ mese + ".pdf");
+			
+			
+				JOptionPane.showMessageDialog(null, "creato file da inviare");
+					
+		}
+			else{
+				JOptionPane.showMessageDialog(null, "selezionare cliente e data della fattura");
+			}
+				
+		}catch (Exception e) {
+				
+			e.printStackTrace();
+
+		}
+		
+	}
 	private void inserisci_el_paganti(String data, String cliente, double totale) {
 
 		PreparedStatement pst = null;
@@ -1881,17 +1986,18 @@ public class Database {
 
 	}
 
-	public void aggiungi_uscita(String causa, String data, String importo) {
+	public void aggiungi_uscita(String causa,String dettagli, String data, String importo) {
 
 		PreparedStatement pst = null;
 
 		try {
 
 			pst = connection
-					.prepareStatement("INSERT INTO entrate_uscite VALUES(?,?,?)");
+					.prepareStatement("INSERT INTO entrate_uscite VALUES(?,?,?,?)");
 			pst.setString(1, causa);
-			pst.setString(2, data);
-			pst.setString(3, importo);
+			pst.setString(2, dettagli);
+			pst.setString(3, data);
+			pst.setString(4, importo);
 
 			pst.executeUpdate();
 		} catch (Exception e) {
@@ -1906,17 +2012,17 @@ public class Database {
 			LinkedList<String> lin = new LinkedList<String>();
 			ResultSet rs;
 			PreparedStatement prep = connection
-					.prepareStatement("SELECT data_uscita,importo FROM entrate_uscite where data_uscita like '%"
+					.prepareStatement("SELECT dettagli,data_uscita,importo FROM entrate_uscite where data_uscita like '%"
 							+ anno + "' and causa = ?");
 			prep.setString(1, causa);
 			rs = prep.executeQuery();
 
 			while (rs.next()) {
+				String dett =  rs.getString(1);
+				String dat = rs.getString(2);
+				double tot = rs.getDouble(3);
 
-				String dat = rs.getString(1);
-				double tot = rs.getDouble(2);
-
-				String s = dat + "   € " + tot;
+				String s = dett + "  "+dat + "   € " + tot;
 				lin.add(s);
 			}
 			return lin;
@@ -1981,7 +2087,7 @@ public class Database {
 		try {
 			String tot = null;
 			LinkedList<String> a = new LinkedList<String>();
-			String causa = null, data = null;
+			String causa = null, data = null,dett=null;
 			ResultSet rs;
 			PreparedStatement prep = connection
 					.prepareStatement("SELECT * FROM entrate_uscite where data_uscita like '%"
@@ -1990,9 +2096,10 @@ public class Database {
 			rs = prep.executeQuery();
 			while (rs.next()) {
 				causa = rs.getString(1);
-				data = rs.getString(2);
-				tot = rs.getString(3);
-				String sss = causa + " ** " + data + " ** " + tot;
+				dett = rs.getString(2);
+				data = rs.getString(3);
+				tot = rs.getString(4);
+				String sss = causa + " ** " +dett+" ** "+ data + " ** " + tot;
 				a.add(sss);
 			}
 
@@ -2316,7 +2423,7 @@ public class Database {
 				mese = "Dicembre";
 			}
 
-			String FILE = "C:\\Users\\massimiliano\\Documents\\CORREZIONE_"
+			String FILE = "C:\\Users\\massimiliano\\Documents\\correzioni\\"
 					+ cliente + "_" + mese + ".pdf";
 
 			Document document = new Document();
@@ -2331,7 +2438,7 @@ public class Database {
 			document.add(prefazione);
 			document.close();
 
-			File f = new File("C:\\Users\\massimiliano\\Documents\\CORREZIONE_"
+			File f = new File("C:\\Users\\massimiliano\\Documents\\correzioni\\"
 					+ cliente + "_" + mese + ".pdf");
 			java.awt.Desktop.getDesktop().open(f);
 
@@ -2365,4 +2472,35 @@ public class Database {
 		}
 
 	}
+
+	public String[] restituisci_mail(String nome) {
+
+		try {
+			ArrayList<String> list = new ArrayList<String>();
+			ResultSet rs;
+			PreparedStatement prep = connection
+					.prepareStatement("SELECT data_fattura FROM fatture where cliente = ?");
+			
+			prep.setString(1, nome);
+			rs = prep.executeQuery();
+			
+			while (rs.next()) {
+				list.add(rs.getString("data_fattura"));
+			}
+			
+			String[] result = new String[list.size()];
+			result = list.toArray(result);
+			return result;
+		} catch (Exception e) {
+
+			return null;
+		
+		}
+		
+	}
 }
+
+	
+	
+	
+	
