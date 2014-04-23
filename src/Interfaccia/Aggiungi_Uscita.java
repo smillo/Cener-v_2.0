@@ -4,13 +4,17 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.Locale;
+
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+
 import General.Database;
 
 public class Aggiungi_Uscita extends JFrame {
@@ -25,6 +29,7 @@ public class Aggiungi_Uscita extends JFrame {
 	private JTextField text_anno;
 	private JLabel label;
 	private JLabel label_1;
+	private GregorianCalendar gc = new GregorianCalendar();
 	private JTextField textField_dett;
 
 	public Aggiungi_Uscita(Database database) {
@@ -126,7 +131,7 @@ public class Aggiungi_Uscita extends JFrame {
 								+ text_anno.getText();
 
 						database.aggiungi_uscita(causa,textField_dett.getText(), data, importo);
-
+						Partenza.text_uscite.setText(database.uscite_anno(gc.get(Calendar.YEAR)));
 						dispose();
 
 					} else

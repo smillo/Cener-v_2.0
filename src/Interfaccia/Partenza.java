@@ -58,7 +58,8 @@ public class Partenza extends JFrame {
 	panel_mag, panel_giu, panel_lug, panel_ago, panel_set, panel_ott,
 	panel_fatt, panel_nov, panel_dic, panel_el_pag, panel_ent_usc,
 	panel_list;
-	private JTextField text_entrate, text_uscite;
+	private JTextField text_entrate;
+	static JTextField text_uscite;
 	private JScrollPane scrollPane, scrollPane_gen, scrollPane_1, scrollPane_2,
 	scrollPane_feb, scrollPane_mar, scrollPane_apr, scrollPane_mag,
 	scrollPane_giu, scrollPane_lug, scrollPane_ago, scrollPane_set,
@@ -211,7 +212,7 @@ public class Partenza extends JFrame {
 		panel_ent_usc.add(text_entrate);
 		text_entrate.setColumns(10);
 
-		text_uscite = new JTextField();
+		text_uscite = new JTextField(database.uscite_anno(gc.get(Calendar.YEAR)));
 		text_uscite.setEditable(false);
 		text_uscite.setBounds(786, 226, 122, 20);
 		panel_ent_usc.add(text_uscite);
@@ -2296,6 +2297,7 @@ public class Partenza extends JFrame {
 
 		combo_anno_pag = new JComboBox();
 		combo_anno_pag.setBounds(40, 73, 199, 25);
+		combo_anno_pag.addItem("2013");
 		combo_anno_pag.addItem("2014");
 		combo_anno_pag.addItem("2015");
 		combo_anno_pag.addItem("2016");
@@ -2613,7 +2615,7 @@ public class Partenza extends JFrame {
 					Attesa att = new Attesa();
 					database.nuovo_anno();
 					File a = new File(
-							"C:\\Users\\massimiliano\\Documents\\conteggio.txt");
+							"C:\\Users\\massimiliano\\Documents\\dati\\conteggio.txt");
 					if (a.exists())
 						a.delete();
 					att.dispose();
@@ -2747,6 +2749,7 @@ public class Partenza extends JFrame {
 				else
 					combo_dic.setSelectedItem("No");
 
+				
 				break;
 
 			case "2":
@@ -2797,7 +2800,7 @@ public class Partenza extends JFrame {
 				} else {
 					tot_dovuto_gen.setText(test5);
 				}
-
+				
 				break;
 
 			case "3":
@@ -2848,7 +2851,7 @@ public class Partenza extends JFrame {
 				} else {
 					tot_dovuto_feb.setText(test5);
 				}
-
+				
 				break;
 
 			case "4":
@@ -2899,7 +2902,7 @@ public class Partenza extends JFrame {
 				} else {
 					tot_dovuto_mar.setText(test5);
 				}
-
+				
 				break;
 
 			case "5":
@@ -2950,7 +2953,7 @@ public class Partenza extends JFrame {
 				} else {
 					tot_dovuto_apr.setText(test5);
 				}
-
+				
 				break;
 
 			case "6":
@@ -3001,7 +3004,7 @@ public class Partenza extends JFrame {
 				} else {
 					tot_dovuto_mag.setText(test5);
 				}
-
+				
 				break;
 
 			case "7":
@@ -3052,7 +3055,7 @@ public class Partenza extends JFrame {
 				} else {
 					tot_dovuto_giu.setText(test5);
 				}
-
+				
 				break;
 
 			case "8":
@@ -3103,7 +3106,7 @@ public class Partenza extends JFrame {
 				} else {
 					tot_dovuto_lug.setText(test5);
 				}
-
+				
 				break;
 
 			case "9":
@@ -3154,7 +3157,7 @@ public class Partenza extends JFrame {
 				} else {
 					tot_dovuto_ago.setText(test5);
 				}
-
+				
 				break;
 
 			case "10":
@@ -3205,7 +3208,7 @@ public class Partenza extends JFrame {
 				} else {
 					tot_dovuto_set.setText(test5);
 				}
-
+				
 				break;
 
 			case "11":
@@ -3256,7 +3259,7 @@ public class Partenza extends JFrame {
 				} else {
 					tot_dovuto_ott.setText(test5);
 				}
-
+				
 				break;
 
 			case "12":
@@ -3307,7 +3310,7 @@ public class Partenza extends JFrame {
 				} else {
 					tot_dovuto_nov.setText(test5);
 				}
-
+				
 				break;
 
 			case "13":
@@ -3358,7 +3361,7 @@ public class Partenza extends JFrame {
 				} else {
 					tot_dovuto_dic.setText(test5);
 				}
-
+			
 				break;
 
 			case "15":

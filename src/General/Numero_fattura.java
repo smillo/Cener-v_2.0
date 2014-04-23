@@ -9,7 +9,7 @@ import java.io.IOException;
 
 public class Numero_fattura {
 
-	static String percorso = "C:\\Users\\massimiliano\\Documents\\conteggio.txt";
+	static String percorso = "C:\\Users\\massimiliano\\Documents\\dati\\conteggio.txt";
 	static int count = 0;
 
 	public Numero_fattura() {

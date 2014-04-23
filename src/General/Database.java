@@ -1665,7 +1665,7 @@ public class Database {
 			PreparedStatement prep = connection
 					.prepareStatement("SELECT * FROM " + mese);
 
-			String FILE = "C:\\Users\\massimiliano\\Documents\\" + mese + "_"
+			String FILE = "C:\\Users\\massimiliano\\Documents\\fatture\\" + mese + "_"
 					+ anno + ".pdf";
 
 			Document document = new Document();
@@ -1709,7 +1709,7 @@ public class Database {
 			}
 			document.close();
 
-			File f = new File("C:\\Users\\massimiliano\\Documents\\" + mese
+			File f = new File("C:\\Users\\massimiliano\\Documents\\fatture\\" + mese
 					+ "_" + anno + ".pdf");
 			java.awt.Desktop.getDesktop().open(f);
 
@@ -1800,7 +1800,7 @@ String data_fatt = null;
 			}
 			document.close();
 
-			File f = new File("C:\\Users\\massimiliano\\Documents\\mail" + nome + "_"
+			File f = new File("C:\\Users\\massimiliano\\Documents\\mail\\" + nome + "_"
 					+ mese + ".pdf");
 			
 			
@@ -2349,7 +2349,7 @@ String data_fatt = null;
 				mesef = "12";
 			}
 
-			String FILE = "C:\\Users\\massimiliano\\Documents\\" + cliente
+			String FILE = "C:\\Users\\massimiliano\\Documents\\fatture\\" + cliente
 					+ "_" + mese + ".pdf";
 
 			Document document = new Document();
@@ -2374,7 +2374,7 @@ String data_fatt = null;
 
 			document.close();
 
-			File f = new File("C:\\Users\\massimiliano\\Documents\\" + cliente
+			File f = new File("C:\\Users\\massimiliano\\Documents\\fatture\\" + cliente
 					+ "_" + mese + ".pdf");
 			java.awt.Desktop.getDesktop().open(f);
 
